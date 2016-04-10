@@ -1,25 +1,37 @@
 'use strict';
-var util = require('util');
-var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
- 
-var OnepageGenerator = yeoman.generators.Base.extend({
+var yosay = require('yosay');
+
+module.exports = yeoman.Base.extend({
+
   prompting: function () {
     var done = this.async();
 
-    this.prompt([
-      {
-        type: 'input',
-        name: 'name',
-        message: 'What is you\'re project name ?',
-        required: true,
-      }
-    ], function (answers) {
-      this.name = answers.name;
+    var prompts = [{
+      type: 'input',
+      name: 'name',
+      message: 'What is you\'re project name?',
+      required: true
+    }];
+
+    this.prompt(prompts, function (props) {
+      //this.props = props;
+      // To access props later use this.props.someAnswer;
+      this.name = props.name;
+
       done();
     }.bind(this));
+  },
+
+  writing: function () {
+    this.fs.copy(
+      this.templatePath('dummyfile.txt'),
+      this.destinationPath('dummyfile.txt')
+    );
+  },
+
+  install: function () {
+    this.installDependencies();
   }
 });
- 
-module.exports = OnepageGenerator;
