@@ -1,0 +1,167 @@
+/******* GÉNÉRAL *******/
+
+::-moz-selection{
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-shadow: none;
+}
+::selection{
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-shadow: none;
+}
+
+html{
+    font-size: 62.5%; /* sets the base font to 10px for easier math */
+}
+
+body{
+    font-family: sans-serif;
+    font-size: 1.6em;
+    line-height: 1;
+}
+
+h1{
+    font-size: 3em;
+    margin: .67em 0;
+}
+
+h2{
+    font-size: 2.5em;
+    margin: .83em 0;
+}
+
+h3{
+    font-size: 2em;
+    margin: 1em 0;
+}
+
+h4{
+    font-size: 1.7em;
+    margin: 1.33em 0;
+}
+
+h5{
+    font-size: 1.3em;
+    margin: 1.67em 0;
+}
+
+h6{
+    font-size: 1.1em;
+    margin: 2.33em 0;
+}
+
+p{
+    margin: 1em 0;
+}
+
+b, strong{
+
+}
+
+i, em{
+
+}
+
+blockquote{
+    margin: 1em 40px;
+}
+
+ol, ul{
+    margin: 1em 0;
+    padding: 0 0 0 40px;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+code, pre{
+    display: block;
+    padding: 10px 15px;
+    margin: 1em 0;
+    background: @grey;
+}
+
+
+/******* LIENS / BOUTONS *******/
+
+a{
+    text-decoration: none;
+    transition: @transition;
+    &:focus, &:hover{
+    }
+    &:focus{
+        outline: 0;
+    }
+    &:active{
+    }
+}
+
+
+/******* CLASSES GENERALES  *******/
+
+.hidden{
+    display: none !important;
+}
+
+.wrapper-alignment{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    box-sizing: border-box;
+}
+
+.content-align-middle{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.content-align-top{
+    display: table-cell;
+    vertical-align: top;
+}
+
+.clearfix{
+    @include clearfix;
+}
+
+.position-relative{
+    position: relative;
+}
+
+.align-center{
+    text-align: center;
+}
+.align-left{
+    text-align: left;
+}
+.align-right{
+    text-align: right;
+}
+
+.inline-b{
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateY(-.1em);
+}
+
+.full-width{
+    width: 100%;
+}
+
+.wrapper-overflow-hidden{
+    position: relative;
+    overflow: hidden;
+}
+
+.img-fit{
+    &.compat-object-fit {
+        background-size: cover;
+        background-position: 50% 50%;
+        img { // hide image if object fit is not supported - opacity to 0 for the link area
+            opacity: 0;
+        }
+    }
+}

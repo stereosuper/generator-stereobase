@@ -1,0 +1,32 @@
+/* Forms */
+
+::-webkit-input-placeholder{
+}
+::-moz-placeholder{
+}
+:-ms-input-placeholder{
+}
+
+fieldset{
+
+}
+
+input, textarea, select, button{
+  	transition: $transition;
+  	&:focus{
+      	outline: 0;
+  	}
+}
+
+input, textarea{
+  	&::-webkit-autofill{
+      	box-shadow: 0 0 0 1000px rgb(255, 255, 255) inset;
+  	}
+}
+
+select{
+    // hide the arrow on edge + ie
+    &::-ms-expand{
+        display: none;
+    }
+}

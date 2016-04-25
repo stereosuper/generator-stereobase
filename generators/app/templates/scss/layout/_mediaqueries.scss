@@ -1,0 +1,61 @@
+/* Responsive horizontal */
+@media (max-width: 1024px){
+
+}
+
+@media (max-width: 979px){
+
+}
+
+@media (max-width: 767px){
+
+}
+
+@media (max-width: 480px){
+
+}
+
+/* retina */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi) {
+
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) {
+
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3), only screen and (min-resolution: 288dpi) {
+
+}
+
+
+/* Print styles */
+
+@media print {
+    *{
+        color: #000 !important;
+    }
+    a{
+        text-decoration: underline;
+        &[href]:after{
+            content: ' (' attr(href) ')';
+        }
+        &[href^="#"]:after{
+            content: '';
+        }
+    }
+    img{
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+    @page{
+        margin: .5cm;
+    }
+    p, h2, h3{
+        orphans: 3;
+        widows: 3;
+    }
+    h2, h3{
+        page-break-after: avoid;
+    }
+}
