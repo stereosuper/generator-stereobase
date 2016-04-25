@@ -1,4 +1,4 @@
-# generator-stereobase [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# generator-stereobase [![NPM version][npm-image]][npm-url]
 > Generate a simple template
 
 ## Installation
