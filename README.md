@@ -25,7 +25,7 @@ yo stereobase
 
 ## License
 
-MIT © [Adrien Le Menthéour](www.adrienlm.com)
+MIT © [Adrien Le Menthéour](www.adrienlm.com) [Elisabeth Hamel](www.e-hamel.com) 
 
 
 [npm-image]: https://badge.fury.io/js/generator-stereobase.svg
