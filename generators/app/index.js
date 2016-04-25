@@ -46,6 +46,12 @@ module.exports = yeoman.Base.extend({
         this.templatePath('.bowerrc'),
         this.destinationPath('.bowerrc')
       );
+    },
+    sass: function () {
+      this.fs.copy(
+        this.templatePath('scss/main.scss'),
+        this.destinationPath('scss/main.scss')
+      );
     }
   },
 
