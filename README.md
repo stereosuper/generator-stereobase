@@ -16,12 +16,16 @@ Then generate your new project:
 yo stereobase
 ```
 
-## Getting To Know Yeoman
+## Publish the Generator
 
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
+```bash
+npm set init.author.name "Your Name"
+npm set init.author.email "Your Email"
+npm set init.author.url "Your Website"
+npm adduser
+npm publish
+```
+https://docs.npmjs.com/cli/publish
 
 ## License
 
