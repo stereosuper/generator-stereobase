@@ -119,7 +119,7 @@ legend{
 
 select{
     cursor: pointer;
-    &::-moz-focusring{
+    &:-moz-focusring{
         color: transparent;
         text-shadow: 0 0 0 #000;
     }
