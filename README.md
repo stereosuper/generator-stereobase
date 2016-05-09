@@ -16,7 +16,7 @@ Then generate your new project:
 yo stereobase
 ```
 
-## Publish the Generator
+## Publish the Generator | New version
 
 ```bash
 npm set init.author.name "Your Name"
