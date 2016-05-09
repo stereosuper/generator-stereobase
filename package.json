@@ -42,7 +42,10 @@
       "mocha": true
     }
   },
-  "repository": "stereosuper/generator-stereobase",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stereosuper/generator-stereobase"
+  },
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
