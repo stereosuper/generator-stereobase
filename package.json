@@ -44,7 +44,6 @@
   },
   "repository": "stereosuper/generator-stereobase",
   "scripts": {
-    "prepublish": "gulp prepublish",
     "test": "gulp"
   },
   "license": "MIT"
