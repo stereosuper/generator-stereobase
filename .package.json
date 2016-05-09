@@ -48,25 +48,5 @@
     "prepublish": "gulp prepublish",
     "test": "gulp"
   },
-  "license": "MIT",
-  "contributors": [
-    {
-      "name": "Elisabeth Hamel",
-      "email": "elisabeth@stereosuper.fr",
-      "url": "https://github.com/ElisabethStereosuper",
-      "contributions": 10,
-      "additions": 461,
-      "deletions": 415,
-      "hireable": null
-    },
-    {
-      "name": "Adrien Le Menthéour",
-      "email": null,
-      "url": "https://github.com/adrienlementheour",
-      "contributions": 13,
-      "additions": 2503,
-      "deletions": 1680,
-      "hireable": true
-    }
-  ]
+  "license": "MIT"
 }
