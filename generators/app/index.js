@@ -52,12 +52,6 @@ module.exports = yeoman.Base.extend({
         this.templatePath('scss/main.scss'),
         this.destinationPath('scss/main.scss')
       );
-    },
-    txt: function () {
-      this.fs.copy(
-        this.templatePath('test.txt'),
-        this.destinationPath('test.txt')
-      );
     }
   },
 
