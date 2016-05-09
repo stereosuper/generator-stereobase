@@ -30,101 +30,132 @@
 14 silly mapToRegistry   type: 'tag' }
 15 silly mapToRegistry uri https://registry.npmjs.org/generator-stereobase
 16 verbose addNameTag registry:https://registry.npmjs.org/generator-stereobase not in flight; fetching
-17 verbose get https://registry.npmjs.org/generator-stereobase not expired, no request
-18 silly addNameTag next cb for generator-stereobase with tag latest
-19 silly addNamed generator-stereobase@0.0.0
-20 verbose addNamed "0.0.0" is a plain semver version for generator-stereobase
-21 silly cache afterAdd generator-stereobase@0.0.0
-22 verbose afterAdd /Users/elisabeth/.npm/generator-stereobase/0.0.0/package/package.json not in flight; writing
-23 verbose correctMkdir /Users/elisabeth/.npm correctMkdir not in flight; initializing
-24 verbose afterAdd /Users/elisabeth/.npm/generator-stereobase/0.0.0/package/package.json written
-25 silly publish { name: 'generator-stereobase',
-25 silly publish   version: '0.0.0',
-25 silly publish   description: 'Generate a simple template',
-25 silly publish   homepage: 'https://github.com/stereosuper/generator-stereobase#readme',
-25 silly publish   author:
-25 silly publish    { name: 'Adrien Le Menthéour',
-25 silly publish      email: 'adrien@stereosuper.fr',
-25 silly publish      url: 'www.adrienlm.com' },
-25 silly publish   files: [ 'generators' ],
-25 silly publish   main: 'generators/index.js',
-25 silly publish   keywords: [ 'yeoman-generator' ],
-25 silly publish   dependencies:
-25 silly publish    { 'yeoman-generator': '^0.22.0',
-25 silly publish      chalk: '^1.0.0',
-25 silly publish      yosay: '^1.0.2' },
-25 silly publish   devDependencies:
-25 silly publish    { 'yeoman-test': '^1.0.0',
-25 silly publish      'yeoman-assert': '^2.0.0',
-25 silly publish      eslint: '^2.1.0',
-25 silly publish      'eslint-config-xo-space': '^0.10.0',
-25 silly publish      gulp: '^3.9.0',
-25 silly publish      'gulp-eslint': '^2.0.0',
-25 silly publish      'gulp-exclude-gitignore': '^1.0.0',
-25 silly publish      'gulp-line-ending-corrector': '^1.0.1',
-25 silly publish      'gulp-istanbul': '^0.10.3',
-25 silly publish      'gulp-mocha': '^2.0.0',
-25 silly publish      'gulp-plumber': '^1.0.0',
-25 silly publish      'gulp-nsp': '^2.1.0',
-25 silly publish      'gulp-coveralls': '^0.1.0' },
-25 silly publish   eslintConfig: { extends: 'xo-space', env: { mocha: true } },
-25 silly publish   repository:
-25 silly publish    { type: 'git',
-25 silly publish      url: 'git+https://github.com/stereosuper/generator-stereobase.git' },
-25 silly publish   scripts: { prepublish: 'gulp prepublish', test: 'gulp' },
-25 silly publish   license: 'MIT',
-25 silly publish   gitHead: '0ae95be5f582fffe3090f5ecea1d1ca176ed6f37',
-25 silly publish   bugs: { url: 'https://github.com/stereosuper/generator-stereobase/issues' },
-25 silly publish   _id: 'generator-stereobase@0.0.0',
-25 silly publish   _shasum: '6630bb4efb0f51e31dfbfa054ec4ec672efc94d1',
-25 silly publish   _from: 'generator-stereobase@latest',
-25 silly publish   _npmVersion: '3.8.7',
-25 silly publish   _nodeVersion: '5.10.1',
-25 silly publish   _npmUser: { name: 'adrienlm', email: 'adrien@stereosuper.fr' },
-25 silly publish   dist:
-25 silly publish    { shasum: '6630bb4efb0f51e31dfbfa054ec4ec672efc94d1',
-25 silly publish      tarball: 'https://registry.npmjs.org/generator-stereobase/-/generator-stereobase-0.0.0.tgz' },
-25 silly publish   maintainers: [ { name: 'adrienlm', email: 'adrien@stereosuper.fr' } ],
-25 silly publish   _npmOperationalInternal:
-25 silly publish    { host: 'packages-16-east.internal.npmjs.com',
-25 silly publish      tmp: 'tmp/generator-stereobase-0.0.0.tgz_1461595721648_0.34253729484044015' },
-25 silly publish   directories: {},
-25 silly publish   _resolved: 'https://registry.npmjs.org/generator-stereobase/-/generator-stereobase-0.0.0.tgz',
-25 silly publish   readme: 'ERROR: No README data found!' }
-26 info lifecycle generator-stereobase@0.0.0~prepublish: generator-stereobase@0.0.0
-27 verbose lifecycle generator-stereobase@0.0.0~prepublish: unsafe-perm in lifecycle true
-28 verbose lifecycle generator-stereobase@0.0.0~prepublish: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/elisabeth/.npm/generator-stereobase/0.0.0/package/node_modules/.bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-29 verbose lifecycle generator-stereobase@0.0.0~prepublish: CWD: /Users/elisabeth/.npm/generator-stereobase/0.0.0/package
-30 silly lifecycle generator-stereobase@0.0.0~prepublish: Args: [ '-c', 'gulp prepublish' ]
-31 info lifecycle generator-stereobase@0.0.0~prepublish: Failed to exec prepublish script
-32 verbose stack Error: generator-stereobase@0.0.0 prepublish: `gulp prepublish`
-32 verbose stack spawn ENOENT
-32 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:17:16)
-32 verbose stack     at emitTwo (events.js:87:13)
-32 verbose stack     at ChildProcess.emit (events.js:172:7)
-32 verbose stack     at maybeClose (internal/child_process.js:827:16)
-32 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
-33 verbose pkgid generator-stereobase@0.0.0
-34 verbose cwd /Users/elisabeth/Travail/StereoBase/generator-stereobase
-35 error Darwin 15.4.0
-36 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish" "generator-stereobase"
-37 error node v4.4.3
-38 error npm  v3.8.7
-39 error file sh
-40 error code ELIFECYCLE
-41 error errno ENOENT
-42 error syscall spawn
-43 error generator-stereobase@0.0.0 prepublish: `gulp prepublish`
-43 error spawn ENOENT
-44 error Failed at the generator-stereobase@0.0.0 prepublish script 'gulp prepublish'.
-44 error Make sure you have the latest version of node.js and npm installed.
-44 error If you do, this is most likely a problem with the generator-stereobase package,
-44 error not with npm itself.
-44 error Tell the author that this fails on your system:
-44 error     gulp prepublish
-44 error You can get information on how to open an issue for this project with:
-44 error     npm bugs generator-stereobase
-44 error Or if that isn't available, you can get their info via:
-44 error     npm owner ls generator-stereobase
-44 error There is likely additional logging output above.
-45 verbose exit [ 1, true ]
+17 verbose request uri https://registry.npmjs.org/generator-stereobase
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 15:19:08
+20 verbose request id 0187e2700cad59f4
+21 verbose etag "4RA62DJC8WLAG6UTQ8OZ9YB1D"
+22 http request GET https://registry.npmjs.org/generator-stereobase
+23 http 304 https://registry.npmjs.org/generator-stereobase
+24 verbose headers { date: 'Mon, 09 May 2016 13:19:08 GMT',
+24 verbose headers   via: '1.1 varnish',
+24 verbose headers   'cache-control': 'max-age=300',
+24 verbose headers   etag: '"4RA62DJC8WLAG6UTQ8OZ9YB1D"',
+24 verbose headers   age: '0',
+24 verbose headers   connection: 'keep-alive',
+24 verbose headers   'x-served-by': 'cache-ams4137-AMS',
+24 verbose headers   'x-cache': 'MISS',
+24 verbose headers   'x-cache-hits': '0',
+24 verbose headers   'x-timer': 'S1462799948.898427,VS0,VE178',
+24 verbose headers   vary: 'Accept-Encoding' }
+25 silly get cb [ 304,
+25 silly get   { date: 'Mon, 09 May 2016 13:19:08 GMT',
+25 silly get     via: '1.1 varnish',
+25 silly get     'cache-control': 'max-age=300',
+25 silly get     etag: '"4RA62DJC8WLAG6UTQ8OZ9YB1D"',
+25 silly get     age: '0',
+25 silly get     connection: 'keep-alive',
+25 silly get     'x-served-by': 'cache-ams4137-AMS',
+25 silly get     'x-cache': 'MISS',
+25 silly get     'x-cache-hits': '0',
+25 silly get     'x-timer': 'S1462799948.898427,VS0,VE178',
+25 silly get     vary: 'Accept-Encoding' } ]
+26 verbose etag https://registry.npmjs.org/generator-stereobase from cache
+27 verbose get saving generator-stereobase to /Users/elisabeth/.npm/registry.npmjs.org/generator-stereobase/.cache.json
+28 verbose correctMkdir /Users/elisabeth/.npm correctMkdir not in flight; initializing
+29 silly addNameTag next cb for generator-stereobase with tag latest
+30 silly addNamed generator-stereobase@0.0.0
+31 verbose addNamed "0.0.0" is a plain semver version for generator-stereobase
+32 silly cache afterAdd generator-stereobase@0.0.0
+33 verbose afterAdd /Users/elisabeth/.npm/generator-stereobase/0.0.0/package/package.json not in flight; writing
+34 verbose correctMkdir /Users/elisabeth/.npm correctMkdir not in flight; initializing
+35 verbose afterAdd /Users/elisabeth/.npm/generator-stereobase/0.0.0/package/package.json written
+36 silly publish { name: 'generator-stereobase',
+36 silly publish   version: '0.0.0',
+36 silly publish   description: 'Generate a simple template',
+36 silly publish   homepage: 'https://github.com/stereosuper/generator-stereobase#readme',
+36 silly publish   author:
+36 silly publish    { name: 'Adrien Le Menthéour',
+36 silly publish      email: 'adrien@stereosuper.fr',
+36 silly publish      url: 'www.adrienlm.com' },
+36 silly publish   files: [ 'generators' ],
+36 silly publish   main: 'generators/index.js',
+36 silly publish   keywords: [ 'yeoman-generator' ],
+36 silly publish   dependencies:
+36 silly publish    { 'yeoman-generator': '^0.22.0',
+36 silly publish      chalk: '^1.0.0',
+36 silly publish      yosay: '^1.0.2' },
+36 silly publish   devDependencies:
+36 silly publish    { 'yeoman-test': '^1.0.0',
+36 silly publish      'yeoman-assert': '^2.0.0',
+36 silly publish      eslint: '^2.1.0',
+36 silly publish      'eslint-config-xo-space': '^0.10.0',
+36 silly publish      gulp: '^3.9.0',
+36 silly publish      'gulp-eslint': '^2.0.0',
+36 silly publish      'gulp-exclude-gitignore': '^1.0.0',
+36 silly publish      'gulp-line-ending-corrector': '^1.0.1',
+36 silly publish      'gulp-istanbul': '^0.10.3',
+36 silly publish      'gulp-mocha': '^2.0.0',
+36 silly publish      'gulp-plumber': '^1.0.0',
+36 silly publish      'gulp-nsp': '^2.1.0',
+36 silly publish      'gulp-coveralls': '^0.1.0' },
+36 silly publish   eslintConfig: { extends: 'xo-space', env: { mocha: true } },
+36 silly publish   repository:
+36 silly publish    { type: 'git',
+36 silly publish      url: 'git+https://github.com/stereosuper/generator-stereobase.git' },
+36 silly publish   scripts: { prepublish: 'gulp prepublish', test: 'gulp' },
+36 silly publish   license: 'MIT',
+36 silly publish   gitHead: '0ae95be5f582fffe3090f5ecea1d1ca176ed6f37',
+36 silly publish   bugs: { url: 'https://github.com/stereosuper/generator-stereobase/issues' },
+36 silly publish   _id: 'generator-stereobase@0.0.0',
+36 silly publish   _shasum: '6630bb4efb0f51e31dfbfa054ec4ec672efc94d1',
+36 silly publish   _from: 'generator-stereobase@latest',
+36 silly publish   _npmVersion: '3.8.7',
+36 silly publish   _nodeVersion: '5.10.1',
+36 silly publish   _npmUser: { name: 'adrienlm', email: 'adrien@stereosuper.fr' },
+36 silly publish   dist:
+36 silly publish    { shasum: '6630bb4efb0f51e31dfbfa054ec4ec672efc94d1',
+36 silly publish      tarball: 'https://registry.npmjs.org/generator-stereobase/-/generator-stereobase-0.0.0.tgz' },
+36 silly publish   maintainers: [ { name: 'adrienlm', email: 'adrien@stereosuper.fr' } ],
+36 silly publish   _npmOperationalInternal:
+36 silly publish    { host: 'packages-16-east.internal.npmjs.com',
+36 silly publish      tmp: 'tmp/generator-stereobase-0.0.0.tgz_1461595721648_0.34253729484044015' },
+36 silly publish   directories: {},
+36 silly publish   _resolved: 'https://registry.npmjs.org/generator-stereobase/-/generator-stereobase-0.0.0.tgz',
+36 silly publish   readme: 'ERROR: No README data found!' }
+37 info lifecycle generator-stereobase@0.0.0~prepublish: generator-stereobase@0.0.0
+38 warn lifecycle generator-stereobase@0.0.0~prepublish: cannot run in wd %s %s (wd=%s) generator-stereobase@0.0.0 gulp prepublish /Users/elisabeth/.npm/generator-stereobase/0.0.0/package
+39 verbose getPublishConfig undefined
+40 silly mapToRegistry name generator-stereobase
+41 silly mapToRegistry using default registry
+42 silly mapToRegistry registry https://registry.npmjs.org/
+43 silly mapToRegistry data Result {
+43 silly mapToRegistry   raw: 'generator-stereobase',
+43 silly mapToRegistry   scope: null,
+43 silly mapToRegistry   name: 'generator-stereobase',
+43 silly mapToRegistry   rawSpec: '',
+43 silly mapToRegistry   spec: 'latest',
+43 silly mapToRegistry   type: 'tag' }
+44 silly mapToRegistry uri https://registry.npmjs.org/generator-stereobase
+45 verbose publish registryBase https://registry.npmjs.org/
+46 silly publish uploading /Users/elisabeth/.npm/generator-stereobase/0.0.0/package.tgz
+47 verbose stack Error: auth required for publishing
+47 verbose stack     at CachingRegistryClient.publish (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/publish.js:30:14)
+47 verbose stack     at /usr/local/lib/node_modules/npm/lib/publish.js:137:14
+47 verbose stack     at mapToRegistry (/usr/local/lib/node_modules/npm/lib/utils/map-to-registry.js:62:3)
+47 verbose stack     at publish_ (/usr/local/lib/node_modules/npm/lib/publish.js:106:3)
+47 verbose stack     at Array.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/slide/lib/bind-actor.js:15:8)
+47 verbose stack     at LOOP (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:15:14)
+47 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:18:7
+47 verbose stack     at /usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:66:14
+47 verbose stack     at /usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:148:12
+47 verbose stack     at FSReqWrap.oncomplete (fs.js:82:15)
+48 verbose cwd /Users/elisabeth/Travail/StereoBase/generator-stereobase
+49 error Darwin 15.4.0
+50 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish" "generator-stereobase"
+51 error node v4.4.3
+52 error npm  v3.8.7
+53 error code ENEEDAUTH
+54 error need auth auth required for publishing
+55 error need auth You need to authorize this machine using `npm adduser`
+56 verbose exit [ 1, true ]
