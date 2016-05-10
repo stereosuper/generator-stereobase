@@ -34,7 +34,7 @@ audio:not([controls]), [hidden], template{
     }
 }
 
-::after,::before{
+:after,:before{
     vertical-align: inherit;
     text-decoration: inherit
 }
