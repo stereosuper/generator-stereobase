@@ -27,6 +27,12 @@ npm publish
 ```
 https://docs.npmjs.com/cli/publish
 
+## Change configstore files owner
+
+```bash
+sudo chown -R userMachine /Users/userMachine/.config/configstore/
+```
+
 ## License
 
 MIT © [Adrien Le Menthéour](www.adrienlm.com) | [Elisabeth Hamel](www.e-hamel.com) 

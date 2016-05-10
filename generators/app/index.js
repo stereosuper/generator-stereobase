@@ -1,7 +1,11 @@
 'use strict';
 var yeoman = require('yeoman-generator');
-// var chalk = require('chalk');
-// var yosay = require('yosay');
+// to log a coloured message with Yeoman
+var chalk = require('chalk');
+// for injecting Bower components to HTML/SCSS files
+var wiredep = require('wiredep');
+// tell Yeoman what to say in the console
+ var yosay = require('yosay');
 
 module.exports = yeoman.Base.extend({
 
@@ -49,14 +53,8 @@ module.exports = yeoman.Base.extend({
     },
     sass: function () {
       this.fs.copy(
-        this.templatePath('scss/main.scss'),
-        this.destinationPath('scss/main.scss')
-      );
-    },
-    txt: function () {
-      this.fs.copy(
-        this.templatePath('test.txt'),
-        this.destinationPath('test.txt')
+        this.templatePath('scss/**/*'),
+        this.destinationPath('scss/')
       );
     }
   },
