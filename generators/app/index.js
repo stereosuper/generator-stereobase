@@ -1,3 +1,4 @@
+/* jshint -W097, -W117 */
 'use strict';
 var yeoman = require('yeoman-generator');
 // to log a coloured message with Yeoman
@@ -8,24 +9,22 @@ var wiredep = require('wiredep');
  var yosay = require('yosay');
 
 module.exports = yeoman.Base.extend({
+  initializing: function() {
+    // Have Yeoman greet the user.
+    this.log(yosay('Welcome to the laudable ' + chalk.blue('stereosuper') + ' generator!'));
+  },
 
   prompting: function () {
     var done = this.async();
-
-    var prompts = [{
-      type: 'input',
-      name: 'name',
-      message: 'What is you\'re project name?',
-      required: true
-    }];
-
-    this.prompt(prompts, function (props) {
-      // this.props = props;
-      // To access props later use this.props.someAnswer;
-      this.name = props.name;
-
-      done();
-    }.bind(this));
+    this.prompt([{
+        type: 'input',
+        name: 'name',
+        message: 'What is you\'re project name?',
+        default: 'test',
+        required: true
+      }]).then(function(answers) {
+        done();
+      }.bind(this));
   },
 
   writing: {
