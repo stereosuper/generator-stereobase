@@ -23,35 +23,38 @@ module.exports = yeoman.Base.extend({
         default: 'test',
         required: true
       }]).then(function(answers) {
+        this.name = answers.name;
         done();
       }.bind(this));
   },
 
   writing: {
     html: function () {
-      this.fs.copy(
+      console.log(this.name);
+      this.fs.copyTpl(
         this.templatePath('index.html'),
-        this.destinationPath('index.html')
+        this.destinationPath('index.html'),
+        { name: this.name }
       );
     },
     script: function () {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('js/script.js'),
         this.destinationPath('js/script.js')
       );
     },
     bower: function () {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('bower.json'),
         this.destinationPath('bower.json')
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('.bowerrc'),
         this.destinationPath('.bowerrc')
       );
     },
     sass: function () {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('scss/**/*'),
         this.destinationPath('scss/')
       );
@@ -59,6 +62,7 @@ module.exports = yeoman.Base.extend({
   },
 
   install: function () {
+    this.bowerInstall(['jquery'], { 'saveDev': true });
     this.installDependencies();
   }
 });
