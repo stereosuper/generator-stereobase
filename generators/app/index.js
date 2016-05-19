@@ -1,3 +1,4 @@
+/* jshint -W097, -W117 */
 'use strict';
 var yeoman = require('yeoman-generator');
 // to log a coloured message with Yeoman
@@ -8,51 +9,52 @@ var wiredep = require('wiredep');
  var yosay = require('yosay');
 
 module.exports = yeoman.Base.extend({
+  initializing: function() {
+    // Have Yeoman greet the user.
+    this.log(yosay('Welcome to the laudable ' + chalk.blue('stereosuper') + ' generator!'));
+  },
 
   prompting: function () {
     var done = this.async();
-
-    var prompts = [{
-      type: 'input',
-      name: 'name',
-      message: 'What is you\'re project name?',
-      required: true
-    }];
-
-    this.prompt(prompts, function (props) {
-      // this.props = props;
-      // To access props later use this.props.someAnswer;
-      this.name = props.name;
-
-      done();
-    }.bind(this));
+    this.prompt([{
+        type: 'input',
+        name: 'name',
+        message: 'What is you\'re project name?',
+        default: 'test',
+        required: true
+      }]).then(function(answers) {
+        this.name = answers.name;
+        done();
+      }.bind(this));
   },
 
   writing: {
     html: function () {
-      this.fs.copy(
+      console.log(this.name);
+      this.fs.copyTpl(
         this.templatePath('index.html'),
-        this.destinationPath('index.html')
+        this.destinationPath('index.html'),
+        { name: this.name }
       );
     },
     script: function () {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('js/script.js'),
         this.destinationPath('js/script.js')
       );
     },
     bower: function () {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('bower.json'),
         this.destinationPath('bower.json')
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('.bowerrc'),
         this.destinationPath('.bowerrc')
       );
     },
     sass: function () {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('scss/**/*'),
         this.destinationPath('scss/')
       );
@@ -60,6 +62,7 @@ module.exports = yeoman.Base.extend({
   },
 
   install: function () {
+    this.bowerInstall(['jquery'], { 'saveDev': true });
     this.installDependencies();
   }
 });
