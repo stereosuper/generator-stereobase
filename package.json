@@ -1,6 +1,6 @@
 {
   "name": "generator-stereobase",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Generate a simple template",
   "homepage": "",
   "author": {
@@ -16,7 +16,8 @@
     "",
     "yeoman-generator"
   ],
-  "devDependencies": {
+  "dependencies": {
+    "chalk": "^1.1.3",
     "eslint": "^2.1.0",
     "eslint-config-xo-space": "^0.10.0",
     "gulp": "^3.9.0",
@@ -29,8 +30,11 @@
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
     "mkdirp": "^0.5.1",
+    "wiredep": "^4.0.0",
     "yeoman-assert": "^2.0.0",
-    "yeoman-test": "^1.0.0"
+    "yeoman-generator": "^0.23.3",
+    "yeoman-test": "^1.0.0",
+    "yosay": "^1.1.1"
   },
   "eslintConfig": {
     "extends": "xo-space",
