@@ -81,7 +81,7 @@ code, pre{
     display: block;
     padding: 10px 15px;
     margin: 1em 0;
-    background: @grey;
+    background: grey;
 }
 
 
@@ -89,7 +89,7 @@ code, pre{
 
 a{
     text-decoration: none;
-    transition: @transition;
+    transition: $transition;
     &:focus, &:hover{
     }
     &:focus{

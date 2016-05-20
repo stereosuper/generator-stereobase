@@ -1,5 +1,5 @@
 {
-  "name": "base",
+  "name": "<%= name %>",
   "homepage": "https://github.com/stereosuper/generator-stereobase",
   "authors": [
     "Adrien Le Menthéour"
