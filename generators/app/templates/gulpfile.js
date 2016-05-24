@@ -65,6 +65,12 @@ gulp.task('layoutImg', function() {
    .pipe($.size({ title: 'layoutImg' }));
 });
 
+gulp.task('js', function() {
+ return gulp.src('<%= folders.src %>/js/**/*')
+   .pipe(gulp.dest('<%= folders.dest %>/js'))
+   .pipe($.size({ title: 'js' }));
+});
+
 gulp.task('templates', function() {
  <% if (config.twig) { %>
    return gulp.src('<%= folders.src %>/templates/*.html.twig')
@@ -89,7 +95,8 @@ gulp.task('watch', ['default'], function() {
    gulp.watch('<%= folders.src %>/fonts/**/*', ['fonts', reload]);
    gulp.watch('<%= folders.src %>/img/**/*', ['img', reload]);
    gulp.watch('<%= folders.src %>/layoutImg/**/*', ['layoutImg', reload]);
+   gulp.watch('<%= folders.src %>/js/**/*', ['js', reload]);
    gulp.watch('<%= folders.src %>/bower_components/**/*', ['bower', reload]);
 });
 
-gulp.task('default', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'bower']);
+gulp.task('default', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'bower']);
