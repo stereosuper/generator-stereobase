@@ -33,9 +33,17 @@ https://docs.npmjs.com/cli/publish
 sudo chown -R userMachine /Users/userMachine/.config/configstore/
 ```
 
+## Browerify
+
+http://putaindecode.io/fr/articles/js/browserify/
+
+# Bower
+http://stackoverflow.com/questions/23691795/browserify-and-bower-canonical-approach
+
+
 ## License
 
-MIT © [Adrien Le Menthéour](www.adrienlm.com) | [Elisabeth Hamel](www.e-hamel.com) 
+MIT © [Adrien Le Menthéour](www.adrienlm.com) | [Elisabeth Hamel](www.e-hamel.com)
 
 
 [npm-image]: https://badge.fury.io/js/generator-stereobase.svg
