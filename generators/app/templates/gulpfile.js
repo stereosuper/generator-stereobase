@@ -39,7 +39,7 @@ gulp.task('styles', function () {
        ]
    }))
    .pipe($.sourcemaps.write())
-   .pipe(gulp.dest('<%= folders.dest %>'))
+   .pipe(gulp.dest('<%= folders.dest %>/css'))
    .pipe($.size({title: 'styles'}));
 });
 
