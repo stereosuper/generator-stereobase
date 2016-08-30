@@ -19,9 +19,18 @@ input, textarea, select, button{
 }
 
 input, textarea{
-  	&::-webkit-autofill{
-      	box-shadow: 0 0 0 1000px rgb(255, 255, 255) inset;
+  	&:-webkit-autofill{
+      	box-shadow: 0 0 0 1000px #fff inset;
   	}
+}
+
+input{
+    // hide the symbols of input search
+    &[type=search]{
+        &::-webkit-search-cancel-button, &::-webkit-search-decoration{
+            display: none;
+        }
+    }
 }
 
 select{

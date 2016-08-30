@@ -4,18 +4,18 @@
 /// @author Nicolas Gallagher
 /// @link http://nicolasgallagher.com/micro-clearfix-hack/ Micro Clearfix
 @mixin clearfix {
-  &::after {
-    content: '';
-    display: table;
-    clear: both;
-  }
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
 }
 
 /// Helper to cut text with an ellipse
 @mixin ellipsis {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 /// Helper to size an element
@@ -23,8 +23,8 @@
 /// @param {Length} $width
 /// @param {Length} $height
 @mixin size($width, $height: $width) {
-  width: $width;
-  height: $height;
+    width: $width;
+    height: $height;
 }
 
 // Arrow helper mixin
@@ -35,34 +35,33 @@
 // @param [number] $size (1em): arrow size
 // ---
 @mixin triangle($direction, $position, $color: currentColor, $size: 1em) {
-  // Make sure the direction is valid
-  @if not index(top right bottom left, $direction) {
-    @warn "Direction must be one of top, right, bottom or left.";
-  }
-
-  @else {
-    @include absolute($position); // Position
-    @include size(0); // Size
-    content: '';
-    z-index: 2;
-
-    border-#{opposite-position($direction)}: $size * 1.5 solid $color;
-    $perpendicular-borders: $size solid transparent;
-
-    @if $direction == top or $direction == bottom {
-      border-left:   $perpendicular-borders;
-      border-right:  $perpendicular-borders;
+    // Make sure the direction is valid
+    @if not index(top right bottom left, $direction) {
+        @warn "Direction must be one of top, right, bottom or left.";
     }
+    @else {
+        @include absolute($position); // Position
+        @include size(0); // Size
+        content: '';
+        z-index: 2;
 
-    @else if $direction == right or $direction == left {
-      border-bottom: $perpendicular-borders;
-      border-top:    $perpendicular-borders;
+        border-#{opposite-position($direction)}: $size * 1.5 solid $color;
+        $perpendicular-borders: $size solid transparent;
+
+        @if $direction == top or $direction == bottom {
+            border-left:   $perpendicular-borders;
+            border-right:  $perpendicular-borders;
+        }
+
+        @else if $direction == right or $direction == left {
+            border-bottom: $perpendicular-borders;
+            border-top:    $perpendicular-borders;
+        }
     }
-  }
 }
 
 // Fonts
 @mixin font($size){
-   font-family: $font;
-   font-size: $size;
+    font-family: $font;
+    font-size: $size;
 }
