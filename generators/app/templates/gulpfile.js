@@ -39,14 +39,14 @@ gulp.task('styles', function () {
        ]
    }))
    .pipe($.sourcemaps.write())
-   .pipe(gulp.dest('<%= folders.dest %>'))
+   .pipe(gulp.dest('<%= folders.dest %>/css'))
    .pipe($.size({title: 'styles'}));
 });
 
 gulp.task('bower', function() {
- return gulp.src('<%= folders.src %>/bower_components/**/*')
-   .pipe(gulp.dest('<%= folders.dest %>/bower_components'))
-   .pipe($.size({ title: 'bower_components' }));
+ return gulp.src('<%= folders.src %>/js/libs/**/*')
+   .pipe(gulp.dest('<%= folders.dest %>/js/libs'))
+   .pipe($.size({ title: 'bower' }));
 });
 
 gulp.task('fonts', function() {
@@ -105,8 +105,7 @@ gulp.task('watch', /*['default'],*/ function() {
    gulp.watch('<%= folders.src %>/fonts/**/*', ['fonts', reload]);
    gulp.watch('<%= folders.src %>/img/**/*', ['img', reload]);
    gulp.watch('<%= folders.src %>/layoutImg/**/*', ['layoutImg', reload]);
-   gulp.watch('<%= folders.src %>/js/**/*', ['js', reload]);
-   gulp.watch('<%= folders.src %>/bower_components/**/*', ['bower', reload]);
+   gulp.watch('<%= folders.src %>/js/**/*', [['js', 'bower'], reload]);
 });
 
 //gulp.task('default', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'bower']);
