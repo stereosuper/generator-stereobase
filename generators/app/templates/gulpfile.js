@@ -2,6 +2,11 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+var gulp = require('gulp');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var uglify = require('gulp-uglify');
 
 var report_error = function(error) {
    $.notify({
@@ -17,10 +22,7 @@ gulp.task('styles', function () {
    return gulp.src('<%= folders.src %>/scss/main.scss')
    .pipe($.sourcemaps.init())
    .pipe($.sass({
-       precision: 6,
-       outputStyle: 'expanded',
-       sourceComments: true,
-       indentWidth: 4,
+       precision: 6, outputStyle: 'compressed', sourceComments: false, indentWidth: 4,
    }))
    .on('error', report_error)
    .pipe($.autoprefixer({
@@ -65,10 +67,18 @@ gulp.task('layoutImg', function() {
    .pipe($.size({ title: 'layoutImg' }));
 });
 
-gulp.task('js', function() {
- return gulp.src('<%= folders.src %>/js/**/*')
-   .pipe(gulp.dest('<%= folders.dest %>/js'))
-   .pipe($.size({ title: 'js' }));
+//gulp.task('js', function() {
+//  return gulp.src('<%= folders.src %>/js/**/*')
+//    .pipe(gulp.dest('<%= folders.dest %>/js'))
+//    .pipe($.size({ title: 'js' }));
+// });
+
+gulp.task('js', function () {
+   return browserify('<%= folders.src %>/js/main.js').bundle()
+       .pipe(source('main.js'))
+       .pipe(buffer())
+       .pipe(uglify())
+       .pipe(gulp.dest('<%= folders.dest %>/js'));
 });
 
 gulp.task('templates', function() {
@@ -84,7 +94,7 @@ gulp.task('templates', function() {
    .pipe($.size({title: 'template'}));
 });
 
-gulp.task('watch', ['default'], function() {
+gulp.task('watch', /*['default'],*/ function() {
  browserSync({
      notify: false,
      server: ['<%= folders.dest %>']
@@ -99,4 +109,4 @@ gulp.task('watch', ['default'], function() {
    gulp.watch('<%= folders.src %>/bower_components/**/*', ['bower', reload]);
 });
 
-gulp.task('default', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'bower']);
+//gulp.task('default', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'bower']);
