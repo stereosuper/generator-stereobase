@@ -37,7 +37,7 @@ sudo chown -R userMachine /Users/userMachine/.config/configstore/
 
 http://putaindecode.io/fr/articles/js/browserify/
 
-# Bower
+### Bower
 http://stackoverflow.com/questions/23691795/browserify-and-bower-canonical-approach
 
 
