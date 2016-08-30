@@ -14,7 +14,8 @@
 //@import
 //  'vendors/';
 
-@import 'abstracts/placeholders';
+@import
+  'abstracts/placeholders';
 
 @import
   'layout/grid',
@@ -27,6 +28,3 @@
 
 @import
   'pages/home';
-
-
-@import 'layout/mediaqueries';
