@@ -56,8 +56,8 @@ module.exports = yeoman.Base.extend({
   writing: {
     script: function () {
       this.fs.copyTpl(
-        this.templatePath('js/script.js'),
-        this.destinationPath(this.folder.src + '/js/script.js')
+        this.templatePath('js/main.js'),
+        this.destinationPath(this.folder.src + '/js/main.js')
       );
     },
     fonts: function () {
@@ -78,7 +78,7 @@ module.exports = yeoman.Base.extend({
       this.fs.copyTpl(
         this.templatePath('.bowerrc'),
         this.destinationPath('.bowerrc'),
-        { src: this.folder.src + '/bower_components' }
+        { src: this.folder.src + '/js/libs' }
       );
     },
     sass: function () {
