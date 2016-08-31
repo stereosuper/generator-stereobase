@@ -1,3 +1,5 @@
+![Screenshot](logo.png)
+
 # generator-stereobase [![NPM version][npm-image]][npm-url]
 > Generate a simple template
 
