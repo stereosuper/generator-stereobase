@@ -16,6 +16,19 @@ Then generate your new project:
 yo stereobase
 ```
 
+Then launch gulp for the first time
+
+```bash
+gulp start
+```
+
+And finally listen to file changes
+
+```bash
+gulp watch
+```
+
+
 ## Publish the Generator | New version
 
 ```bash
@@ -36,9 +49,6 @@ sudo chown -R userMachine /Users/userMachine/.config/configstore/
 ## Browerify
 
 http://putaindecode.io/fr/articles/js/browserify/
-
-### Bower
-http://stackoverflow.com/questions/23691795/browserify-and-bower-canonical-approach
 
 
 ## License
