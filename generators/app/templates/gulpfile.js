@@ -10,6 +10,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
+var imagemin = require('gulp-imagemin');
 
 var report_error = function(error) {
     $.notify({
@@ -60,12 +61,14 @@ gulp.task('fonts', function() {
 
 gulp.task('img', function() {
     return gulp.src('<%= folders.src %>/img/**/*')
+        .pipe(imagemin())
         .pipe(gulp.dest('<%= folders.dest %>/img'))
         .pipe($.size({ title: 'img' }));
 });
 
 gulp.task('layoutImg', function() {
     return gulp.src('<%= folders.src %>/layoutImg/**/*')
+        .pipe(imagemin())
         .pipe(gulp.dest('<%= folders.dest %>/layoutImg'))
         .pipe($.size({ title: 'layoutImg' }));
 });
