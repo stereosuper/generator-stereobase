@@ -59,6 +59,10 @@ module.exports = yeoman.Base.extend({
         this.templatePath('js/main.js'),
         this.destinationPath(this.folder.src + '/js/main.js')
       );
+      this.fs.copyTpl(
+        this.templatePath('js/requestAnimFrame.js'),
+        this.destinationPath(this.folder.src + '/js/requestAnimFrame.js')
+      );
     },
     fonts: function () {
       mkdirp.sync(this.destinationPath(this.folder.src + '/fonts'));

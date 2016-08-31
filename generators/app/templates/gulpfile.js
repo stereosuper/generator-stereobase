@@ -22,7 +22,7 @@ gulp.task('styles', function () {
    return gulp.src('<%= folders.src %>/scss/main.scss')
    .pipe($.sourcemaps.init())
    .pipe($.sass({
-       precision: 6, outputStyle: 'compressed', sourceComments: false, indentWidth: 4,
+       precision: 6, outputStyle: 'compact', sourceComments: false, indentWidth: 4,
    }))
    .on('error', report_error)
    .pipe($.autoprefixer({
