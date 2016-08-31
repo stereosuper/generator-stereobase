@@ -152,11 +152,14 @@ module.exports = yeoman.Base.extend({
          'gulp-sass',
          'gulp-autoprefixer',
          'gulp-prettify',
+         'gulp-watch',
          'browser-sync',
          'browserify',
          'gulp-uglify',
          'vinyl-source-stream',
-         'vinyl-buffer'
+         'vinyl-buffer',
+         'del',
+         'path'
        ];
 
        if (this.config.twig) {
