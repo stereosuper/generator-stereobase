@@ -1,0 +1,29 @@
+/******* PRINT *******/
+
+@media print {
+    *, *:before{
+        color: #000 !important;
+    }
+    a{
+        text-decoration: underline;
+        // &[href]:after{
+        //     content: ' (' attr(href) ')';
+        // }
+        &[href^="#"]:after{
+            content: '';
+        }
+    }
+    img{
+        page-break-inside: avoid;
+    }
+    @page{
+        margin: .5cm;
+    }
+    p, h2, h3{
+        orphans: 3;
+        widows: 3;
+    }
+    h2, h3{
+        page-break-after: avoid;
+    }
+}

@@ -3,8 +3,8 @@
 /// Helper to clear inner floats
 /// @author Nicolas Gallagher
 /// @link http://nicolasgallagher.com/micro-clearfix-hack/ Micro Clearfix
-@mixin clearfix {
-    &::after {
+@mixin clearfix{
+    &:after{
         content: '';
         display: table;
         clear: both;
@@ -12,7 +12,7 @@
 }
 
 /// Helper to cut text with an ellipse
-@mixin ellipsis {
+@mixin ellipsis{
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -22,7 +22,7 @@
 /// @author Hugo Giraudel
 /// @param {Length} $width
 /// @param {Length} $height
-@mixin size($width, $height: $width) {
+@mixin size($width, $height: $width){
     width: $width;
     height: $height;
 }
@@ -34,9 +34,9 @@
 // @param [color] $color (inherit): arrow color
 // @param [number] $size (1em): arrow size
 // ---
-@mixin triangle($direction, $position, $color: currentColor, $size: 1em) {
+@mixin triangle($direction, $position, $color: currentColor, $size: 1em){
     // Make sure the direction is valid
-    @if not index(top right bottom left, $direction) {
+    @if not index(top right bottom left, $direction){
         @warn "Direction must be one of top, right, bottom or left.";
     }
     @else {
@@ -61,7 +61,7 @@
 }
 
 // Fonts
-@mixin font($size){
-    font-family: $font;
-    font-size: $size;
-}
+// @mixin font($size){
+//     font-family: $font;
+//     font-size: $size;
+// }

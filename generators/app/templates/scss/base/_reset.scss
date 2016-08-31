@@ -34,7 +34,7 @@ audio:not([controls]), [hidden], template{
     }
 }
 
-:after,:before{
+:after, :before{
     vertical-align: inherit;
     text-decoration: inherit
 }
@@ -66,9 +66,9 @@ iframe, embed, object{
 }
 
 abbr[title]{
-    border-bottom: none; /* 1 */
-    text-decoration: underline; /* 2 */
-    text-decoration: underline dotted; /* 2 */
+    border-bottom: none;
+    text-decoration: underline;
+    text-decoration: underline dotted;
 }
 
 b, strong{
@@ -80,8 +80,8 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+  font-family: monospace, monospace;
+  font-size: 1em;
 }
 
 pre{
@@ -92,8 +92,10 @@ pre{
     margin: 1em 0
 }
 
-nav ul, nav ol{
-    list-style: none
+nav{
+    ul, ol{
+        list-style: none
+    }
 }
 
 img{
@@ -144,8 +146,8 @@ button, input, select, textarea{
 }
 
 button,
-input, /* 1 */
-select { /* 2 */
+input,
+select{
   overflow: visible;
 }
 
@@ -213,4 +215,12 @@ hr{
   box-sizing: content-box;
   height: 0;
   overflow: visible
+}
+
+sup{
+    position: relative;
+    top: -0.5em;
+    font-size: 75%;
+    line-height: 0;
+    vertical-align: baseline;
 }
