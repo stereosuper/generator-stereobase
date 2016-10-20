@@ -48,10 +48,15 @@ https://docs.npmjs.com/cli/publish
 sudo chown -R userMachine /Users/userMachine/.config/configstore/
 ```
 
-## Browerify
+## Browserify
 
 http://putaindecode.io/fr/articles/js/browserify/
 
+## Thanks
+
+* Hugo Giraudel for [Sass Guidelines](https://sass-guidelin.es/)
+* Chris Coyier for his book [Practical SVG](https://abookapart.com/products/practical-svg)
+* [Loic Goyet](https://github.com/LoicGoyet) for the formation on Gulp and Yeoman.
 
 ## License
 

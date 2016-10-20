@@ -15,6 +15,16 @@
     </head>
 
     <body {% block body_attr %}{% endblock %}>
+        {% block icons %}
+            <svg style='position:absolute;width:0;height:0;overflow:hidden'>
+                <defs>
+                    <symbol id='icon' viewBox='0 0 0 0'>
+                        <title>Icon</title>
+                    </symbol>
+                </defs>
+            </svg>
+        {% endblock icons %}
+
         <header>
         </header>
 

@@ -150,6 +150,7 @@ module.exports = yeoman.Base.extend({
                 'gulp-prettify',
                 'gulp-watch',
                 'gulp-imagemin',
+                'gulp-htmlmin',
                 'browser-sync',
                 'browserify',
                 'gulp-uglify',

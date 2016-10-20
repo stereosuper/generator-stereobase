@@ -1,7 +1,7 @@
 {
   "name": "generator-stereobase",
-  "version": "1.0.0",
-  "description": "Generate a simple template",
+  "version": "1.1.0",
+  "description": "Generate a simple template based on 7-1 architecture, with the opportunity to use Twig and GSAP.",
   "homepage": "",
   "author": {
     "name": "Adrien Le Menthéour",
