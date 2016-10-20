@@ -84,6 +84,30 @@ ol{
     }
 }
 
+dt, dd{
+    display: inline;
+    margin: 0;
+}
+dt{
+    &:after{
+        content: ': ';
+    }
+}
+dd{
+    + dt{
+        &:before{
+            content: '\A';
+            white-space: pre;
+        }
+    }
+    + dd{
+        &:before{
+            content: ', ';
+            margin: 0 0 0 -0.25em;
+        }
+    }
+}
+
 img{
     max-width: 100%;
     height: auto;
