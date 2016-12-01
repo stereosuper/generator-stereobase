@@ -1,29 +1,32 @@
 'use strict';
 
+var $ = require('./libs/jquery/dist/jquery.slim.min.js');
+
 $(function(){
 
-    var body = $('body');
-    var windowWidth = $(window).width(), windowHeight = $(window).height();
-
     window.requestAnimFrame = require('./requestAnimFrame.js');
+    var throttle = require('./throttle.js');
+
+    var body = $('body');
+    var windowWidth = $(window).outerWidth(), windowHeight = $(window).height();
 
 
 
     // isMobile.any ? body.addClass('is-mobile') : body.addClass('is-desktop');
 
 
-    $(window).on('resize', function(){
+    $(window).on('resize', throttle(function(){
 
-        windowWidth = $(window).width();
+        windowWidth = $(window).outerWidth();
         windowHeight = $(window).height();
 
-	}).on('load', function(){
-
-	});
-
-
-    $(document).on('scroll', function(){
+    }, 60)).on('load', function(){
 
     });
+
+
+    $(document).on('scroll', throttle(function(){
+
+    }, 60));
 
 });
