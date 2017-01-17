@@ -34,7 +34,7 @@ h2{
 }
 
 h3{
-    font-size: 2.4em;
+    font-size: 2.4rem;
     margin: 1em 0;
 }
 
@@ -150,6 +150,7 @@ a{
         outline: 0;
     }
     &:active{
+        filter: saturate(200%);
     }
 }
 
@@ -159,7 +160,7 @@ a{
 .hidden{
     display: none !important;
 }
-.visuallyhidden{
+.visually-hidden{
     width: 1px;
     height: 1px;
     padding: 0;
@@ -168,22 +169,6 @@ a{
     position: absolute;
     margin: -1px;
     overflow: hidden;
-}
-
-.wrapper-alignment{
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.content-align-middle{
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.content-align-top{
-    display: table-cell;
-    vertical-align: top;
 }
 
 .clearfix{
@@ -214,9 +199,10 @@ a{
     width: 100%;
 }
 
-.wrapper-overflow-hidden{
-    position: relative;
-    overflow: hidden;
+.icon{
+    width: 1.2em;
+    height: 1.2em;
+    fill: currentColor;
 }
 
 .img-fit{
