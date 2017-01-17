@@ -149,7 +149,6 @@ module.exports = yeoman.Base.extend({
                 'gulp-autoprefixer',
                 'gulp-prettify',
                 'gulp-watch',
-                'gulp-imagemin',
                 'gulp-htmlmin',
                 'browser-sync',
                 'browserify',
