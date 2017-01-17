@@ -14,13 +14,14 @@ $(function(){
 
     // isMobile.any ? body.addClass('is-mobile') : body.addClass('is-desktop');
 
-
-    $(window).on('resize', throttle(function(){
-
+    function resizeHandler(){
         windowWidth = $(window).outerWidth();
         windowHeight = $(window).height();
+    }
 
-    }, 60)).on('load', function(){
+    $(window).on('resize', throttle(
+        requestAnimFrame(resizeHandler), 60)
+    ).on('load', function(){
 
     });
 
