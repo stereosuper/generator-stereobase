@@ -47,11 +47,11 @@ gulp.task('styles', function () {
         .pipe($.size({title: 'styles'}));
 });
 
-gulp.task('bower', function() {
-    return gulp.src('<%= folders.src %>/js/libs/**/*')
-        .pipe(gulp.dest('<%= folders.dest %>/js/libs'))
-        .pipe($.size({ title: 'bower' }));
-});
+// gulp.task('bower', function() {
+//     return gulp.src('<%= folders.src %>/js/libs/**/*')
+//         .pipe(gulp.dest('<%= folders.dest %>/js/libs'))
+//         .pipe($.size({ title: 'bower' }));
+// });
 
 gulp.task('fonts', function() {
     return gulp.src('<%= folders.src %>/fonts/**/*')
@@ -115,9 +115,9 @@ gulp.task('watch', function () {
     watch('src/layoutImg/**/*', function(){
         gulp.start(['layoutImg'], reload);
     });
-    watch('src/js/**/*', function(){
-        gulp.start(['js', 'bower'], reload);
-    });
+    // watch('src/js/**/*', function(){
+    //     gulp.start(['js', 'bower'], reload);
+    // });
 
     var fileWatcher = watch('src/**/*').on('unlink', function(currentPath){
         var filePathFromSrc = path.relative(path.resolve('src'), currentPath);
@@ -127,4 +127,4 @@ gulp.task('watch', function () {
     });
 });
 
-gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'bower']);
+gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js'/*, 'bower'*/]);

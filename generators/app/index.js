@@ -69,7 +69,7 @@ module.exports = yeoman.Base.extend({
         layoutImg: function () {
             mkdirp.sync(this.destinationPath(this.folder.src + '/layoutImg'));
         },
-        bower: function () {
+        /*bower: function () {
             this.fs.copyTpl(
                 this.templatePath('bower.json'),
                 this.destinationPath('bower.json'),
@@ -80,7 +80,7 @@ module.exports = yeoman.Base.extend({
                 this.destinationPath('.bowerrc'),
                 { src: this.folder.src + '/js/libs' }
             );
-        },
+        },*/
         sass: function () {
             this.fs.copyTpl(
                 this.templatePath('scss/**/*'),
@@ -122,7 +122,7 @@ module.exports = yeoman.Base.extend({
     },
 
     install: {
-        bower: function() {
+        /*bower: function() {
             this.npmInstall([
                 'browser-sync',
                 'gulp',
@@ -137,7 +137,7 @@ module.exports = yeoman.Base.extend({
                 this.bowerDependencies.push('gsap');
             }
             this.bowerInstall(this.bowerDependencies, { 'save': true });
-        },
+        },*/
         npm: function(){
             this.npmDependencies = [
                 'gulp',
@@ -156,9 +156,13 @@ module.exports = yeoman.Base.extend({
                 'vinyl-source-stream',
                 'vinyl-buffer',
                 'del',
-                'path'
+                'path',
+                'jquery',
             ];
 
+            if(this.config.greensock){
+                this.npmDependencies.push('gsap');
+            }
             if(this.config.twig){
                 this.npmDependencies.push('gulp-twig', 'gulp-ext-replace');
             }
