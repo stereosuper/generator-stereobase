@@ -26,7 +26,7 @@ module.exports = yeoman.Base.extend({
         this.prompt([{
             type: 'input',
             name: 'name',
-            message: 'What is you\'re project name?',
+            message: 'What is you\'re project name? (without specials characters)',
             default: 'test',
             required: true
         }, {
@@ -53,11 +53,28 @@ module.exports = yeoman.Base.extend({
         script: function(){
             this.fs.copyTpl(
                 this.templatePath('js/main.js'),
-                this.destinationPath(this.folder.src + '/js/main.js')
+                this.destinationPath(this.folder.src + '/js/main.js'),
+                { greensock: this.config.greensock }
             );
             this.fs.copyTpl(
                 this.templatePath('js/requestAnimFrame.js'),
                 this.destinationPath(this.folder.src + '/js/requestAnimFrame.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('js/checkIfInView.js'),
+                this.destinationPath(this.folder.src + '/js/checkIfInView.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('js/getEltPosOnCover.js'),
+                this.destinationPath(this.folder.src + '/js/getEltPosOnCover.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('js/getUrlParam.js'),
+                this.destinationPath(this.folder.src + '/js/getUrlParam.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('js/throttle.js'),
+                this.destinationPath(this.folder.src + '/js/throttle.js')
             );
         },
         fonts: function () {

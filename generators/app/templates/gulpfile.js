@@ -115,9 +115,9 @@ gulp.task('watch', function () {
     watch('src/layoutImg/**/*', function(){
         gulp.start(['layoutImg'], reload);
     });
-    // watch('src/js/**/*', function(){
-    //     gulp.start(['js', 'bower'], reload);
-    // });
+    watch('src/js/**/*', function(){
+        gulp.start(['js'], reload);
+    });
 
     var fileWatcher = watch('src/**/*').on('unlink', function(currentPath){
         var filePathFromSrc = path.relative(path.resolve('src'), currentPath);
