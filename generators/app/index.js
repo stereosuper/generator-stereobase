@@ -35,7 +35,13 @@ module.exports = yeoman.Base.extend({
             message: 'Would you like to install Greensock?',
             default: true,
             required: true
-        }, {
+        },/* {
+            type: 'confirm',
+            name: 'wordpress',
+            message: 'Is it a Wordpress Project?',
+            default: true,
+            required: true
+        },*/ {
             type: 'confirm',
             name: 'twig',
             message: 'Would you like to install Twig?',
