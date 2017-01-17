@@ -5,11 +5,26 @@
 $white: rgb(255, 255, 255);
 $black: rgb(0, 0, 0);
 
+
 // Transitions
 $transition: 0.3s ease-in-out;
+
 
 // Fonts
 // $font: 'font', sans-serif;
 
+
 // Mediaqueries
 $retina: 'only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi)';
+
+$desktop: '1100px';
+$desktop-small: '960px';
+$tablet: '780px';
+$phone: '580px';
+$phone-small: '400px';
+
+
+// Grid
+$col: 100/12*1%;
+
+$gutter: 10px;
