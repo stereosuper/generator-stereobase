@@ -86,18 +86,6 @@ module.exports = yeoman.Base.extend({
         layoutImg: function () {
             mkdirp.sync(this.destinationPath(this.folder.src + '/layoutImg'));
         },
-        /*bower: function () {
-            this.fs.copyTpl(
-                this.templatePath('bower.json'),
-                this.destinationPath('bower.json'),
-                { name: this.config.name }
-            );
-            this.fs.copyTpl(
-                this.templatePath('.bowerrc'),
-                this.destinationPath('.bowerrc'),
-                { src: this.folder.src + '/js/libs' }
-            );
-        },*/
         sass: function () {
             this.fs.copyTpl(
                 this.templatePath('scss/**/*'),
@@ -125,36 +113,18 @@ module.exports = yeoman.Base.extend({
             if (this.config.twig) {
                 this.fs.copyTpl(
                     this.templatePath('twig/**/*'),
-                    this.destinationPath(this.folder.src + '/templates'),
-                    { greensock: this.config.greensock }
+                    this.destinationPath(this.folder.src + '/templates')
                 );
             } else {
                 this.fs.copyTpl(
                     this.templatePath('html/index.html'),
-                    this.destinationPath(this.folder.src + '/templates/index.html'),
-                    { greensock: this.config.greensock }
+                    this.destinationPath(this.folder.src + '/templates/index.html')
                 );
             }
         }
     },
 
     install: {
-        /*bower: function() {
-            this.npmInstall([
-                'browser-sync',
-                'gulp',
-                'gulp-autoprefixer',
-                'gulp-load-plugins',
-                'gulp-notify',
-                'gulp-sass',
-                'gulp-sourcemaps'
-                ], { 'saveDev': true });
-            this.bowerDependencies = ['jquery'];
-            if(this.config.greensock){
-                this.bowerDependencies.push('gsap');
-            }
-            this.bowerInstall(this.bowerDependencies, { 'save': true });
-        },*/
         npm: function(){
             this.npmDependencies = [
                 'gulp',

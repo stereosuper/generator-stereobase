@@ -47,12 +47,6 @@ gulp.task('styles', function () {
         .pipe($.size({title: 'styles'}));
 });
 
-// gulp.task('bower', function() {
-//     return gulp.src('<%= folders.src %>/js/libs/**/*')
-//         .pipe(gulp.dest('<%= folders.dest %>/js/libs'))
-//         .pipe($.size({ title: 'bower' }));
-// });
-
 gulp.task('fonts', function() {
     return gulp.src('<%= folders.src %>/fonts/**/*')
         .pipe(gulp.dest('<%= folders.dest %>/fonts'))
@@ -127,4 +121,4 @@ gulp.task('watch', function () {
     });
 });
 
-gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js'/*, 'bower'*/]);
+gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js']);
