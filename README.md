@@ -56,7 +56,7 @@ http://putaindecode.io/fr/articles/js/browserify/
 
 * Hugo Giraudel for [Sass Guidelines](https://sass-guidelin.es/)
 * Chris Coyier for his book [Practical SVG](https://abookapart.com/products/practical-svg)
-* [Loic Goyet](https://github.com/LoicGoyet) for the formation on Gulp and Yeoman.
+* [Loic Goyet](https://github.com/LoicGoyet) for the training course on Gulp and Yeoman.
 
 ## License
 

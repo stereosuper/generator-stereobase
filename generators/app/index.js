@@ -26,7 +26,7 @@ module.exports = yeoman.Base.extend({
         this.prompt([{
             type: 'input',
             name: 'name',
-            message: 'What is you\'re project name?',
+            message: 'What is you\'re project name? (without specials characters)',
             default: 'test',
             required: true
         }, {
@@ -35,7 +35,13 @@ module.exports = yeoman.Base.extend({
             message: 'Would you like to install Greensock?',
             default: true,
             required: true
-        }, {
+        },/* {
+            type: 'confirm',
+            name: 'wordpress',
+            message: 'Is it a Wordpress Project?',
+            default: true,
+            required: true
+        },*/ {
             type: 'confirm',
             name: 'twig',
             message: 'Would you like to install Twig?',
@@ -53,11 +59,28 @@ module.exports = yeoman.Base.extend({
         script: function(){
             this.fs.copyTpl(
                 this.templatePath('js/main.js'),
-                this.destinationPath(this.folder.src + '/js/main.js')
+                this.destinationPath(this.folder.src + '/js/main.js'),
+                { greensock: this.config.greensock }
             );
             this.fs.copyTpl(
                 this.templatePath('js/requestAnimFrame.js'),
                 this.destinationPath(this.folder.src + '/js/requestAnimFrame.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('js/checkIfInView.js'),
+                this.destinationPath(this.folder.src + '/js/checkIfInView.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('js/getEltPosOnCover.js'),
+                this.destinationPath(this.folder.src + '/js/getEltPosOnCover.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('js/getUrlParam.js'),
+                this.destinationPath(this.folder.src + '/js/getUrlParam.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('js/throttle.js'),
+                this.destinationPath(this.folder.src + '/js/throttle.js')
             );
         },
         fonts: function () {
@@ -68,18 +91,6 @@ module.exports = yeoman.Base.extend({
         },
         layoutImg: function () {
             mkdirp.sync(this.destinationPath(this.folder.src + '/layoutImg'));
-        },
-        bower: function () {
-            this.fs.copyTpl(
-                this.templatePath('bower.json'),
-                this.destinationPath('bower.json'),
-                { name: this.config.name }
-            );
-            this.fs.copyTpl(
-                this.templatePath('.bowerrc'),
-                this.destinationPath('.bowerrc'),
-                { src: this.folder.src + '/js/libs' }
-            );
         },
         sass: function () {
             this.fs.copyTpl(
@@ -108,36 +119,18 @@ module.exports = yeoman.Base.extend({
             if (this.config.twig) {
                 this.fs.copyTpl(
                     this.templatePath('twig/**/*'),
-                    this.destinationPath(this.folder.src + '/templates'),
-                    { greensock: this.config.greensock }
+                    this.destinationPath(this.folder.src + '/templates')
                 );
             } else {
                 this.fs.copyTpl(
                     this.templatePath('html/index.html'),
-                    this.destinationPath(this.folder.src + '/templates/index.html'),
-                    { greensock: this.config.greensock }
+                    this.destinationPath(this.folder.src + '/templates/index.html')
                 );
             }
         }
     },
 
     install: {
-        bower: function() {
-            this.npmInstall([
-                'browser-sync',
-                'gulp',
-                'gulp-autoprefixer',
-                'gulp-load-plugins',
-                'gulp-notify',
-                'gulp-sass',
-                'gulp-sourcemaps'
-                ], { 'saveDev': true });
-            this.bowerDependencies = ['jquery'];
-            if(this.config.greensock){
-                this.bowerDependencies.push('gsap');
-            }
-            this.bowerInstall(this.bowerDependencies, { 'save': true });
-        },
         npm: function(){
             this.npmDependencies = [
                 'gulp',
@@ -156,9 +149,13 @@ module.exports = yeoman.Base.extend({
                 'vinyl-source-stream',
                 'vinyl-buffer',
                 'del',
-                'path'
+                'path',
+                'jquery',
             ];
 
+            if(this.config.greensock){
+                this.npmDependencies.push('gsap');
+            }
             if(this.config.twig){
                 this.npmDependencies.push('gulp-twig', 'gulp-ext-replace');
             }
