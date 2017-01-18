@@ -17,7 +17,11 @@ module.exports = yeoman.Base.extend({
         this.config = {};
         this.folder = {
             src: 'src',
-            dest: 'dest',
+            dest: 'dest'
+        };
+        this.folderWp = {
+            src: 'src',
+            dest: 'dest/wp-content/themes/super'
         };
     },
 
@@ -35,13 +39,16 @@ module.exports = yeoman.Base.extend({
             message: 'Would you like to install Greensock?',
             default: true,
             required: true
-        },/* {
+        }, {
             type: 'confirm',
             name: 'wordpress',
             message: 'Is it a Wordpress Project?',
             default: true,
             required: true
-        },*/ {
+        }, {
+            when: function(response){
+                return !response.wordpress;
+            },
             type: 'confirm',
             name: 'twig',
             message: 'Would you like to install Twig?',
@@ -83,6 +90,14 @@ module.exports = yeoman.Base.extend({
                 this.destinationPath(this.folder.src + '/js/throttle.js')
             );
         },
+        wordpress: function () {
+            if (this.config.wordpress) {
+                this.fs.copyTpl(
+                    this.templatePath('theme/**/*'),
+                    this.destinationPath(this.folder.src + '/theme')
+                );
+            }
+        },
         fonts: function () {
             mkdirp.sync(this.destinationPath(this.folder.src + '/fonts'));
         },
@@ -99,14 +114,25 @@ module.exports = yeoman.Base.extend({
             );
         },
         gulp: function () {
-            this.fs.copyTpl(
-                this.templatePath('gulpfile.js'),
-                this.destinationPath('gulpfile.js'),
-                {
-                    config: this.config,
-                    folders: this.folder
-                }
-            );
+            if (this.config.wordpress) {
+                this.fs.copyTpl(
+                    this.templatePath('gulpfile.js'),
+                    this.destinationPath('gulpfile.js'),
+                    {
+                        config: this.config,
+                        folders: this.folderWp
+                    }
+                );
+            }else{
+                this.fs.copyTpl(
+                    this.templatePath('gulpfile.js'),
+                    this.destinationPath('gulpfile.js'),
+                    {
+                        config: this.config,
+                        folders: this.folder
+                    }
+                );
+            }
         },
         npm: function () {
             this.fs.copyTpl(
@@ -116,16 +142,18 @@ module.exports = yeoman.Base.extend({
             );
         },
         template: function() {
-            if (this.config.twig) {
-                this.fs.copyTpl(
-                    this.templatePath('twig/**/*'),
-                    this.destinationPath(this.folder.src + '/templates')
-                );
-            } else {
-                this.fs.copyTpl(
-                    this.templatePath('html/index.html'),
-                    this.destinationPath(this.folder.src + '/templates/index.html')
-                );
+            if (!this.config.wordpress) {
+                if (this.config.twig) {
+                    this.fs.copyTpl(
+                        this.templatePath('twig/**/*'),
+                        this.destinationPath(this.folder.src + '/templates')
+                    );
+                } else {
+                    this.fs.copyTpl(
+                        this.templatePath('html/index.html'),
+                        this.destinationPath(this.folder.src + '/templates/index.html')
+                    );
+                }
             }
         }
     },

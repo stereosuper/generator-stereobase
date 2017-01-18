@@ -73,6 +73,14 @@ gulp.task('js', function () {
         .pipe(gulp.dest('<%= folders.dest %>/js'));
 });
 
+<% if (config.wordpress) { %>
+gulp.task('theme', function() {
+    return gulp.src('<%= folders.src %>/theme/**/*')
+        // .pipe($.prettify({ indent_size: 4 }))
+        .pipe(gulp.dest('<%= folders.dest %>'))
+        .pipe($.size({title: 'theme'}));
+});
+<% } else { %>
 gulp.task('templates', function() {
     <% if (config.twig) { %>
         return gulp.src('<%= folders.src %>/templates/*.html.twig')
@@ -86,20 +94,34 @@ gulp.task('templates', function() {
         .pipe(gulp.dest('<%= folders.dest %>'))
         .pipe($.size({title: 'template'}));
 });
+<% } %>
 
 
 gulp.task('watch', function () {
+    <% if (config.wordpress) { %>
+    browserSync({
+        notify: false,
+        proxy: 'localhost'
+    });
+    <% } else { %>
     browserSync({
         notify: false,
         server: ['dest']
     });
+    <% } %>
 
     watch('src/scss/**/*', function(){
         gulp.start(['styles'], reload);
     });
+    <% if (config.wordpress) { %>
+    watch('src/theme/**/*', function(){
+        gulp.start(['theme'], reload);
+    });
+    <% } else { %>
     watch('src/templates/**/*', function(){
         gulp.start(['templates'], reload);
     });
+    <% } %>
     watch('src/fonts/**/*', function(){
         gulp.start(['fonts'], reload);
     });
@@ -112,13 +134,18 @@ gulp.task('watch', function () {
     watch('src/js/**/*', function(){
         gulp.start(['js'], reload);
     });
-
+    <% if (!config.wordpress) { %>
     var fileWatcher = watch('src/**/*').on('unlink', function(currentPath){
         var filePathFromSrc = path.relative(path.resolve('src'), currentPath);
         var destFilePath = path.resolve('dest', filePathFromSrc).replace('templates/', '');
         del.sync(destFilePath);
         console.log('File removed - ' + destFilePath);
     });
+    <% } %>
 });
 
+<% if (config.wordpress) { %>
+gulp.task('start', ['styles', 'theme', 'fonts', 'img', 'layoutImg', 'js']);
+<% } else { %>
 gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js']);
+<% } %>
