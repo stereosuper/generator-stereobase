@@ -38,6 +38,7 @@ npm set init.author.name "Your Name"
 npm set init.author.email "Your Email"
 npm set init.author.url "Your Website"
 npm adduser
+npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git]
 npm publish
 ```
 https://docs.npmjs.com/cli/publish
