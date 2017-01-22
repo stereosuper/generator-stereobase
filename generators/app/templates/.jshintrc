@@ -13,5 +13,11 @@
     "strict": "implied",
     "undef": true,
     "unused": true,
-    "expr": true
+    "expr": true,
+    "globals": {
+        "require": false,
+        "module": false,
+        "window": false,
+        "document": false
+    }
 }
