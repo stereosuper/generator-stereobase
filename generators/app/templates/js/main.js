@@ -23,9 +23,9 @@ $(function(){
         windowHeight = $(window).height();
     }
 
-    $(window).on('resize', throttle(
-        requestAnimFrame(resizeHandler), 60)
-    ).on('load', function(){
+    $(window).on('resize', throttle(function(){
+        requestAnimFrame(resizeHandler);
+    }, 60)).on('load', function(){
 
     });
 
