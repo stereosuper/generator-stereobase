@@ -6,6 +6,7 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var gulp = require('gulp');
 var browserify = require('browserify');
+var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
@@ -66,7 +67,11 @@ gulp.task('layoutImg', function() {
 });
 
 gulp.task('js', function () {
-    return browserify('<%= folders.src %>/js/main.js').bundle()
+    return browserify('<%= folders.src %>/js/main.js')
+        .transform(babelify.configure({
+            presets: ['es2015']
+        }))
+        .bundle()
         .pipe(source('main.js'))
         .pipe(buffer())
         .pipe(uglify())

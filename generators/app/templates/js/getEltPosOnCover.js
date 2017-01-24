@@ -1,4 +1,4 @@
-var $ = require('./libs/jquery/dist/jquery.slim.min.js');
+import $ from 'jquery-slim';
 
 module.exports = function(container, imgRatio, imgW, imgH, elt){
     containerH = container.outerHeight();

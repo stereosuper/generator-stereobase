@@ -198,12 +198,14 @@ module.exports = yeoman.Base.extend({
                 'gulp-htmlmin',
                 'browser-sync',
                 'browserify',
+                'babel-preset-es2015',
+                'babelify',
                 'gulp-uglify',
                 'vinyl-source-stream',
                 'vinyl-buffer',
                 'del',
                 'path',
-                'jquery',
+                'jquery-slim',
             ];
 
             if(this.config.greensock){
