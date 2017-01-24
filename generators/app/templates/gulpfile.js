@@ -1,16 +1,16 @@
 var gulp = require('gulp');
-var del = require('del');
-var path = require('path');
 var $ = require('gulp-load-plugins')();
+
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+
 var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
-var uglify = require('gulp-uglify');
-var watch = require('gulp-watch');
-var htmlmin = require('gulp-htmlmin');
+
+var del = require('del');
+var path = require('path');
 
 var report_error = function(error) {
     $.notify({
@@ -21,6 +21,7 @@ var report_error = function(error) {
     console.log(error.toString());
     this.emit('end');
 };
+
 
 gulp.task('styles', function () {
     return gulp.src('<%= folders.src %>/scss/main.scss')
@@ -73,7 +74,7 @@ gulp.task('js', function () {
         .bundle()
         .pipe(source('main.js'))
         .pipe(buffer())
-        .pipe(uglify())
+        .pipe($.uglify())
         .pipe(gulp.dest('<%= folders.dest %>/js'));
 });
 
@@ -93,7 +94,7 @@ gulp.task('templates', function() {
     return gulp.src('<%= folders.src %>/templates/*.html')
     <% } %>
         .pipe($.prettify({ indent_size: 4 }))
-        .pipe(htmlmin({collapseWhitespace: true}))
+        .pipe($.htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('<%= folders.dest %>'))
         .pipe($.size({title: 'template'}));
 });
@@ -124,45 +125,45 @@ gulp.task('watch', function () {
     });
     <% } %>
 
-    watch('src/scss/**/*', function(){
+    $.watch('src/scss/**/*', function(){
         gulp.start(['styles'], reload);
     });
     <% if (config.wordpress) { %>
-    watch('src/theme/**/*', function(){
+    $.watch('src/theme/**/*', function(){
         gulp.start(['theme'], reload);
     });
     <% } else { %>
-    watch('src/templates/**/*', function(){
+    $.watch('src/templates/**/*', function(){
         gulp.start(['templates'], reload);
     });
     <% } %>
-    watch('src/fonts/**/*', function(){
+    $.watch('src/fonts/**/*', function(){
         gulp.start(['fonts'], reload);
     });
-    watch('src/img/**/*', function(){
+    $.watch('src/img/**/*', function(){
         gulp.start(['img'], reload);
     });
-    watch('src/layoutImg/**/*', function(){
+    $.watch('src/layoutImg/**/*', function(){
         gulp.start(['layoutImg'], reload);
     });
-    watch('src/js/**/*', function(){
+    $.watch('src/js/**/*', function(){
         gulp.start(['js'], reload);
     });
     <% if (!config.wordpress) { %>
-    var fileWatcher = watch('src/**/*').on('unlink', function(currentPath){
+    var fileWatcher = $.watch('src/**/*').on('unlink', function(currentPath){
         var filePathFromSrc = path.relative(path.resolve('src'), currentPath);
         var destFilePath = path.resolve('dest', filePathFromSrc).replace('templates/', '');
         del.sync(destFilePath);
         console.log('File removed - ' + destFilePath);
     });
     <% } %>
-    watch('src/robots.txt', function(){
+    $.watch('src/robots.txt', function(){
         gulp.start(['robots'], reload);
     });
-    watch('src/.htaccess', function(){
+    $.watch('src/.htaccess', function(){
         gulp.start(['htaccess'], reload);
     });
-    watch('src/.jshintrc', function(){
+    $.watch('src/.jshintrc', function(){
         gulp.start(['jshint'], reload);
     });
 });
