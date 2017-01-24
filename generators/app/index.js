@@ -90,7 +90,7 @@ module.exports = yeoman.Base.extend({
                 this.destinationPath(this.folder.src + '/js/throttle.js')
             );
         },
-        wordpress: function () {
+        wpTheme: function () {
             if (this.config.wordpress) {
                 this.fs.copyTpl(
                     this.templatePath('theme/**/*'),
@@ -155,6 +155,31 @@ module.exports = yeoman.Base.extend({
                     );
                 }
             }
+        },
+        miscellaneous: function(){
+            if (this.config.wordpress) {
+                this.fs.copyTpl(
+                    this.templatePath('.htaccess-wp'),
+                    this.destinationPath(this.folder.src + '/.htaccess')
+                );
+                this.fs.copyTpl(
+                    this.templatePath('robots-wp.txt'),
+                    this.destinationPath(this.folder.src + '/robots.txt')
+                );
+            } else {
+                this.fs.copyTpl(
+                    this.templatePath('.htaccess'),
+                    this.destinationPath(this.folder.src + '/.htaccess')
+                );
+                this.fs.copyTpl(
+                    this.templatePath('robots.txt'),
+                    this.destinationPath(this.folder.src + '/robots.txt')
+                );
+            }
+            this.fs.copyTpl(
+                this.templatePath('.jshintrc'),
+                this.destinationPath('.jshintrc')
+            );
         }
     },
 

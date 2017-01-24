@@ -76,25 +76,35 @@ gulp.task('js', function () {
 <% if (config.wordpress) { %>
 gulp.task('theme', function() {
     return gulp.src('<%= folders.src %>/theme/**/*')
-        // .pipe($.prettify({ indent_size: 4 }))
         .pipe(gulp.dest('<%= folders.dest %>'))
         .pipe($.size({title: 'theme'}));
 });
 <% } else { %>
 gulp.task('templates', function() {
     <% if (config.twig) { %>
-        return gulp.src('<%= folders.src %>/templates/*.html.twig')
-            .pipe($.twig())
-            .pipe($.extReplace('.html', '.html.html'))
+    return gulp.src('<%= folders.src %>/templates/*.html.twig')
+        .pipe($.twig())
+        .pipe($.extReplace('.html', '.html.html'))
     <% } else { %>
-        return gulp.src('<%= folders.src %>/templates/*.html')
+    return gulp.src('<%= folders.src %>/templates/*.html')
     <% } %>
-        // .pipe($.prettify({ indent_size: 4 }))
+        .pipe($.prettify({ indent_size: 4 }))
         .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('<%= folders.dest %>'))
         .pipe($.size({title: 'template'}));
 });
 <% } %>
+
+gulp.task('robots', function() {
+    return gulp.src('<%= folders.src %>/robots.txt')
+        .pipe(gulp.dest('dest/'))
+        .pipe($.size({ title: 'robots' }));
+});
+gulp.task('htaccess', function() {
+    return gulp.src('<%= folders.src %>/.htaccess')
+        .pipe(gulp.dest('dest/'))
+        .pipe($.size({ title: 'htaccess' }));
+});
 
 
 gulp.task('watch', function () {
@@ -142,10 +152,19 @@ gulp.task('watch', function () {
         console.log('File removed - ' + destFilePath);
     });
     <% } %>
+    watch('src/robots.txt', function(){
+        gulp.start(['robots'], reload);
+    });
+    watch('src/.htaccess', function(){
+        gulp.start(['htaccess'], reload);
+    });
+    watch('src/.jshintrc', function(){
+        gulp.start(['jshint'], reload);
+    });
 });
 
 <% if (config.wordpress) { %>
-gulp.task('start', ['styles', 'theme', 'fonts', 'img', 'layoutImg', 'js']);
+gulp.task('start', ['styles', 'theme', 'fonts', 'img', 'layoutImg', 'js', 'robots', 'htaccess']);
 <% } else { %>
-gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js']);
+gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'robots', 'htaccess']);
 <% } %>
