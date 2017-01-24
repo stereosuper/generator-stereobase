@@ -2,7 +2,8 @@
 
 var $ = require('jquery-slim');
 <% if (greensock) { %>
-import TweenMax from 'gsap';
+// import TweenMax from 'gsap';
+import TweenLite from 'gsap/TweenLite';
 <% } %>
 
 $(function(){

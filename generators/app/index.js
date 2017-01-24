@@ -30,7 +30,7 @@ module.exports = yeoman.Base.extend({
         this.prompt([{
             type: 'input',
             name: 'name',
-            message: 'What is you\'re project name? (without specials characters)',
+            message: 'What is your project name? (without specials characters)',
             default: 'test',
             required: true
         }, {
