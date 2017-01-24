@@ -1,7 +1,6 @@
 'use strict';
 
-// var $ = require('./libs/jquery/dist/jquery.slim.min.js');
-var $ = require('jquery');
+import $ from 'jquery-slim';
 <% if (greensock) { %>
 import TweenMax from 'gsap';
 <% } %>

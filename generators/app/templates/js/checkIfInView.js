@@ -1,4 +1,4 @@
-var $ = require('./libs/jquery/dist/jquery.slim.min.js');
+import $ from 'jquery-slim';
 
 var throttle = require('./throttle.js');
 window.requestAnimFrame = require('./requestAnimFrame.js');

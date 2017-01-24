@@ -180,7 +180,7 @@ module.exports = yeoman.Base.extend({
                 'vinyl-buffer',
                 'del',
                 'path',
-                'jquery',
+                'jquery-slim',
             ];
 
             if(this.config.greensock){
