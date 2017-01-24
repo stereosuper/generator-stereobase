@@ -1,6 +1,6 @@
 'use strict';
 
-import $ from 'jquery-slim';
+var $ = require('jquery-slim');
 <% if (greensock) { %>
 import TweenMax from 'gsap';
 <% } %>
