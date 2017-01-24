@@ -5,7 +5,13 @@
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-stereobase using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First if you don't have the rights on your /usr/local folder:
+
+```bach
+sudo chown -R $USER /usr/local
+``
+
+Then, install [Yeoman](http://yeoman.io) and generator-stereobase using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
 npm install -g yo
