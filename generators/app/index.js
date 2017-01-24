@@ -167,7 +167,7 @@ module.exports = yeoman.Base.extend({
                     this.destinationPath(this.folder.src + '/robots.txt')
                 );
                 this.fs.copyTpl(
-                    this.templatePath('.gitignore'),
+                    this.templatePath('.gitignore-wp'),
                     this.destinationPath('.gitignore')
                 );
             } else {
@@ -180,7 +180,7 @@ module.exports = yeoman.Base.extend({
                     this.destinationPath(this.folder.src + '/robots.txt')
                 );
                 this.fs.copyTpl(
-                    this.templatePath('.gitignore-wp'),
+                    this.templatePath('.gitignore'),
                     this.destinationPath('.gitignore')
                 );
             }
