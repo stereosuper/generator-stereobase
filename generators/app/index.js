@@ -166,6 +166,10 @@ module.exports = yeoman.Base.extend({
                     this.templatePath('robots-wp.txt'),
                     this.destinationPath(this.folder.src + '/robots.txt')
                 );
+                this.fs.copyTpl(
+                    this.templatePath('.gitignore'),
+                    this.destinationPath('.gitignore')
+                );
             } else {
                 this.fs.copyTpl(
                     this.templatePath('.htaccess'),
@@ -174,6 +178,10 @@ module.exports = yeoman.Base.extend({
                 this.fs.copyTpl(
                     this.templatePath('robots.txt'),
                     this.destinationPath(this.folder.src + '/robots.txt')
+                );
+                this.fs.copyTpl(
+                    this.templatePath('.gitignore-wp'),
+                    this.destinationPath('.gitignore')
                 );
             }
             this.fs.copyTpl(
