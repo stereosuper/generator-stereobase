@@ -43,7 +43,7 @@ module.exports = yeoman.Base.extend({
             type: 'confirm',
             name: 'wordpress',
             message: 'Is it a Wordpress Project?',
-            default: true,
+            default: false,
             required: true
         }, {
             when: function(response){
