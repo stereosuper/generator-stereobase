@@ -163,9 +163,6 @@ gulp.task('watch', function () {
     $.watch('src/.htaccess', function(){
         gulp.start(['htaccess'], reload);
     });
-    $.watch('src/.jshintrc', function(){
-        gulp.start(['jshint'], reload);
-    });
 });
 
 <% if (config.wordpress) { %>
