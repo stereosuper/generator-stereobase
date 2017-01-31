@@ -11,10 +11,22 @@
             <link rel='stylesheet' href='css/main.css'>
         {% endblock stylesheets %}
 
-        {% block javascript_top %}{% endblock %}
+        {% block javascript_top %}
+            <script>document.getElementsByTagName('html')[0].className = 'js';</script>
+        {% endblock %}
     </head>
 
     <body {% block body_attr %}{% endblock %}>
+        <header role='banner'>
+        </header>
+
+        <main role='main'>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer role='banner'>
+        </footer>
+
         {% block icons %}
             <svg style='position:absolute;width:0;height:0;overflow:hidden'>
                 <defs>
@@ -24,14 +36,6 @@
                 </defs>
             </svg>
         {% endblock icons %}
-
-        <header>
-        </header>
-
-        {% block content %}{% endblock %}
-
-        <footer>
-        </footer>
 
         {% block javascript_bottom %}
             <script src='js/main.js' defer></script>
