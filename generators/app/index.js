@@ -34,6 +34,12 @@ module.exports = yeoman.Base.extend({
             default: 'test',
             required: true
         }, {
+            type: 'input',
+            name: 'url',
+            message: 'What will be the final url ?',
+            default: 'http://www.test.com',
+            required: true
+        }, {
             type: 'confirm',
             name: 'greensock',
             message: 'Would you like to install Greensock?',
@@ -214,6 +220,7 @@ module.exports = yeoman.Base.extend({
                 'del',
                 'path',
                 'jquery-slim',
+                'gulp-sitemap',
             ];
 
             if(this.config.greensock){

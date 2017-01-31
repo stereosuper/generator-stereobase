@@ -8,6 +8,7 @@ var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
+var sitemap = require('gulp-sitemap');
 
 var del = require('del');
 var path = require('path');
@@ -100,6 +101,16 @@ gulp.task('templates', function() {
 });
 <% } %>
 
+gulp.task('sitemap', function () {
+    gulp.src('<%= folders.dest %>/**/*.html', {
+            read: false
+        })
+        .pipe(sitemap({
+            siteUrl: '<%= config.url %>'
+        }))
+        .pipe(gulp.dest('<%= folders.dest %>'));
+});
+
 gulp.task('robots', function() {
     return gulp.src('<%= folders.src %>/robots.txt')
         .pipe(gulp.dest('dest/'))
@@ -166,7 +177,7 @@ gulp.task('watch', function () {
 });
 
 <% if (config.wordpress) { %>
-gulp.task('start', ['styles', 'theme', 'fonts', 'img', 'layoutImg', 'js', 'robots', 'htaccess']);
+gulp.task('start', ['styles', 'theme', 'fonts', 'img', 'layoutImg', 'js', 'robots', 'htaccess', 'sitemap']);
 <% } else { %>
-gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'robots', 'htaccess']);
+gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'robots', 'htaccess', 'sitemap']);
 <% } %>
