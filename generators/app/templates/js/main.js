@@ -13,14 +13,15 @@ $(function(){
     var throttle = require('./throttle.js');
 
     var body = $('body');
-    var windowWidth = $(window).outerWidth(), windowHeight = $(window).height();
+    // window.outerWidth returns the window width including the scroll, but it's not working with $(window).outerWidth
+    var windowWidth = window.outerWidth, windowHeight = $(window).height();
 
 
 
     // isMobile.any ? body.addClass('is-mobile') : body.addClass('is-desktop');
 
     function resizeHandler(){
-        windowWidth = $(window).outerWidth();
+        windowWidth = window.outerWidth;
         windowHeight = $(window).height();
     }
 
