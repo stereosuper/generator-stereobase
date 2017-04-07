@@ -186,7 +186,7 @@ module.exports = yeoman.Base.extend({
                     this.destinationPath(this.folder.src + '/robots.txt')
                 );
                 this.fs.copyTpl(
-                    this.templatePath('.gitignore'),
+                    this.templatePath('.gitignore-base'),
                     this.destinationPath('.gitignore')
                 );
             }
