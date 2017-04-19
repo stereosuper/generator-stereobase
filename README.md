@@ -11,9 +11,10 @@ First if you don't have the rights on your /usr/local folder:
 sudo chown -R $USER /usr/local
 ``
 
-Then, install [Yeoman](http://yeoman.io) and generator-stereobase using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+Then, install [Gulp](http://gulpjs.com), [Yeoman](http://yeoman.io) and generator-stereobase using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
+npm install -g gulp
 npm install -g yo
 npm install -g generator-stereobase
 ```
