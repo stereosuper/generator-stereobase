@@ -1,3 +1,5 @@
+*.codekit
+
 .DS_Store
 *.DS_Store
 **/.DS_Store
@@ -5,9 +7,10 @@
 .sass-cache
 .sass-cache/*
 
+node_modules/**
+
 dest/wp-admin/
 dest/wp-includes/
-
 dest/wp-cron.php
 dest/wp-trackback.php
 dest/wp-signup.php
@@ -22,5 +25,4 @@ dest/wp-blog-header.php
 dest/wp-activate.php
 dest/xmlrpc.php
 dest/index.php
-
 dest/license.txt
