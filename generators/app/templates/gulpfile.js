@@ -10,10 +10,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var sitemap = require('gulp-sitemap');
 
-var del = require('del');
-var path = require('path');
-
-var report_error = function(error) {
+var reportError = function(error) {
     $.notify({
         title: 'An error occured with a Gulp task',
         message: 'Check you terminal for more informations'
@@ -30,7 +27,7 @@ gulp.task('styles', function () {
         .pipe($.sass({
             precision: 6, outputStyle: 'compressed', sourceComments: false, indentWidth: 4,
         }))
-        .on('error', report_error)
+        .on('error', reportError)
         .pipe($.autoprefixer({
             browsers: [
             'ie >= 10',
