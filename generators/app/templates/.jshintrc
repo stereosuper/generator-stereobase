@@ -18,6 +18,7 @@
         "require": false,
         "module": false,
         "window": false,
-        "document": false
+        "document": false,
+        "console": false
     }
 }
