@@ -13,6 +13,8 @@
 
 html{
     font-size: 62.5%; /* sets the base font to 10px for easier math */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
 }
 
 body{
