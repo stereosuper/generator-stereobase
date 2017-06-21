@@ -65,15 +65,20 @@ gulp.task('layoutImg', function() {
 });
 
 gulp.task('js', function () {
-    return browserify('<%= folders.src %>/js/main.js')
+    return browserify({
+            entries: '<%= folders.src %>/js/main.js', debug: true
+        })
         .transform(babelify.configure({
             presets: ['es2015']
         }))
         .bundle()
         .pipe(source('main.js'))
         .pipe(buffer())
+        .pipe($.sourcemaps.init({loadMaps: true}))
         .pipe($.uglify())
-        .pipe(gulp.dest('<%= folders.dest %>/js'));
+        .pipe($.sourcemaps.write('./'))
+        .pipe(gulp.dest('<%= folders.dest %>/js'))
+        .pipe($.size({ title: 'js' }));
 });
 
 <% if (config.wordpress) { %>
@@ -108,15 +113,10 @@ gulp.task('sitemap', function () {
         .pipe(gulp.dest('<%= folders.dest %>'));
 });
 
-gulp.task('robots', function() {
-    return gulp.src('<%= folders.src %>/robots.txt')
-        .pipe(gulp.dest('dest/'))
-        .pipe($.size({ title: 'robots' }));
-});
-gulp.task('htaccess', function() {
-    return gulp.src('<%= folders.src %>/.htaccess')
-        .pipe(gulp.dest('dest/'))
-        .pipe($.size({ title: 'htaccess' }));
+gulp.task('root', function() {
+    return gulp.src('src/*.*')
+        .pipe(gulp.dest('dest'))
+        .pipe($.size({title: 'root'}));
 });
 
 
@@ -165,16 +165,13 @@ gulp.task('watch', function () {
         console.log('File removed - ' + destFilePath);
     });
     <% } %>
-    $.watch('src/robots.txt', function(){
-        gulp.start(['robots'], reload);
-    });
-    $.watch('src/.htaccess', function(){
-        gulp.start(['htaccess'], reload);
+    $.watch('src/*.*', function(){
+        gulp.start(['root'], reload);
     });
 });
 
 <% if (config.wordpress) { %>
-gulp.task('start', ['styles', 'theme', 'fonts', 'img', 'layoutImg', 'js', 'robots', 'htaccess', 'sitemap']);
+gulp.task('start', ['styles', 'theme', 'fonts', 'img', 'layoutImg', 'js', 'root', 'sitemap']);
 <% } else { %>
-gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'robots', 'htaccess', 'sitemap']);
+gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'root', 'sitemap']);
 <% } %>
