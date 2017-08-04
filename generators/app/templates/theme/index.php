@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-	<h1>Blog</h1>
+	<h1><?php single_post_title(); ?></h1>
 
 	<?php wp_list_categories( array('title_li' => '') ); ?> 
 
