@@ -17,20 +17,24 @@ $(function(){
     var windowWidth = window.outerWidth, windowHeight = $(window).height();
 
 
-
-    // isMobile.any ? body.addClass('is-mobile') : body.addClass('is-desktop');
-
     function resizeHandler(){
         windowWidth = window.outerWidth;
         windowHeight = $(window).height();
     }
 
+    function loadHandler(){
+
+    }
+
+
+    // isMobile.any ? body.addClass('is-mobile') : body.addClass('is-desktop');
+
+    // Since script is loaded asynchronously, load event isn't always fired !!!
+    document.readyState === 'complete' ? loadHandler() : $(window).on('load', loadHandler);
+
     $(window).on('resize', throttle(function(){
         requestAnimFrame(resizeHandler);
-    }, 60)).on('load', function(){
-
-    });
-
+    }, 60));
 
     $(document).on('scroll', throttle(function(){
 
