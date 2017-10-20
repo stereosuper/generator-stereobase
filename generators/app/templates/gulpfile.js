@@ -119,7 +119,6 @@ gulp.task('root', function() {
         .pipe($.size({title: 'root'}));
 });
 
-
 gulp.task('watch', function () {
     <% if (config.wordpress) { %>
     browserSync({

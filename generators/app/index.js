@@ -191,6 +191,10 @@ module.exports = yeoman.Base.extend({
                 );
             }
             this.fs.copyTpl(
+                this.templatePath('robots-preprod.txt'),
+                this.destinationPath(this.folder.src + '/robots-preprod.txt')
+            );
+            this.fs.copyTpl(
                 this.templatePath('.jshintrc'),
                 this.destinationPath('.jshintrc')
             );
