@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var $ = require('jquery-slim');
 
 window.requestAnimFrame = require('./requestAnimFrame.js');
 var throttle = require('./throttle.js');

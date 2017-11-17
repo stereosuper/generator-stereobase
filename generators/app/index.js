@@ -95,6 +95,10 @@ module.exports = yeoman.Base.extend({
                 this.templatePath('js/throttle.js'),
                 this.destinationPath(this.folder.src + '/js/throttle.js')
             );
+            this.fs.copyTpl(
+                this.templatePath('js/noTransition.js'),
+                this.destinationPath(this.folder.src + '/js/noTransition.js')
+            );
         },
         wpTheme: function () {
             if (this.config.wordpress) {
@@ -217,6 +221,8 @@ module.exports = yeoman.Base.extend({
                 'browser-sync',
                 'browserify',
                 'babel-preset-es2015',
+                'babel-core',
+                'babel-loader',
                 'babelify',
                 'gulp-uglify',
                 'vinyl-source-stream',
