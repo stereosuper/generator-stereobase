@@ -66,6 +66,7 @@ add_filter( 'login_errors', create_function('$a', "return null;") );
 // Remove some useless admin stuff
 function <%= name %>_remove_submenus() {
   $page = remove_submenu_page( 'themes.php', 'themes.php' );
+  remove_menu_page( 'edit-comments.php' );
 }
 add_action( 'admin_menu', '<%= name %>_remove_submenus', 999 );
 function <%= name %>_remove_top_menus( $wp_admin_bar ){
@@ -78,6 +79,12 @@ function <%= name %>_imagelink_setup(){
 	if(get_option( 'image_default_link_type' ) !== 'none') update_option('image_default_link_type', 'none');
 }
 add_action( 'admin_init', '<%= name %>_imagelink_setup' );
+
+// Add wrapper around iframe
+function <%= name %>_iframe_add_wrapper( $return, $data, $url ){
+    return "<div class='wrapper-video'>{$return}</div>";
+}
+add_filter( 'oembed_dataparse', '<%= name %>_iframe_add_wrapper', 10, 3 );
 
 // Enlever les <p> autour des images
 function <%= name %>_remove_p_around_images($content){
@@ -107,8 +114,27 @@ function <%= name %>_right_now_custom_post() {
 }
 add_action( 'dashboard_glance_items', '<%= name %>_right_now_custom_post' );
 
+// Add new styles to wysiwyg
+function <%= name %>_button( $buttons ){
+    array_unshift( $buttons, 'styleselect' );
+    return $buttons;
+}
+add_filter( 'mce_buttons_2', '<%= name %>_button' );
+function <%= name %>_init_editor_styles(){
+    add_editor_style();
+}
+add_action( 'after_setup_theme', '<%= name %>_init_editor_styles' );
+
 // Customize a bit the wysiwyg editor
 function <%= name %>_mce_before_init( $styles ){
+    $style_formats = array(
+        array(
+            'title' => 'Button',
+            'selector' => 'a',
+            'classes' => 'btn'
+        )
+    );
+    $styles['style_formats'] = json_encode( $style_formats );
     // Remove h1 and code
     $styles['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6';
     // Let only the colors you want
@@ -117,14 +143,23 @@ function <%= name %>_mce_before_init( $styles ){
 }
 add_filter( 'tiny_mce_before_init', '<%= name %>_mce_before_init' );
 
+// Option page
+function <%= name %>_menu_order( $menu_ord ){  
+    if( !$menu_ord ) return true;  
+    
+    $menu = 'acf-options';
+    $menu_ord = array_diff($menu_ord, array( $menu ));
+    array_splice( $menu_ord, 1, 0, array( $menu ) );
+    return $menu_ord;
+}  
+add_filter( 'custom_menu_order', '<%= name %>_menu_order' );
+add_filter( 'menu_order', '<%= name %>_menu_order' );
+
+
 /*-----------------------------------------------------------------------------------*/
 /* Menus
 /*-----------------------------------------------------------------------------------*/
-register_nav_menus(
-	array(
-		'primary' => 'Primary Menu',
-	)
-);
+register_nav_menus( array('primary' => 'Primary Menu') );
 
 // Cleanup WP Menu html
 function <%= name %>_css_attributes_filter($var){
@@ -137,7 +172,7 @@ add_filter( 'nav_menu_css_class', '<%= name %>_css_attributes_filter' );
 /* Sidebar & Widgets
 /*-----------------------------------------------------------------------------------*/
 function <%= name %>_register_sidebars(){
-	register_sidebar(array(
+	register_sidebar( array(
 		'id' => 'sidebar',
 		'name' => 'Sidebar',
 		'description' => 'Take it on the side...',
@@ -146,7 +181,7 @@ function <%= name %>_register_sidebars(){
 		'before_title' => '',
 		'after_title' => '',
 		'empty_title'=> ''
-	));
+	) );
 }
 add_action( 'widgets_init', '<%= name %>_register_sidebars' );
 
@@ -170,6 +205,31 @@ add_action( 'widgets_init', '<%= name %>_unregister_default_widgets' );
 
 
 /*-----------------------------------------------------------------------------------*/
+/* Post types
+/*-----------------------------------------------------------------------------------*/
+// function <%= name %>_post_type(){
+//     register_post_type( 'resource', array(
+//         'label' => 'Resources',
+//         'singular_label' => 'Resource',
+//         'public' => true,
+//         'menu_icon' => 'dashicons-portfolio',
+//         'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'revisions'),
+//     ));
+// }
+// add_action( 'init', '<%= name %>_post_type' );
+
+// function <%= name %>_taxonomies(){
+//     register_taxonomy( 'resource_cat', array('resource'), array(
+//         'label' => 'Categories',
+//         'singular_label' => 'Category',
+//         'hierarchical' => true,
+//         'show_admin_column' => true
+//     ) );
+// }
+// add_action( 'init', '<%= name %>_taxonomies' );
+
+
+/*-----------------------------------------------------------------------------------*/
 /* Enqueue Styles and Scripts
 /*-----------------------------------------------------------------------------------*/
 function <%= name %>_scripts(){
@@ -183,5 +243,55 @@ function <%= name %>_scripts(){
     wp_deregister_script( 'wp-embed' );
 }
 add_action( 'wp_enqueue_scripts', '<%= name %>_scripts' );
+
+
+/*-----------------------------------------------------------------------------------*/
+/* TGMPA
+/*-----------------------------------------------------------------------------------*/
+// function <%= name %>_register_required_plugins(){
+// 	$plugins = array(
+//         array(
+//             'name'        => 'Advanced Custom Fields PRO',
+//             'slug'        => 'advanced-custom-fields-pro',
+//             'source'     => get_template_directory_uri() . '/plugins/advanced-custom-fields-pro.zip',
+//             'required'    => true,
+//             'force_activation' => false
+//         ),
+//         array(
+//             'name'        => 'SecuPress Free — Sécurité WordPress 1.3.3',
+//             'slug'        => 'secupress',
+//             'required'    => false,
+//             'force_activation' => false
+//         ),
+//         array(
+//             'name'        => 'EWWW Image Optimizer',
+//             'slug'        => 'ewww-image-optimizer',
+//             'required'    => false,
+//             'force_activation' => false
+//         ),
+//         array(
+//             'name'        => 'Clean Image Filenames',
+//             'slug'        => 'clean-image-filenames',
+//             'required'    => false,
+//             'force_activation' => false
+//         ),
+//     );
+    
+// 	$config = array(
+// 		'id'           => 'alven-run',
+// 		'default_path' => '', 
+// 		'menu'         => 'tgmpa-install-plugins',
+// 		'parent_slug'  => 'themes.php',
+// 		'capability'   => 'edit_theme_options', 
+// 		'has_notices'  => true,
+// 		'dismissable'  => true,
+// 		'dismiss_msg'  => '',
+// 		'is_automatic' => false,
+// 		'message'      => ''
+//     );
+    
+// 	tgmpa( $plugins, $config );
+// }
+// add_action( 'tgmpa_register', '<%= name %>_register_required_plugins' );
 
 ?>
