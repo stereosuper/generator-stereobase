@@ -207,17 +207,6 @@ module.exports = yeoman.Base.extend({
         },
         wpTheme: function () {
             if( this.config.wordpress ){
-                
-                // this.fs.copyTpl(
-                //     this.templatePath('theme/style.css'),
-                //     this.destinationPath(this.folder.src + '/theme'),
-                //     { name: this.config.name }
-                // );
-                // this.fs.copyTpl(
-                //     this.templatePath('theme/functions.php'),
-                //     this.destinationPath(this.folder.src + '/theme'),
-                //     { name: this.config.name }
-                // );
                 this.fs.copyTpl(
                     this.templatePath('theme/**/*'),
                     this.destinationPath(this.folder.src + '/theme'),
