@@ -9,6 +9,8 @@ var wiredep = require('wiredep');
 var yosay = require('yosay');
 // To create folder
 var mkdirp = require('mkdirp');
+// To handle WP
+var WP = require('wp-cli');
 
 module.exports = yeoman.Base.extend({
     initializing: function() {
@@ -100,8 +102,17 @@ module.exports = yeoman.Base.extend({
                 this.destinationPath(this.folder.src + '/js/noTransition.js')
             );
         },
+        wp: function(){
+            if( this.config.wordpress ){
+                WP.discover({path: this.folder.dest}, function( WP ){
+                    WP.core.download(function( err, results ){
+                        console.log(results);
+                    });
+                });
+            }
+        },
         wpTheme: function () {
-            if (this.config.wordpress) {
+            if( this.config.wordpress ){
                 this.fs.copyTpl(
                     this.templatePath('theme/**/*'),
                     this.destinationPath(this.folder.src + '/theme')
