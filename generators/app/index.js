@@ -21,10 +21,6 @@ module.exports = yeoman.Base.extend({
             src: 'src',
             dest: 'dest'
         };
-        this.folderWp = {
-            src: 'src',
-            dest: 'dest/wp-content/themes/super'
-        };
     },
 
     prompting: function(){
@@ -102,23 +98,6 @@ module.exports = yeoman.Base.extend({
                 this.destinationPath(this.folder.src + '/js/noTransition.js')
             );
         },
-        wp: function(){
-            if( this.config.wordpress ){
-                WP.discover({path: this.folder.dest}, function( WP ){
-                    WP.core.download(function( err, results ){
-                        console.log(results);
-                    });
-                });
-            }
-        },
-        wpTheme: function () {
-            if( this.config.wordpress ){
-                this.fs.copyTpl(
-                    this.templatePath('theme/**/*'),
-                    this.destinationPath(this.folder.src + '/theme')
-                );
-            }
-        },
         fonts: function () {
             mkdirp.sync(this.destinationPath(this.folder.src + '/fonts'));
         },
@@ -141,7 +120,10 @@ module.exports = yeoman.Base.extend({
                     this.destinationPath('gulpfile.js'),
                     {
                         config: this.config,
-                        folders: this.folderWp
+                        folders: {
+                            src: 'src',
+                            dest: 'dest/wp-content/themes/' + this.config.name
+                        }
                     }
                 );
             }else{
@@ -213,6 +195,35 @@ module.exports = yeoman.Base.extend({
                 this.templatePath('.jshintrc'),
                 this.destinationPath('.jshintrc')
             );
+        },
+        wp: function(){
+            if( this.config.wordpress ){
+                WP.discover({path: this.folder.dest}, function( WP ){
+                    WP.core.download(function( err, results ){
+                        console.log(results);
+                    });
+                });
+            }
+        },
+        wpTheme: function () {
+            if( this.config.wordpress ){
+                
+                // this.fs.copyTpl(
+                //     this.templatePath('theme/style.css'),
+                //     this.destinationPath(this.folder.src + '/theme'),
+                //     { name: this.config.name }
+                // );
+                // this.fs.copyTpl(
+                //     this.templatePath('theme/functions.php'),
+                //     this.destinationPath(this.folder.src + '/theme'),
+                //     { name: this.config.name }
+                // );
+                this.fs.copyTpl(
+                    this.templatePath('theme/**/*'),
+                    this.destinationPath(this.folder.src + '/theme'),
+                    { name: this.config.name }
+                );
+            }
         }
     },
 
@@ -253,5 +264,18 @@ module.exports = yeoman.Base.extend({
 
             this.npmInstall(this.npmDependencies, { 'saveDev': true });
         }
-    }
+    },
+
+    // end: {
+    //     wp: function(){
+    //         if( this.config.wordpress ){
+    //             WP.discover({path: this.folder.dest}, function( WP ){
+    //                 WP.plugin.delete('hello', function( err, results ){
+    //                     console.log(err);
+    //                     console.log(results);
+    //                 });
+    //             });
+    //         }
+    //     }
+    // }
 });

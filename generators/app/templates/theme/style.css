@@ -1,7 +1,7 @@
 /*
-Theme Name: Super
+Theme Name: <%= name %>
 Author: Stéréosuper
 Author URI: http://stereosuper.fr
-Description: Super theme
+Description: <%= name.charAt(0).toUpperCase() + name.slice(1).toLowerCase() %> theme
 Version: 1.0
 */
