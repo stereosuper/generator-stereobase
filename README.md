@@ -9,7 +9,7 @@ First if you don't have the rights on your /usr/local folder:
 
 ```bach
 sudo chown -R $USER /usr/local
-``
+```
 
 Then, install [Gulp](http://gulpjs.com), [Yeoman](http://yeoman.io) and generator-stereobase using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
@@ -65,6 +65,7 @@ http://putaindecode.io/fr/articles/js/browserify/
 * Hugo Giraudel for [Sass Guidelines](https://sass-guidelin.es/)
 * Chris Coyier for his book [Practical SVG](https://abookapart.com/products/practical-svg)
 * [Loic Goyet](https://github.com/LoicGoyet) for the training course on Gulp and Yeoman.
+* [Val Head](http://valhead.com/) for his book [Designing interface animation](http://rosenfeldmedia.com/books/designing-interface-animation/)
 
 ## License
 
