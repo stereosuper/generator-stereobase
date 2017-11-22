@@ -12,6 +12,8 @@ var mkdirp = require('mkdirp');
 // To handle WP
 var WP = require('wp-cli');
 
+var destPath = 'dest';
+
 module.exports = yeoman.Base.extend({
     initializing: function() {
         // Have Yeoman greet the user.
@@ -19,7 +21,7 @@ module.exports = yeoman.Base.extend({
         this.config = {};
         this.folder = {
             src: 'src',
-            dest: 'dest'
+            dest: destPath
         };
     },
 
@@ -126,7 +128,8 @@ module.exports = yeoman.Base.extend({
                         config: this.config,
                         folders: {
                             src: 'src',
-                            dest: 'dest/wp-content/themes/' + this.config.name
+                            dest_root: destPath,
+                            dest: destPath + '/wp-content/themes/' + this.config.name
                         }
                     }
                 );
@@ -213,7 +216,7 @@ module.exports = yeoman.Base.extend({
                         dbprefix: that.config.dbprefix
                     }
                 );
-                
+
                 WP.discover({path: that.folder.dest}, function( WP ){
                     WP.core.download(function( err, results ){
                         console.log(err + results);
@@ -262,6 +265,7 @@ module.exports = yeoman.Base.extend({
                 'path',
                 'jquery-slim',
                 'gulp-sitemap',
+                'wp-cli'
             ];
 
             if(this.config.greensock){

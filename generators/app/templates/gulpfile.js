@@ -10,6 +10,8 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var sitemap = require('gulp-sitemap');
 
+var WP = require('wp-cli');
+
 var reportError = function(error) {
     $.notify({
         title: 'An error occured with a Gulp task',
@@ -86,6 +88,29 @@ gulp.task('theme', function() {
     return gulp.src('<%= folders.src %>/theme/**/*')
         .pipe(gulp.dest('<%= folders.dest %>'))
         .pipe($.size({title: 'theme'}));
+});
+gulp.task('wp', function() {
+    WP.discover({path: '<%= folders.dest_root %>'}, function( WP ){
+        WP.plugin.delete('hello', function( err, results ){
+            console.log(err + results);
+        });
+        WP.plugin.delete('askimet', function( err, results ){
+            console.log(err + results);
+        });
+        WP.theme.activate('<%= config.name %>', function( err, results ){
+            console.log(err + results);
+
+            WP.theme.delete('twentyfifteen', function( err, results ){
+                console.log(err + results);
+            });
+            WP.theme.delete('twentyseventeen', function( err, results ){
+                console.log(err + results);
+            });
+            WP.theme.delete('twentysixteen', function( err, results ){
+                console.log(err + results);
+            });
+        });
+    });
 });
 <% } else { %>
 gulp.task('templates', function() {
