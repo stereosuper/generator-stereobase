@@ -278,7 +278,7 @@ add_action( 'wp_enqueue_scripts', '<%= name %>_scripts' );
 //     );
     
 // 	$config = array(
-// 		'id'           => 'alven-run',
+// 		'id'           => '<%= name %>',
 // 		'default_path' => '', 
 // 		'menu'         => 'tgmpa-install-plugins',
 // 		'parent_slug'  => 'themes.php',
