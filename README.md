@@ -61,6 +61,20 @@ export PATH=$PATH:/Applications/MAMP/Library/bin/
 
 You can now launch Yeoman, and answer Y to the WordPress question.
 
+```bash
+gulp start
+```
+
+```bash
+gulp watch
+```
+
+Then launch the "wp" task to delete some unwanted files and activate our theme.
+
+```bash
+gulp wp
+```
+
 
 ## Publish the Generator | New version
 
