@@ -37,6 +37,11 @@ And finally listen to file changes
 gulp watch
 ```
 
+### WordPress project installation
+
+If you need to install a WordPress project, you need first to install wp-cli: http://wp-cli.org/fr/#installation
+Then select Y to WordPress project in the questions asked by Yeoman.
+
 
 ## Publish the Generator | New version
 
