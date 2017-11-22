@@ -69,33 +69,9 @@ module.exports = yeoman.Base.extend({
     writing: {
         script: function(){
             this.fs.copyTpl(
-                this.templatePath('js/main.js'),
-                this.destinationPath(this.folder.src + '/js/main.js'),
+                this.templatePath('js/**'),
+                this.destinationPath(this.folder.src + '/js'),
                 { greensock: this.config.greensock }
-            );
-            this.fs.copyTpl(
-                this.templatePath('js/requestAnimFrame.js'),
-                this.destinationPath(this.folder.src + '/js/requestAnimFrame.js')
-            );
-            this.fs.copyTpl(
-                this.templatePath('js/checkIfInView.js'),
-                this.destinationPath(this.folder.src + '/js/checkIfInView.js')
-            );
-            this.fs.copyTpl(
-                this.templatePath('js/getEltPosOnCover.js'),
-                this.destinationPath(this.folder.src + '/js/getEltPosOnCover.js')
-            );
-            this.fs.copyTpl(
-                this.templatePath('js/getUrlParam.js'),
-                this.destinationPath(this.folder.src + '/js/getUrlParam.js')
-            );
-            this.fs.copyTpl(
-                this.templatePath('js/throttle.js'),
-                this.destinationPath(this.folder.src + '/js/throttle.js')
-            );
-            this.fs.copyTpl(
-                this.templatePath('js/noTransition.js'),
-                this.destinationPath(this.folder.src + '/js/noTransition.js')
             );
         },
         fonts: function () {
