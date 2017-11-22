@@ -1,7 +1,7 @@
 ![Logo](logo.jpg)
 
 # generator-stereobase [![NPM version][npm-image]][npm-url]
-> Generate a simple template
+> Generate a simple project (static or WordPress)
 
 ## Installation
 
