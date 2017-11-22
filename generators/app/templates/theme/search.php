@@ -1,10 +1,14 @@
 <?php get_header(); ?>
 
+<div class='container'>
+
 	<?php if ( have_posts() ) : 
 	global $wp_query;
-	$results = $wp_query->found_posts; ?>
+	$results = $wp_query->found_posts;
+	$results = $results > 1 ? $results . ' results' : $results . ' result';
+	?>
 
-		<h1>La recherche "<?php the_search_query(); ?>" a retourné <?php if($results > 1){ echo $results . ' résultats'; }else{ echo '1 résultat'; } ?> </h1>
+		<h1><?php echo __('The search for') . ' "' . the_search_query() .'" ' . __('returned') . $results; ?></h1>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
@@ -18,8 +22,10 @@
 	
 	<?php else : ?>
 				
-		<h1>La recherche "<?php the_search_query(); ?>" n'a retourné aucun résultat</h1>
+	<h1><?php echo __('The search for') . ' "' . the_search_query() .'" ' . __("didn't return any results"); ?></h1>
 
 	<?php endif; ?>
+
+</div>
 
 <?php get_footer(); ?>

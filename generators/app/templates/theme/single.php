@@ -1,29 +1,20 @@
 <?php get_header(); ?>
 
-	<?php if ( have_posts() ) : ?>
+<article class='container'>
 
-		<?php while ( have_posts() ) : the_post(); ?>
+	<?php if ( have_posts() ) : the_post(); ?>
 
-			<article>
-					
-				<h1><?php the_title(); ?></h1>
-				<div class="postMeta">
-					<?php echo get_the_date(); ?>
-				</div>
-						
-				<?php the_content(); ?>
-						
-			</article>
+		<h1><?php the_title(); ?></h1>
+		<time><?php echo get_the_date(); ?></time>
 
-		<?php endwhile; ?>
-
+		<?php the_content(); ?>
 
 	<?php else : ?>
 				
-		<article>
-			<h1>404</h1>
-		</article>
+		<h1>404</h1>
 
 	<?php endif; ?>
+
+</article>
 
 <?php get_footer(); ?>
