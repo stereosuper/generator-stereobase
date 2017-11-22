@@ -39,8 +39,17 @@ gulp watch
 
 ### WordPress project installation
 
-If you need to install a WordPress project, you need first to install wp-cli: http://wp-cli.org/fr/#installation
-Then select Y to WordPress project in the questions asked by Yeoman.
+If you need to install a WordPress project, follow these steps before launching Yeoman.
+
+Install wp-cli (http://wp-cli.org/fr/#installation):
+```curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar```
+Check if it's been correctly installed:
+```php wp-cli.phar --info```
+
+Allow Yeoman to auto-create the database in MAMP:
+```export PATH=$PATH:/Applications/MAMP/Library/bin/```
+
+You can now launch Yeoman, and answer Y to the WordPress question.
 
 
 ## Publish the Generator | New version
@@ -60,10 +69,6 @@ https://docs.npmjs.com/cli/publish
 ```bash
 sudo chown -R userMachine /Users/userMachine/.config/configstore/
 ```
-
-## Browserify
-
-http://putaindecode.io/fr/articles/js/browserify/
 
 ## Thanks
 
