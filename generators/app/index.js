@@ -30,9 +30,15 @@ module.exports = yeoman.Base.extend({
         this.prompt([
             {
                 type: 'input',
+                name: 'full_name',
+                message: 'What is your project name?',
+                default: 'Stéréosuper',
+                required: true
+            }, {
+                type: 'input',
                 name: 'name',
-                message: 'What is your project slug? (without specials characters)',
-                default: 'stereosuper',
+                message: 'What is your project slug? (without specials characters, will be used for functions and db prefix)',
+                default: 'stereo',
                 required: true
             }, {
                 type: 'input',
@@ -83,9 +89,30 @@ module.exports = yeoman.Base.extend({
             }, {
                 when: function(response){ return response.wordpress; },
                 type: 'input',
-                name: 'dbprefix',
-                message: 'Choose a prefix for your database tables:',
-                default: 'stereo',
+                name: 'lang',
+                message: 'What language will your site be in? (for french, write fr_FR)',
+                default: 'en_US',
+                required: true
+            }, {
+                when: function(response){ return response.wordpress; },
+                type: 'input',
+                name: 'admin_user',
+                message: 'Choose your admin username',
+                default: 'adminStereo',
+                required: true
+            }, {
+                when: function(response){ return response.wordpress; },
+                type: 'input',
+                name: 'admin_email',
+                message: 'Choose your admin email',
+                default: 'bisous@stereosuper.fr',
+                required: true
+            }, {
+                when: function(response){ return response.wordpress; },
+                type: 'input',
+                name: 'admin_password',
+                message: 'Choose your admin password',
+                default: 'p@ssW0rd',
                 required: true
             }
         ]).then(function(answers){
@@ -218,11 +245,15 @@ module.exports = yeoman.Base.extend({
                 );
 
                 WP.discover({path: that.folder.dest}, function( WP ){
-                    WP.core.download(function( err, results ){
+                    WP.core.download({'locale': that.config.lang}, function( err, results ){
                         console.log(err + results);
 
                         WP.db.create({dbname: that.config.dbname, dbuser: that.config.dbuser, dbpass: that.config.dbpass}, function( err, results ){
                             console.log(err + results);
+
+                            WP.core.install({url: 'localhost', title: that.config.full_name, admin_user: that.config.admin_user, admin_password: that.config.admin_password, admin_email: that.config.admin_email}, function( err, results ){
+                                console.log(err + results);
+                            });
                         });
                     });
                 });

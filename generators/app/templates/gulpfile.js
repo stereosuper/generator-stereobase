@@ -195,7 +195,7 @@ gulp.task('watch', function () {
 });
 
 <% if (config.wordpress) { %>
-gulp.task('start', ['styles', 'theme', 'fonts', 'img', 'layoutImg', 'js', 'root', 'sitemap']);
+gulp.task('start', ['styles', 'theme', 'fonts', 'img', 'layoutImg', 'js', 'root', 'sitemap', 'wp']);
 <% } else { %>
 gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'root', 'sitemap']);
 <% } %>
