@@ -59,21 +59,7 @@ Allow Yeoman to auto-create the database in MAMP:
 export PATH=$PATH:/Applications/MAMP/Library/bin/
 ```
 
-You can now launch Yeoman, and answer Y to the WordPress question.
-
-```bash
-gulp start
-```
-
-```bash
-gulp watch
-```
-
-Then launch the "wp" task to delete some unwanted files and activate our theme.
-
-```bash
-gulp wp
-```
+You can now launch Yeoman, and answer Y to the WordPress question. You need to have mamp started to allow Yeoman to automatically create the database!
 
 
 ## Publish the Generator | New version
