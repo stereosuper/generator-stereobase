@@ -55,10 +55,11 @@ Check if it's been correctly installed:
 php wp-cli.phar --info
 ```
 
-Allow Yeoman to auto-create the database in MAMP (if you have other issues related to mysql, check here: https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary):
+To prevent MySQL errors caused by MAMP and the PHP version used (https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary):
 
 ```
-export PATH=$PATH:/Applications/MAMP/Library/bin/
+PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)
+export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH
 ```
 
 You can now launch Yeoman, and answer Y to the WordPress question. You need to have mysql server started to allow Yeoman to automatically create the database!
