@@ -41,10 +41,12 @@ gulp watch
 
 If you need to install a WordPress project, follow these steps before launching Yeoman.
 
-Install wp-cli (http://wp-cli.org/fr/#installation):
+Install wp-cli (https://make.wordpress.org/cli/handbook/installing/):
 
 ```
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x wp-cli.phar
+sudo mv wp-cli.phar /usr/local/bin/wp
 ```
 
 Check if it's been correctly installed:
@@ -53,13 +55,13 @@ Check if it's been correctly installed:
 php wp-cli.phar --info
 ```
 
-Allow Yeoman to auto-create the database in MAMP:
+Allow Yeoman to auto-create the database in MAMP (if you have other issues related to mysql, check here: https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary):
 
 ```
 export PATH=$PATH:/Applications/MAMP/Library/bin/
 ```
 
-You can now launch Yeoman, and answer Y to the WordPress question. You need to have mamp started to allow Yeoman to automatically create the database!
+You can now launch Yeoman, and answer Y to the WordPress question. You need to have mysql server started to allow Yeoman to automatically create the database!
 
 
 ## Publish the Generator | New version
