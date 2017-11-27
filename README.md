@@ -49,17 +49,12 @@ chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
 ```
 
-Check if it's been correctly installed:
-
-```
-php wp-cli.phar --info
-```
-
 To prevent MySQL errors caused by MAMP and the PHP version used (https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary):
 
 ```
 PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)
 export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH
+export PATH=$PATH:/Applications/MAMP/Library/bin/
 ```
 
 You can now launch Yeoman, and answer Y to the WordPress question. You need to have mysql server started to allow Yeoman to automatically create the database!
