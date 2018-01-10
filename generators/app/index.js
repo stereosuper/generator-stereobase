@@ -233,8 +233,6 @@ module.exports = yeoman.Base.extend({
         wp: function(){
             var that = this;
             if( that.config.wordpress ){
-                mkdirp.sync(that.folder.dest + '/wp-content/acf-json/');
-
                 that.fs.copyTpl(
                     that.templatePath('wp-config.php'),
                     that.destinationPath(that.folder.dest + '/wp-config.php'),
