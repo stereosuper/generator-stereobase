@@ -59,8 +59,6 @@ export PATH=$PATH:/Applications/MAMP/Library/bin/
 
 You can now launch Yeoman, and answer Y to the WordPress question. You need to have mysql server started to allow Yeoman to automatically create the database!
 
-When the installation is complete, connect to the new database that was created before launching gulp.
-
 
 ### Change configstore files owner
 
@@ -88,17 +86,30 @@ gulp watch
 ### Installation of a WordPress project
 
 First you need to follow the same steps as [above](#wordpress-project-installation): installation of wp-cli and fixes MySQL errors with MAMP.
-After that, you can install npm modules.
-Then you need to install the WordPress:
+
+After that, you can install npm modules:
 
 ```bash
-wp core download --locale=en_US
-wp db create
-wp core install --url=localhost --title=Stéréosuper --admin_user=adminStereo --admin_password=azerty --admin_email=bisou@stereosuper.fr
+cd project-name
 npm install
 ```
 
-Finally, launch gulp (start and watch).
+Then you need to install the WordPress:
+
+```bash
+cd dest
+wp core download --locale=en_US
+wp db create
+wp core install --url=localhost --title=Stéréosuper --admin_user=adminStereo --admin_password=azerty --admin_email=bisou@stereosuper.fr
+```
+
+Finally, launch gulp:
+
+```bash
+cd ..
+gulp start
+gulp watch
+```
 
 
 ## Publish the Generator | New version
