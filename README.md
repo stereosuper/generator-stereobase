@@ -59,6 +59,8 @@ export PATH=$PATH:/Applications/MAMP/Library/bin/
 
 You can now launch Yeoman, and answer Y to the WordPress question. You need to have mysql server started to allow Yeoman to automatically create the database!
 
+When the installation is complete, connect to the new database that was created before launching gulp.
+
 
 ### Change configstore files owner
 
