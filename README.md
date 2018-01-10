@@ -81,25 +81,24 @@ npm install
 Then launch gulp:
 
 ```bash
+gulp start
 gulp watch
 ```
 
 ### Installation of a WordPress project
 
-Start with intalling npm modules:
+First you need to follow the same steps as [above](#wordpress-project-installation): installation of wp-cli and fixes MySQL errors with MAMP.
+After that, you can install npm modules.
+Then you need to install the WordPress:
 
 ```bash
-cd project-name
+wp core download --locale=en_US
+wp db create
+wp core install --url=localhost --title=Stéréosuper --admin_user=adminStereo --admin_password=azerty --admin_email=bisou@stereosuper.fr
 npm install
 ```
 
-Then you need to follow the same steps as [above](#wordpress-project-installation) to install WordPress.
-Launch gulp for the first time:
-
-```bash
-gulp start
-gulp watch
-```
+Finally, launch gulp (start and watch).
 
 
 ## Publish the Generator | New version
