@@ -29,11 +29,11 @@ dest/xmlrpc.php
 dest/index.php
 dest/license.txt
 
-dest/wp-content/languages/
-dest/wp-content/mu-plugins/*
+dest/wp-content/languages/**
+dest/wp-content/mu-plugins/**
 !/dest/wp-content/mu-plugins/class-tgm-plugin-activation.php
-dest/wp-content/plugins/
+dest/wp-content/plugins/**
 dest/wp-content/wp-rocket-config/
 dest/wp-content/advanced-cache.php
-dest/wp-content/cache/
-dest/wp-content/uploads/
+dest/wp-content/cache/**
+dest/wp-content/uploads/**
