@@ -25,13 +25,13 @@ Then generate your new project:
 yo stereobase
 ```
 
-Then launch gulp for the first time
+Then launch gulp for the first time:
 
 ```bash
 gulp start
 ```
 
-And finally listen to file changes
+And finally listen to file changes:
 
 ```bash
 gulp watch
@@ -79,6 +79,23 @@ npm install
 Then launch gulp:
 
 ```bash
+gulp watch
+```
+
+### Installation of a WordPress project
+
+Start with intalling npm modules:
+
+```bash
+cd project-name
+npm install
+```
+
+Then you need to follow the same steps as [above](#wordpress-project-installation) to install WordPress.
+Launch gulp for the first time:
+
+```bash
+gulp start
 gulp watch
 ```
 
