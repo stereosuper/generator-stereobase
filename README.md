@@ -60,6 +60,29 @@ export PATH=$PATH:/Applications/MAMP/Library/bin/
 You can now launch Yeoman, and answer Y to the WordPress question. You need to have mysql server started to allow Yeoman to automatically create the database!
 
 
+### Change configstore files owner
+
+```bash
+sudo chown -R userMachine /Users/userMachine/.config/configstore/
+```
+
+
+## Installation of an existing project
+
+Start with intalling npm modules:
+
+```bash
+cd project-name
+npm install
+```
+
+Then launch gulp:
+
+```bash
+gulp watch
+```
+
+
 ## Publish the Generator | New version
 
 ```bash
@@ -72,11 +95,6 @@ npm publish
 ```
 https://docs.npmjs.com/cli/publish
 
-## Change configstore files owner
-
-```bash
-sudo chown -R userMachine /Users/userMachine/.config/configstore/
-```
 
 ## Thanks
 
@@ -84,6 +102,7 @@ sudo chown -R userMachine /Users/userMachine/.config/configstore/
 * Chris Coyier for his book [Practical SVG](https://abookapart.com/products/practical-svg)
 * [Loic Goyet](https://github.com/LoicGoyet) for the training course on Gulp and Yeoman.
 * [Val Head](http://valhead.com/) for his book [Designing interface animation](http://rosenfeldmedia.com/books/designing-interface-animation/)
+
 
 ## License
 
