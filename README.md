@@ -118,7 +118,7 @@ https://docs.npmjs.com/cli/publish
 * Hugo Giraudel for [Sass Guidelines](https://sass-guidelin.es/)
 * Chris Coyier for his book [Practical SVG](https://abookapart.com/products/practical-svg)
 * [Loic Goyet](https://github.com/LoicGoyet) for the training course on Gulp and Yeoman.
-* [Val Head](http://valhead.com/) for his book [Designing interface animation](http://rosenfeldmedia.com/books/designing-interface-animation/)
+* [Val Head](http://valhead.com/) for her book [Designing interface animation](http://rosenfeldmedia.com/books/designing-interface-animation/)
 
 
 ## License
