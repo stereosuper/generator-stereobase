@@ -9,6 +9,7 @@ var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var sitemap = require('gulp-sitemap');
+var shell = require('gulp-shell');
 
 var WP = require('wp-cli');
 
@@ -87,6 +88,7 @@ gulp.task('js', function () {
 gulp.task('theme', function() {
     return gulp.src('<%= folders.src %>/theme/**/*')
         .pipe(gulp.dest('<%= folders.dest %>'))
+        .pipe(shell(['mkdir -p <%= folders.dest %>/acf-json']))
         .pipe($.size({title: 'theme'}));
 });
 gulp.task('wp', function() {
