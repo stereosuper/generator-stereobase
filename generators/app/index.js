@@ -279,6 +279,7 @@ module.exports = yeoman.Base.extend({
                 'gulp-load-plugins',
                 'gulp-sourcemaps',
                 'gulp-sass',
+                'gulp-shell',
                 'gulp-autoprefixer',
                 'gulp-prettify',
                 'gulp-watch',

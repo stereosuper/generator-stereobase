@@ -29,7 +29,6 @@
     "gulp-mocha": "^2.0.0",
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
-    "gulp-shell": "^0.6.5",
     "mkdirp": "^0.5.1",
     "wiredep": "^4.0.0",
     "wp-cli": "0.0.5",

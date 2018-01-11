@@ -89,6 +89,8 @@ gulp.task('theme', function() {
     return gulp.src('<%= folders.src %>/theme/**/*')
         .pipe(gulp.dest('<%= folders.dest %>'))
         .pipe(shell(['mkdir -p <%= folders.dest %>/acf-json']))
+        .pipe(shell(['mkdir -p <%= folders.dest %>/../../plugins']))
+        .pipe(shell(['mkdir -p <%= folders.dest %>/../../uploads']))
         .pipe($.size({title: 'theme'}));
 });
 gulp.task('wp', function() {
