@@ -240,7 +240,7 @@ module.exports = yeoman.Base.extend({
                         dbname: that.config.dbname,
                         dbuser: that.config.dbuser,
                         dbpass: that.config.dbpass,
-                        dbprefix: that.config.dbprefix
+                        dbprefix: that.config.name
                     }
                 );
 
