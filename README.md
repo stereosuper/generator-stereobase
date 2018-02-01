@@ -85,7 +85,7 @@ gulp start
 gulp watch
 ```
 
-### Installation of a WordPress project
+### Installation of an existing WordPress project
 
 First you need to follow the same steps as [above](#wordpress-project-installation): installation of wp-cli and fixes MySQL errors with MAMP.
 
@@ -112,6 +112,8 @@ cd ..
 gulp start
 gulp watch
 ```
+
+You also probably will need to connect to the admin, and install the required plugins. If TGMPA was installed, go directly to Appearance > Install plugins. 
 
 
 ## Publish the Generator | New version
