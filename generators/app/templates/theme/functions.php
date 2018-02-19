@@ -57,7 +57,10 @@ function <%= name %>_remove_comment_author_class( $classes ){
 add_filter( 'comment_class' , '<%= name %>_remove_comment_author_class' );
 
 // remove login errors
-add_filter( 'login_errors', create_function('$a', "return null;") );
+function <%= name %>_login_errors(){
+    return 'Something is wrong!';
+}
+add_filter( 'login_errors', '<%= name %>_login_errors' );
 
 
 /*-----------------------------------------------------------------------------------*/
