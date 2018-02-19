@@ -59,7 +59,7 @@ export PATH=$PATH:/Applications/MAMP/Library/bin/
 
 You can now launch Yeoman, and answer Y to the WordPress question. You need to have mysql server started to allow Yeoman to automatically create the database!
 
-Finally, install TGMPA to manage plugins: http://tgmpluginactivation.com/installation/ (there is already commented code to handle plugins regsitration in functions.php).
+Finally, install TGMPA to manage plugins: http://tgmpluginactivation.com/installation/ : once you've downloaded the file, place it in a directory called "mu-plugins" in /wp-content, and decomment the code to handle plugins regsitration in functions.php. 
 
 
 ### Change configstore files owner
