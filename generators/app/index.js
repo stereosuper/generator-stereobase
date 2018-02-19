@@ -248,9 +248,8 @@ module.exports = yeoman.Base.extend({
                     WP.core.download({'locale': that.config.lang}, function( err, results ){
                         console.log(err + results);
 
-                        WP.db.create({dbname: that.config.dbname, dbuser: that.config.dbuser, dbpass: that.config.dbpass}, function( err, results ){
+                        WP.db.create({}, function( err, results ){
                             console.log(err + results);
-
                             WP.core.install({url: 'localhost', title: that.config.full_name, admin_user: that.config.admin_user, admin_password: that.config.admin_password, admin_email: that.config.admin_email}, function( err, results ){
                                 console.log(err + results);
                             });
