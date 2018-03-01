@@ -1,15 +1,17 @@
 module.exports = function( callback, delay ){
+
     let last, timer;
 
-    function reset(){
-        last = now;
-        callback.apply( context, args );
-    }
     
     return function(){
         const context = this, now = +new Date(), args = arguments;
 
-        
+
+        function reset(){
+            last = now;
+            callback.apply( context, args );
+        }
+
         
         if( last && now < last + delay ){
             // le délai n'est pas écoulé on reset le timer
@@ -20,4 +22,5 @@ module.exports = function( callback, delay ){
             reset();
         }
     };
+    
 }
