@@ -1,14 +1,18 @@
-var $ = require('jquery-slim');
+const $ = require('jquery-slim');
 
-module.exports = function(container, imgRatio, imgW, imgH, elt){
-    containerH = container.outerHeight();
-    containerW = container.width();
-    containerRatio = containerH / containerW;
+module.exports = function( container, imgRatio, imgW, imgH, elt ){
 
-    posX = elt.data('x');
-    posY = elt.data('y');
+    if( !container.length ) return;
 
-    if(containerRatio > imgRatio){
+    let containerH = container.outerHeight();
+    let containerW = container.width();
+    let containerRatio = containerH / containerW;
+
+    let posX = elt.data('x'), posY = elt.data('y');
+
+    let finalH, finalW, newX, newY, ratioScale;
+
+    if( containerRatio > imgRatio ){
         // portrait
         finalH = containerH;
         finalW = imgW*finalH / imgH;

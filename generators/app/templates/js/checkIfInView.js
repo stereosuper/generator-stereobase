@@ -1,12 +1,15 @@
-var $ = require('jquery-slim');
+const $ = require('jquery-slim');
 
-var throttle = require('./throttle.js');
-window.requestAnimFrame = require('./requestAnimFrame.js');
+const throttle = require('./throttle.js');
+require('./requestAnimFrame.js');
 
-module.exports = function(body, elts){
-    var elt, eltContent, eltHeight, eltTop, eltBottom;
-    var windowHeight, windowScroll, windowBottom;
-    var launchGapIn = 100, launchGapOut = 250;
+module.exports = function( body, elts ){
+
+    if( !elts.length ) return;
+
+    let elt, eltHeight, eltTop, eltBottom;
+    let windowHeight, windowScroll, windowBottom;
+    const launchGapIn = 100, launchGapOut = 250;
 
     function checkIfEltInView(){
         windowHeight = $(window).height();
@@ -17,6 +20,7 @@ module.exports = function(body, elts){
             elt = $(this);
             eltTop = elt.data('top');
             eltBottom = elt.data('bottom');
+
             if(eltBottom - launchGapOut >= windowScroll && eltTop + launchGapIn <= windowBottom){
                 elt.removeClass('above-view under-view').addClass('in-view');
             }else if(eltBottom - launchGapOut < windowScroll){
@@ -37,11 +41,13 @@ module.exports = function(body, elts){
         });
     }
 
-    setEltData();
-
-    var scrollHandler = throttle(function(){
-        requestAnimFrame(checkIfEltInView);
+    const scrollHandler = throttle(function(){
+        requestAnimFrame( checkIfEltInView );
     }, 40);
+
+
+    setEltData();
+    
 
     $(document).on('scroll', scrollHandler);
     $(window).on('resize', scrollHandler);

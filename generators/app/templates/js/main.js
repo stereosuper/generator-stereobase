@@ -1,21 +1,21 @@
 'use strict';
 
-var $ = require('jquery-slim');
+const $ = require('jquery-slim');
 <% if (greensock) { %>
 // require('gsap');
 require('gsap/CSSPlugin');
-var TweenLite = require('gsap/TweenLite');
+const TweenLite = require('gsap/TweenLite');
 <% } %>
 
 $(function(){
 
-    window.requestAnimFrame = require('./requestAnimFrame.js');
-    var throttle = require('./throttle.js');
-    var noTransition = require('./noTransition.js');
+    require('./requestAnimFrame.js');
+    const throttle = require('./throttle.js');
+    const noTransition = require('./noTransition.js');
 
-    var body = $('body');
+    const body = $('body');
     // window.outerWidth returns the window width including the scroll, but it's not working with $(window).outerWidth
-    var windowWidth = window.outerWidth, windowHeight = $(window).height();
+    let windowWidth = window.outerWidth, windowHeight = $(window).height();
 
 
     function resizeHandler(){

@@ -1,34 +1,39 @@
-var $ = require('jquery-slim');
+const $ = require('jquery-slim');
 
-window.requestAnimFrame = require('./requestAnimFrame.js');
-var throttle = require('./throttle.js');
+require('./requestAnimFrame.js');
+const throttle = require('./throttle.js');
 
-var rtime;
-var timeout = false;
-var delta = 200;
+module.exports = function( el ){
 
-module.exports = function(el){
+    if( !el.length ) return;
 
-    function resizeend() {
-        if (new Date() - rtime < delta) {
+
+    let rtime, timeout = false;
+    const delta = 200;
+
+
+    function resizeend(){
+        if( new Date() - rtime < delta ){
             setTimeout(resizeend, delta);
-        } else {
+        }else{
             timeout = false;
             el.removeClass('no-transition');
         }
     }
 
-    function resizeHandler() {
+    function resizeHandler(){
         el.addClass('no-transition');
         rtime = new Date();
-        if (timeout === false) {
-            timeout = true;
-            setTimeout(resizeend, delta);
-        }
+
+        if( timeout ) return;
+
+        timeout = true;
+        setTimeout(resizeend, delta);
     }
 
-    $(window).on('resize', throttle(function () {
-        requestAnimFrame(resizeHandler);
+
+    $(window).on('resize', throttle(function(){
+        requestAnimFrame( resizeHandler );
     }, 60));
 
 }
