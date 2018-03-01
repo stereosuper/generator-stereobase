@@ -47,6 +47,11 @@ audio:not([controls]), [hidden], template{
     text-rendering: optimizeLegibility
 }
 
+html{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+}
+
 a{
     background-color: transparent;
     &:focus{

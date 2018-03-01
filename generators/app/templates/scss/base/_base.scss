@@ -13,14 +13,10 @@
 
 html{
     font-size: 62.5%; /* sets the base font to 10px for easier math */
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-tap-highlight-color: transparent;
 }
 
 body{
-    font-family: sans-serif;
-    font-size: 1.6em;
-    line-height: 1.2;
+    font: 1.6em / 1.2 sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -194,7 +190,7 @@ a{
 .inline-b{
     display: inline-block;
     vertical-align: middle;
-    transform: translateY(-.1em);
+    transform: translateY(-0.1em);
 }
 
 .full-width{
