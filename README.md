@@ -41,7 +41,7 @@ gulp watch
 
 If you need to install a WordPress project, follow these steps before launching Yeoman.
 
-Install wp-cli (https://make.wordpress.org/cli/handbook/installing/):
+Install wp-cli if you don't have it already (https://make.wordpress.org/cli/handbook/installing/):
 
 ```
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -49,7 +49,7 @@ chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
 ```
 
-To prevent MySQL errors caused by MAMP and the PHP version used (https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary):
+To prevent MySQL errors caused by MAMP and the PHP version used (https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary) (you need to do this each time you install a project):
 
 ```
 PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)
@@ -102,7 +102,7 @@ Then you need to install the WordPress:
 cd dest
 wp core download --locale=en_US
 wp db create
-wp core install --url=localhost --title=Stéréosuper --admin_user=adminStereo --admin_password=azerty --admin_email=bisou@stereosuper.fr
+wp core install --url=localhost --title=Stereosuper --admin_user=adminStereo --admin_password=azerty --admin_email=bisou@stereosuper.fr
 ```
 
 Finally, launch gulp:
@@ -113,7 +113,7 @@ gulp start
 gulp watch
 ```
 
-You also probably will need to connect to the admin, and install the required plugins. If TGMPA was installed, go directly to Appearance > Install plugins. 
+You also probably will need to connect to the admin, and install required plugins. If TGMPA was installed, go directly to Appearance > Install plugins. 
 
 
 ## Publish the Generator | New version
@@ -139,7 +139,7 @@ https://docs.npmjs.com/cli/publish
 
 ## License
 
-MIT © [Adrien Le Menthéour](www.adrienlm.com) | [Elisabeth Hamel](www.e-hamel.com)
+MIT © [Adrien Le Menthéour](http://www.adrienlm.com) | [Elisabeth Hamel](http://www.e-hamel.com)
 
 
 [npm-image]: https://badge.fury.io/js/generator-stereobase.svg
