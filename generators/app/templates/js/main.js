@@ -9,7 +9,7 @@ const TweenLite = require('gsap/TweenLite');
 
 $(function(){
 
-    require('./requestAnimFrame.js');
+    const requestAnimFrame = require('./requestAnimFrame.js');
     const throttle = require('./throttle.js');
     const noTransition = require('./noTransition.js');
 
