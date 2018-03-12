@@ -1,19 +1,25 @@
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const $ = require('gulp-load-plugins')();
 
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
+const browserSync = require('browser-sync');
+const reload = browserSync.reload;
 
-var browserify = require('browserify');
-var babelify = require('babelify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var sitemap = require('gulp-sitemap');
-var shell = require('gulp-shell');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const sitemap = require('gulp-sitemap');
 
-var WP = require('wp-cli');
+<% if (config.wordpress) { %>
+const WP = require('wp-cli');
+const shell = require('gulp-shell');
+<% } else { %>
+const del = require('del');
+const path = require('path');
+<% } %>
 
-var reportError = function(error) {
+
+const reportError = function( error ){
     $.notify({
         title: 'An error occured with a Gulp task',
         message: 'Check you terminal for more informations'
@@ -130,10 +136,15 @@ gulp.task('templates', function() {
         .pipe(gulp.dest('<%= folders.dest %>'))
         .pipe($.size({title: 'template'}));
 });
+gulp.task('htaccess', function() {
+    return gulp.src('src/.htaccess')
+        .pipe(gulp.dest('dest'))
+        .pipe($.size({title: 'root'}));
+});
 <% } %>
 
 gulp.task('sitemap', function () {
-    gulp.src('<%= folders.dest %>/**/*.html', {
+    return gulp.src('<%= folders.dest %>/**/*.html', {
             read: false
         })
         .pipe(sitemap({
@@ -154,25 +165,32 @@ gulp.task('watch', function () {
         notify: false,
         proxy: 'localhost'
     });
+
+    $.watch('src/theme/**/*', function(){
+        gulp.start(['theme'], reload);
+    });
     <% } else { %>
     browserSync({
         notify: false,
         server: ['dest']
     });
-    <% } %>
 
-    $.watch('src/scss/**/*', function(){
-        gulp.start(['styles'], reload);
-    });
-    <% if (config.wordpress) { %>
-    $.watch('src/theme/**/*', function(){
-        gulp.start(['theme'], reload);
-    });
-    <% } else { %>
     $.watch('src/templates/**/*', function(){
         gulp.start(['templates'], reload);
     });
+    $.watch('src/.htaccess', function(){
+        gulp.start(['htaccess'], reload);
+    });
+    $.watch('src/**/*').on('unlink', function(currentPath){
+        const filePathFromSrc = path.relative(path.resolve('src'), currentPath);
+        const destFilePath = path.resolve('dest', filePathFromSrc).replace('templates/', '');
+        del.sync(destFilePath);
+        console.log('File removed - ' + destFilePath);
+    });
     <% } %>
+    $.watch('src/scss/**/*', function(){
+        gulp.start(['styles'], reload);
+    });
     $.watch('src/fonts/**/*', function(){
         gulp.start(['fonts'], reload);
     });
@@ -185,14 +203,6 @@ gulp.task('watch', function () {
     $.watch('src/js/**/*', function(){
         gulp.start(['js'], reload);
     });
-    <% if (!config.wordpress) { %>
-    var fileWatcher = $.watch('src/**/*').on('unlink', function(currentPath){
-        var filePathFromSrc = path.relative(path.resolve('src'), currentPath);
-        var destFilePath = path.resolve('dest', filePathFromSrc).replace('templates/', '');
-        del.sync(destFilePath);
-        console.log('File removed - ' + destFilePath);
-    });
-    <% } %>
     $.watch('src/*.*', function(){
         gulp.start(['root'], reload);
     });
@@ -201,5 +211,5 @@ gulp.task('watch', function () {
 <% if (config.wordpress) { %>
 gulp.task('start', ['styles', 'theme', 'fonts', 'img', 'layoutImg', 'js', 'root', 'sitemap', 'wp']);
 <% } else { %>
-gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'root', 'sitemap']);
+gulp.task('start', ['styles', 'templates', 'fonts', 'img', 'layoutImg', 'js', 'root', 'htaccess', 'sitemap']);
 <% } %>
