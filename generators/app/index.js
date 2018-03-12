@@ -1,33 +1,224 @@
-/* jshint -W097, -W117 */
-'use strict';
-var yeoman = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 // to log a coloured message with Yeoman
-var chalk = require('chalk');
-// for injecting Bower components to HTML/SCSS files
-var wiredep = require('wiredep');
-// tell Yeoman what to say in the console
-var yosay = require('yosay');
-// To create folder
-var mkdirp = require('mkdirp');
-// To handle WP
-var WP = require('wp-cli');
+const chalk = require('chalk');
+// // tell Yeoman what to say in the console
+const yosay = require('yosay');
+// // To create folder
+const mkdirp = require('mkdirp');
+// // To handle WP
+const WP = require('wp-cli');
 
 var destPath = 'dest';
 
-module.exports = yeoman.Base.extend({
-    initializing: function() {
+module.exports = class extends Generator {
+
+    _script() {
+        this.fs.copyTpl(
+            this.templatePath('js/**'),
+            this.destinationPath(this.folder.src + '/js'),
+            { greensock: this.superConfig.greensock }
+        );
+    }
+
+    _fonts() {
+        mkdirp.sync(this.destinationPath(this.folder.src + '/fonts'));
+    }
+
+    _img() {
+        mkdirp.sync(this.destinationPath(this.folder.src + '/img'));
+    }
+
+    _layoutImg() {
+        mkdirp.sync(this.destinationPath(this.folder.src + '/layoutImg'));
+    }
+
+    _sass() {
+        this.fs.copyTpl(
+            this.templatePath('scss/**/*'),
+            this.destinationPath(this.folder.src + '/scss')
+        );
+    }
+
+    _gulp() {
+        if (this.superConfig.wordpress) {
+            this.fs.copyTpl(
+                this.templatePath('gulpfile.js'),
+                this.destinationPath('gulpfile.js'),
+                {
+                    config: this.superConfig,
+                    folders: {
+                        src: 'src',
+                        dest_root: destPath,
+                        dest: destPath + '/wp-content/themes/' + this.superConfig.name
+                    }
+                }
+            );
+        }else{
+            this.fs.copyTpl(
+                this.templatePath('gulpfile.js'),
+                this.destinationPath('gulpfile.js'),
+                {
+                    config: this.superConfig,
+                    folders: this.folder
+                }
+            );
+        }
+    }
+    
+    _npm() {
+        this.fs.copyTpl(
+            this.templatePath('package.json'),
+            this.destinationPath('package.json'),
+            { name: this.superConfig.name }
+        );
+    }
+
+    _template() {
+        if (!this.superConfig.wordpress) {
+            if (this.superConfig.twig) {
+                this.fs.copyTpl(
+                    this.templatePath('twig/**/*'),
+                    this.destinationPath(this.folder.src + '/templates')
+                );
+            } else {
+                this.fs.copyTpl(
+                    this.templatePath('html/index.html'),
+                    this.destinationPath(this.folder.src + '/templates/index.html')
+                );
+            }
+        }
+    }
+
+    _miscellaneous() {
+        if (this.superConfig.wordpress) {
+            this.fs.copyTpl(
+                this.templatePath('.htaccess-wp'),
+                this.destinationPath(this.folder.src + '/.htaccess')
+            );
+            this.fs.copyTpl(
+                this.templatePath('robots-wp.txt'),
+                this.destinationPath(this.folder.src + '/robots.txt')
+            );
+            this.fs.copyTpl(
+                this.templatePath('.gitignore-wp'),
+                this.destinationPath('.gitignore')
+            );
+        } else {
+            this.fs.copyTpl(
+                this.templatePath('.htaccess'),
+                this.destinationPath(this.folder.src + '/.htaccess')
+            );
+            this.fs.copyTpl(
+                this.templatePath('robots.txt'),
+                this.destinationPath(this.folder.src + '/robots.txt')
+            );
+            this.fs.copyTpl(
+                this.templatePath('.gitignore-base'),
+                this.destinationPath('.gitignore')
+            );
+        }
+        this.fs.copyTpl(
+            this.templatePath('robots-preprod.txt'),
+            this.destinationPath(this.folder.src + '/robots-preprod.txt')
+        );
+        this.fs.copyTpl(
+            this.templatePath('.jshintrc'),
+            this.destinationPath('.jshintrc')
+        );
+    }
+
+    _wp() {
+        var that = this;
+        if( that.superConfig.wordpress ){
+            that.fs.copyTpl(
+                that.templatePath('wp-config.php'),
+                that.destinationPath(that.folder.dest + '/wp-config.php'),
+                {
+                    dbname: that.superConfig.dbname,
+                    dbuser: that.superConfig.dbuser,
+                    dbpass: that.superConfig.dbpass,
+                    dbprefix: that.superConfig.name
+                }
+            );
+
+            WP.discover({path: that.folder.dest}, function( WP ){
+                WP.core.download({'locale': that.superConfig.lang}, function( err, results ){
+                    console.log(err + results);
+
+                    WP.db.create({}, function( err, results ){
+                        console.log(err + results);
+                        WP.core.install({url: 'localhost', title: that.superConfig.full_name, admin_user: that.superConfig.admin_user, admin_password: that.superConfig.admin_password, admin_email: that.superConfig.admin_email}, function( err, results ){
+                            console.log(err + results);
+                        });
+                    });
+                });
+            });
+        }
+    }
+
+    _wpTheme() {
+        if( this.superConfig.wordpress ){
+            this.fs.copyTpl(
+                this.templatePath('theme/**/*'),
+                this.destinationPath(this.folder.src + '/theme'),
+                { name: this.superConfig.name }
+            );
+        }
+    }
+
+
+    _npmInstall() {
+        this.npmDependencies = [
+            'gulp',
+            'gulp-size',
+            'gulp-notify',
+            'gulp-load-plugins',
+            'gulp-sourcemaps',
+            'gulp-sass',
+            'gulp-shell',
+            'gulp-autoprefixer',
+            'gulp-prettify',
+            'gulp-watch',
+            'gulp-htmlmin',
+            'browser-sync',
+            'browserify',
+            'babel-preset-es2015',
+            'babel-core',
+            'babel-loader',
+            'babelify',
+            'gulp-uglify',
+            'vinyl-source-stream',
+            'vinyl-buffer',
+            'del',
+            'path',
+            'jquery-slim',
+            'gulp-sitemap',
+            'wp-cli'
+        ];
+
+        if(this.superConfig.greensock){
+            this.npmDependencies.push('gsap');
+        }
+        if(this.superConfig.twig){
+            this.npmDependencies.push('gulp-twig', 'gulp-ext-replace');
+        }
+
+        this.npmInstall(this.npmDependencies, { 'saveDev': true });
+    }
+
+    
+    initializing() {
         // Have Yeoman greet the user.
         this.log(yosay('Welcome to the laudable ' + chalk.blue('stereosuper') + ' generator!'));
-        this.config = {};
+        this.superConfig = {};
         this.folder = {
             src: 'src',
             dest: destPath
         };
-    },
+    }
 
-    prompting: function(){
-        var done = this.async();
-        this.prompt([
+    prompting() {
+        return this.prompt([
             {
                 type: 'input',
                 name: 'full_name',
@@ -115,199 +306,29 @@ module.exports = yeoman.Base.extend({
                 default: 'p@ssW0rd',
                 required: true
             }
-        ]).then(function(answers){
+        ]).then(answers => {
             for (var key in answers) {
-                this.config[key] = answers[key];
+                this.superConfig[key] = answers[key];
             }
-            done();
-        }.bind(this));
-    },
-
-    writing: {
-        script: function(){
-            this.fs.copyTpl(
-                this.templatePath('js/**'),
-                this.destinationPath(this.folder.src + '/js'),
-                { greensock: this.config.greensock }
-            );
-        },
-        fonts: function () {
-            mkdirp.sync(this.destinationPath(this.folder.src + '/fonts'));
-        },
-        img: function () {
-            mkdirp.sync(this.destinationPath(this.folder.src + '/img'));
-        },
-        layoutImg: function () {
-            mkdirp.sync(this.destinationPath(this.folder.src + '/layoutImg'));
-        },
-        sass: function () {
-            this.fs.copyTpl(
-                this.templatePath('scss/**/*'),
-                this.destinationPath(this.folder.src + '/scss')
-            );
-        },
-        gulp: function () {
-            if (this.config.wordpress) {
-                this.fs.copyTpl(
-                    this.templatePath('gulpfile.js'),
-                    this.destinationPath('gulpfile.js'),
-                    {
-                        config: this.config,
-                        folders: {
-                            src: 'src',
-                            dest_root: destPath,
-                            dest: destPath + '/wp-content/themes/' + this.config.name
-                        }
-                    }
-                );
-            }else{
-                this.fs.copyTpl(
-                    this.templatePath('gulpfile.js'),
-                    this.destinationPath('gulpfile.js'),
-                    {
-                        config: this.config,
-                        folders: this.folder
-                    }
-                );
-            }
-        },
-        npm: function () {
-            this.fs.copyTpl(
-                this.templatePath('package.json'),
-                this.destinationPath('package.json'),
-                { name: this.config.name }
-            );
-        },
-        template: function() {
-            if (!this.config.wordpress) {
-                if (this.config.twig) {
-                    this.fs.copyTpl(
-                        this.templatePath('twig/**/*'),
-                        this.destinationPath(this.folder.src + '/templates')
-                    );
-                } else {
-                    this.fs.copyTpl(
-                        this.templatePath('html/index.html'),
-                        this.destinationPath(this.folder.src + '/templates/index.html')
-                    );
-                }
-            }
-        },
-        miscellaneous: function(){
-            if (this.config.wordpress) {
-                this.fs.copyTpl(
-                    this.templatePath('.htaccess-wp'),
-                    this.destinationPath(this.folder.src + '/.htaccess')
-                );
-                this.fs.copyTpl(
-                    this.templatePath('robots-wp.txt'),
-                    this.destinationPath(this.folder.src + '/robots.txt')
-                );
-                this.fs.copyTpl(
-                    this.templatePath('.gitignore-wp'),
-                    this.destinationPath('.gitignore')
-                );
-            } else {
-                this.fs.copyTpl(
-                    this.templatePath('.htaccess'),
-                    this.destinationPath(this.folder.src + '/.htaccess')
-                );
-                this.fs.copyTpl(
-                    this.templatePath('robots.txt'),
-                    this.destinationPath(this.folder.src + '/robots.txt')
-                );
-                this.fs.copyTpl(
-                    this.templatePath('.gitignore-base'),
-                    this.destinationPath('.gitignore')
-                );
-            }
-            this.fs.copyTpl(
-                this.templatePath('robots-preprod.txt'),
-                this.destinationPath(this.folder.src + '/robots-preprod.txt')
-            );
-            this.fs.copyTpl(
-                this.templatePath('.jshintrc'),
-                this.destinationPath('.jshintrc')
-            );
-        },
-        wp: function(){
-            var that = this;
-            if( that.config.wordpress ){
-                that.fs.copyTpl(
-                    that.templatePath('wp-config.php'),
-                    that.destinationPath(that.folder.dest + '/wp-config.php'),
-                    {
-                        dbname: that.config.dbname,
-                        dbuser: that.config.dbuser,
-                        dbpass: that.config.dbpass,
-                        dbprefix: that.config.name
-                    }
-                );
-
-                WP.discover({path: that.folder.dest}, function( WP ){
-                    WP.core.download({'locale': that.config.lang}, function( err, results ){
-                        console.log(err + results);
-
-                        WP.db.create({}, function( err, results ){
-                            console.log(err + results);
-                            WP.core.install({url: 'localhost', title: that.config.full_name, admin_user: that.config.admin_user, admin_password: that.config.admin_password, admin_email: that.config.admin_email}, function( err, results ){
-                                console.log(err + results);
-                            });
-                        });
-                    });
-                });
-            }
-        },
-        wpTheme: function () {
-            if( this.config.wordpress ){
-                this.fs.copyTpl(
-                    this.templatePath('theme/**/*'),
-                    this.destinationPath(this.folder.src + '/theme'),
-                    { name: this.config.name }
-                );
-            }
-        }
-    },
-
-    install: {
-        npm: function(){
-            this.npmDependencies = [
-                'gulp',
-                'gulp-size',
-                'gulp-notify',
-                'gulp-load-plugins',
-                'gulp-sourcemaps',
-                'gulp-sass',
-                'gulp-shell',
-                'gulp-autoprefixer',
-                'gulp-prettify',
-                'gulp-watch',
-                'gulp-htmlmin',
-                'browser-sync',
-                'browserify',
-                'babel-preset-es2015',
-                'babel-core',
-                'babel-loader',
-                'babelify',
-                'gulp-uglify',
-                'vinyl-source-stream',
-                'vinyl-buffer',
-                'del',
-                'path',
-                'jquery-slim',
-                'gulp-sitemap',
-                'wp-cli'
-            ];
-
-            if(this.config.greensock){
-                this.npmDependencies.push('gsap');
-            }
-            if(this.config.twig){
-                this.npmDependencies.push('gulp-twig', 'gulp-ext-replace');
-            }
-
-            this.npmInstall(this.npmDependencies, { 'saveDev': true });
-        }
+        });
     }
 
-});
+    writing() {
+        this._script();
+        this._fonts();
+        this._img();
+        this._layoutImg();
+        this._sass();
+        this._gulp();
+        this._npm();
+        this._template();
+        this._miscellaneous();
+        this._wp();
+        this._wpTheme();
+    }
+
+    install() {
+        this._npmInstall();
+    }
+
+};
