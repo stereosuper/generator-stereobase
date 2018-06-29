@@ -193,7 +193,8 @@ module.exports = class extends Generator {
             'path',
             'jquery-slim',
             'gulp-sitemap',
-            'wp-cli'
+            'wp-cli',
+            'event-stream'
         ];
 
         if(this.superConfig.greensock){

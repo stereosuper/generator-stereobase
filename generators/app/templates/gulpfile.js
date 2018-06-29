@@ -9,6 +9,7 @@ const babelify = require('babelify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const sitemap = require('gulp-sitemap');
+const es = require('event-stream');
 
 <% if (config.wordpress) { %>
 const WP = require('wp-cli');
@@ -154,9 +155,14 @@ gulp.task('sitemap', function () {
 });
 
 gulp.task('root', function() {
-    return gulp.src('src/*.*')
-        .pipe(gulp.dest('dest'))
-        .pipe($.size({title: 'root'}));
+    return es.concat(
+        gulp.src('src/.*')
+            .pipe(gulp.dest('dest'))
+            .pipe($.size({title: 'root'})),
+        gulp.src('src/*.*')
+            .pipe(gulp.dest('dest'))
+            .pipe($.size({title: 'root'}))
+    );
 });
 
 gulp.task('watch', function () {
@@ -204,6 +210,9 @@ gulp.task('watch', function () {
         gulp.start(['js'], reload);
     });
     $.watch('src/*.*', function(){
+        gulp.start(['root'], reload);
+    });
+    $.watch('src/.*', function(){
         gulp.start(['root'], reload);
     });
 });
