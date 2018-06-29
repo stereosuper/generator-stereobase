@@ -50,5 +50,8 @@
     "prepublish": "gulp prepublish",
     "test": "gulp"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "hoek": "^5.0.3"
+  }
 }
