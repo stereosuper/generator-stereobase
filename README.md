@@ -11,10 +11,15 @@ First if you don't have the rights on your /usr/local folder:
 sudo chown -R $USER /usr/local
 ```
 
+If you're on High Sierra use instead:
+
+```bach
+sudo chown -R $(whoami)
+```
+
 Then, install [Gulp](http://gulpjs.com), [Yeoman](http://yeoman.io) and generator-stereobase using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
-npm install -g gulp
 npm install -g yo
 npm install -g generator-stereobase
 ```
@@ -25,16 +30,16 @@ Then generate your new project:
 yo stereobase
 ```
 
-Then launch gulp for the first time:
+Then install all the dependencies:
 
 ```bash
-gulp start
+npm i
 ```
 
-And finally listen to file changes:
+And finally launch the dev server:
 
 ```bash
-gulp watch
+npm start
 ```
 
 ### WordPress project installation
@@ -68,23 +73,6 @@ Finally, install TGMPA to manage plugins: http://tgmpluginactivation.com/install
 sudo chown -R userMachine /Users/userMachine/.config/configstore/
 ```
 
-
-## Installation of an existing project
-
-Start with intalling npm modules:
-
-```bash
-cd project-name
-npm install
-```
-
-Then launch gulp:
-
-```bash
-gulp start
-gulp watch
-```
-
 ### Installation of an existing WordPress project
 
 First you need to follow the same steps as [above](#wordpress-project-installation): installation of wp-cli and fixes MySQL errors with MAMP.
@@ -93,40 +81,24 @@ After that, you can install npm modules:
 
 ```bash
 cd project-name
-npm install
+npm i
 ```
 
 Then you need to install the WordPress:
 
 ```bash
-cd dest
 wp core download --locale=en_US
 wp db create
 wp core install --url=localhost --title=Stereosuper --admin_user=adminStereo --admin_password=azerty --admin_email=bisou@stereosuper.fr
 ```
 
-Finally, launch gulp:
+Finally, launch the server:
 
 ```bash
-cd ..
-gulp start
-gulp watch
+npm start
 ```
 
 You also probably will need to connect to the admin, and install required plugins. If TGMPA was installed, go directly to Appearance > Install plugins. 
-
-
-## Publish the Generator | New version
-
-```bash
-npm set init.author.name "Your Name"
-npm set init.author.email "Your Email"
-npm set init.author.url "Your Website"
-npm adduser
-npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git]
-npm publish
-```
-https://docs.npmjs.com/cli/publish
 
 
 ## Thanks
@@ -139,7 +111,7 @@ https://docs.npmjs.com/cli/publish
 
 ## License
 
-MIT © [Adrien Le Menthéour](http://www.adrienlm.com) | [Elisabeth Hamel](http://www.e-hamel.com)
+MIT © [Adrien Le Menthéour](https://www.adrienlm.com) | [Elisabeth Hamel](https://www.e-hamel.com) | [Clément Lemoine](https://clementlemoine.com)
 
 
 [npm-image]: https://badge.fury.io/js/generator-stereobase.svg
