@@ -13,54 +13,67 @@ var destPath = 'dest';
 module.exports = class extends Generator {
 
     _script() {
-        this.fs.copyTpl(
-            this.templatePath('js/**'),
-            this.destinationPath(this.folder.src + '/js'),
-            { greensock: this.superConfig.greensock }
-        );
-    }
-
-    _fonts() {
-        mkdirp.sync(this.destinationPath(this.folder.src + '/fonts'));
-    }
-
-    _img() {
-        mkdirp.sync(this.destinationPath(this.folder.src + '/img'));
-    }
-
-    _layoutImg() {
-        mkdirp.sync(this.destinationPath(this.folder.src + '/layoutImg'));
-    }
-
-    _sass() {
-        this.fs.copyTpl(
-            this.templatePath('scss/**/*'),
-            this.destinationPath(this.folder.src + '/scss')
-        );
-    }
-
-    _gulp() {
         if (this.superConfig.wordpress) {
             this.fs.copyTpl(
-                this.templatePath('gulpfile.js'),
-                this.destinationPath('gulpfile.js'),
-                {
-                    config: this.superConfig,
-                    folders: {
-                        src: 'src',
-                        dest_root: destPath,
-                        dest: destPath + '/wp-content/themes/' + this.superConfig.name
-                    }
-                }
+                this.templatePath('js/**'),
+                this.destinationPath('wp-content/themes/'+this.superConfig.name+'/src/js'),
+                { greensock: this.superConfig.greensock }
             );
         }else{
             this.fs.copyTpl(
-                this.templatePath('gulpfile.js'),
-                this.destinationPath('gulpfile.js'),
-                {
-                    config: this.superConfig,
-                    folders: this.folder
-                }
+                this.templatePath('js/**'),
+                this.destinationPath(this.folder.src + '/js'),
+                { greensock: this.superConfig.greensock }
+            );
+        }
+    }
+
+    _fonts() {
+        if (this.superConfig.wordpress) {
+            mkdirp.sync(this.destinationPath('wp-content/themes/'+this.superConfig.name+'/fonts'));
+        }else{
+            mkdirp.sync(this.destinationPath(this.folder.src + '/fonts'));
+        }
+    }
+
+    _img() {
+        if (this.superConfig.wordpress) {
+            mkdirp.sync(this.destinationPath('wp-content/themes/'+this.superConfig.name+'/img'));
+        }else{
+            mkdirp.sync(this.destinationPath(this.folder.src + '/img'));
+        }
+    }
+
+    _sass() {
+        if (this.superConfig.wordpress) {
+            this.fs.copyTpl(
+                this.templatePath('scss/**/*'),
+                this.destinationPath('wp-content/themes/'+this.superConfig.name+'/src/scss')
+            );
+        }else{
+            this.fs.copyTpl(
+                this.templatePath('scss/**/*'),
+                this.destinationPath(this.folder.src + '/scss')
+            );
+        }
+    }
+
+    _webpack() {
+        if (this.superConfig.wordpress) {
+            this.fs.copyTpl(
+                this.templatePath('webpack/dev.webpack-wordpress.config.js'),
+                this.destinationPath('dev.webpack.config.js'),
+                { name: this.superConfig.name }
+            );
+            this.fs.copyTpl(
+                this.templatePath('webpack/prod.webpack-wordpress.config.js'),
+                this.destinationPath('prod.webpack.config.js'),
+                { name: this.superConfig.name }
+            );
+        }else{
+            this.fs.copyTpl(
+                this.templatePath('webpack/webpack-static.config.js'),
+                this.destinationPath('webpack.config.js')
             );
         }
     }
@@ -69,23 +82,18 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('package.json'),
             this.destinationPath('package.json'),
-            { name: this.superConfig.name }
+            {
+                config: this.superConfig
+            }
         );
     }
 
     _template() {
         if (!this.superConfig.wordpress) {
-            if (this.superConfig.twig) {
-                this.fs.copyTpl(
-                    this.templatePath('twig/**/*'),
-                    this.destinationPath(this.folder.src + '/templates')
-                );
-            } else {
-                this.fs.copyTpl(
-                    this.templatePath('html/index.html'),
-                    this.destinationPath(this.folder.src + '/templates/index.html')
-                );
-            }
+            this.fs.copyTpl(
+                this.templatePath('html/index.html'),
+                this.destinationPath(this.folder.src + '/index.html')
+            );
         }
     }
 
@@ -93,15 +101,19 @@ module.exports = class extends Generator {
         if (this.superConfig.wordpress) {
             this.fs.copyTpl(
                 this.templatePath('.htaccess-wp'),
-                this.destinationPath(this.folder.src + '/.htaccess')
+                this.destinationPath('.htaccess')
             );
             this.fs.copyTpl(
                 this.templatePath('robots-wp.txt'),
-                this.destinationPath(this.folder.src + '/robots.txt')
+                this.destinationPath('robots.txt')
             );
             this.fs.copyTpl(
                 this.templatePath('.gitignore-wp'),
                 this.destinationPath('.gitignore')
+            );
+            this.fs.copyTpl(
+                this.templatePath('robots-preprod.txt'),
+                this.destinationPath('robots-preprod.txt')
             );
         } else {
             this.fs.copyTpl(
@@ -116,11 +128,11 @@ module.exports = class extends Generator {
                 this.templatePath('.gitignore-base'),
                 this.destinationPath('.gitignore')
             );
+            this.fs.copyTpl(
+                this.templatePath('robots-preprod.txt'),
+                this.destinationPath(this.folder.src + '/robots-preprod.txt')
+            );
         }
-        this.fs.copyTpl(
-            this.templatePath('robots-preprod.txt'),
-            this.destinationPath(this.folder.src + '/robots-preprod.txt')
-        );
         this.fs.copyTpl(
             this.templatePath('.jshintrc'),
             this.destinationPath('.jshintrc')
@@ -132,7 +144,7 @@ module.exports = class extends Generator {
         if( that.superConfig.wordpress ){
             that.fs.copyTpl(
                 that.templatePath('wp-config.php'),
-                that.destinationPath(that.folder.dest + '/wp-config.php'),
+                that.destinationPath('wp-config.php'),
                 {
                     dbname: that.superConfig.dbname,
                     dbuser: that.superConfig.dbuser,
@@ -141,13 +153,13 @@ module.exports = class extends Generator {
                 }
             );
 
-            WP.discover({path: that.folder.dest}, function( WP ){
+            WP.discover({path: './'}, function( WP ){
                 WP.core.download({'locale': that.superConfig.lang}, function( err, results ){
                     console.log(err + results);
 
                     WP.db.create({}, function( err, results ){
                         console.log(err + results);
-                        WP.core.install({url: 'localhost', title: that.superConfig.full_name, admin_user: that.superConfig.admin_user, admin_password: that.superConfig.admin_password, admin_email: that.superConfig.admin_email}, function( err, results ){
+                        WP.core.install({url: that.superConfig.name+'.local', title: that.superConfig.full_name, admin_user: that.superConfig.admin_user, admin_password: that.superConfig.admin_password, admin_email: that.superConfig.admin_email}, function( err, results ){
                             console.log(err + results);
                         });
                     });
@@ -160,7 +172,7 @@ module.exports = class extends Generator {
         if( this.superConfig.wordpress ){
             this.fs.copyTpl(
                 this.templatePath('theme/**/*'),
-                this.destinationPath(this.folder.src + '/theme'),
+                this.destinationPath('wp-content/themes/'+this.superConfig.name),
                 { name: this.superConfig.name }
             );
         }
@@ -169,39 +181,31 @@ module.exports = class extends Generator {
 
     _npmInstall() {
         this.npmDependencies = [
-            'gulp',
-            'gulp-size',
-            'gulp-notify',
-            'gulp-load-plugins',
-            'gulp-sourcemaps',
-            'gulp-sass',
-            'gulp-shell',
-            'gulp-autoprefixer',
-            'gulp-prettify',
-            'gulp-watch',
-            'gulp-htmlmin',
             'browser-sync',
-            'browserify',
-            'babel-preset-es2015',
-            'babel-core',
+            'browser-sync-webpack-plugin',
+            '@babel/core',
             'babel-loader',
-            'babelify',
-            'gulp-uglify',
-            'vinyl-source-stream',
-            'vinyl-buffer',
-            'del',
+            '@babel/preset-env',
             'path',
             'jquery-slim',
-            'gulp-sitemap',
             'wp-cli',
-            'event-stream'
+            'webpack',
+            'webpack-cli',
+            'webpack-dev-server',
+            'autoprefixer',
+            'copy-webpack-plugin',
+            'css-loader',
+            'file-loader',
+            'mini-css-extract-plugin',
+            'node-sass',
+            'postcss-loader',
+            'sass-loader',
+            'style-loader',
+            'intersection-observer'
         ];
 
         if(this.superConfig.greensock){
             this.npmDependencies.push('gsap');
-        }
-        if(this.superConfig.twig){
-            this.npmDependencies.push('gulp-twig', 'gulp-ext-replace');
         }
 
         this.npmInstall(this.npmDependencies, { 'saveDev': true });
@@ -248,13 +252,6 @@ module.exports = class extends Generator {
                 type: 'confirm',
                 name: 'wordpress',
                 message: 'Is it a WordPress project?',
-                default: false,
-                required: true
-            }, {
-                when: function(response){ return !response.wordpress; },
-                type: 'confirm',
-                name: 'twig',
-                message: 'Would you like to install Twig?',
                 default: false,
                 required: true
             }, {
@@ -315,17 +312,17 @@ module.exports = class extends Generator {
     }
 
     writing() {
+        this._webpack();
+        this._npm();
+        this._wp();
+        this._wpTheme();
         this._script();
         this._fonts();
         this._img();
-        this._layoutImg();
         this._sass();
-        this._gulp();
-        this._npm();
         this._template();
         this._miscellaneous();
-        this._wp();
-        this._wpTheme();
+        
     }
 
     install() {

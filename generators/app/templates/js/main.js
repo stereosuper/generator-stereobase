@@ -1,44 +1,28 @@
-'use strict';
+import '../scss/main.scss';
 
-const $ = require('jquery-slim');
 <% if (greensock) { %>
-// require('gsap');
-require('gsap/CSSPlugin');
-const TweenLite = require('gsap/TweenLite');
+import { TweenLite, TimelineLite } from 'gsap';
 <% } %>
 
-$(function(){
+import win from './Window.js';
+import io from './io.js';
+import scroll from './Scroll.js';
+import fallback from './fallback.js';
+import $ from 'jquery-slim';
 
-    const requestAnimFrame = require('./requestAnimFrame.js');
-    const throttle = require('./throttle.js');
-    const noTransition = require('./noTransition.js');
+const html = $('html');
+const body = $('body');
 
-    const body = $('body');
-    // window.outerWidth returns the window width including the scroll, but it's not working with $(window).outerWidth
-    let windowWidth = window.outerWidth, windowHeight = $(window).height();
+const loadHandler = () => {
+    scroll.init();
+    win.noTransitionElts = $('.element-without-transition-on-resize');
+    win.init();
+    io.init();
+    fallback(body, html);
+}
 
-
-    function resizeHandler(){
-        windowWidth = window.outerWidth;
-        windowHeight = $(window).height();
-    }
-
-    function loadHandler(){
-
-    }
-
-
-    // isMobile.any ? body.addClass('is-mobile') : body.addClass('is-desktop');
-
-    // Since script is loaded asynchronously, load event isn't always fired !!!
-    document.readyState === 'complete' ? loadHandler() : $(window).on('load', loadHandler);
-
-    $(window).on('resize', throttle(function(){
-        requestAnimFrame(resizeHandler);
-    }, 60));
-
-    $(document).on('scroll', throttle(function(){
-
-    }, 60));
-
-});
+if (document.readyState === 'complete') {
+   loadHandler();
+} else {
+   $(window).on('load', loadHandler);
+}
