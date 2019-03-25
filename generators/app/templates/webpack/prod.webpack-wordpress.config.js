@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+
 let config = (env, options) => {
 
     const MODE = options.mode;    
@@ -26,8 +27,7 @@ let config = (env, options) => {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 1,
-                            sourceMap: true,
-                            minimize: true,
+                            //minimize: true,
                         }
                     },
                     {
@@ -42,9 +42,6 @@ let config = (env, options) => {
                     },
                     {
                         loader: 'sass-loader',
-                        options: {
-                            sourceMap: true
-                        }
                     }
                 ]
             },

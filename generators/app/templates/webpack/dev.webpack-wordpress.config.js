@@ -4,9 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 
-
 let config = (env, options) => {
-console.log(path.resolve(__dirname, "./js"));
+    console.log(path.resolve(__dirname, "./js"));
 
     const MODE = options.mode;    
     return {
@@ -33,7 +32,6 @@ console.log(path.resolve(__dirname, "./js"));
                         options: {
                             importLoaders: 1,
                             sourceMap: true,
-                            minimize: true,
                         }
                     },
                     {

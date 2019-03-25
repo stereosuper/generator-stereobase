@@ -30,7 +30,7 @@ let config = (env, options) => {
                         options: {
                             importLoaders: 1,
                             sourceMap: true,
-                            minimize: true
+                            //minimize: true
                         }
                     },
                     {
