@@ -42,7 +42,7 @@ module.exports = class extends Generator {
 
     _sass() {
         if (this.superConfig.wordpress) {
-            this.folder.src = 'wp-content/themes/'+this.superConfig.name;
+            this.folder.src = 'wp-content/themes/'+this.superConfig.name+'/src';
         }
 
         this.fs.copyTpl(
