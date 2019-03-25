@@ -115,6 +115,7 @@ module.exports = class extends Generator {
                 this.templatePath('robots-preprod.txt'),
                 this.destinationPath('robots-preprod.txt')
             );
+            mkdirp.sync(this.destinationPath('wp-content/themes/'+this.superConfig.name+'/acf-json'));
         } else {
             this.fs.copyTpl(
                 this.templatePath('.htaccess'),
