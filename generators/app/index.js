@@ -14,48 +14,41 @@ module.exports = class extends Generator {
 
     _script() {
         if (this.superConfig.wordpress) {
-            this.fs.copyTpl(
-                this.templatePath('js/**'),
-                this.destinationPath('wp-content/themes/'+this.superConfig.name+'/src/js'),
-                { greensock: this.superConfig.greensock }
-            );
-        }else{
-            this.fs.copyTpl(
-                this.templatePath('js/**'),
-                this.destinationPath(this.folder.src + '/js'),
-                { greensock: this.superConfig.greensock }
-            );
+            this.folder.src = 'wp-content/themes/'+this.superConfig.name+'/src';
         }
+
+        this.fs.copyTpl(
+            this.templatePath('js/**'),
+            this.destinationPath(this.folder.src + '/js'),
+            { greensock: this.superConfig.greensock }
+        );
     }
 
     _fonts() {
         if (this.superConfig.wordpress) {
-            mkdirp.sync(this.destinationPath('wp-content/themes/'+this.superConfig.name+'/fonts'));
-        }else{
-            mkdirp.sync(this.destinationPath(this.folder.src + '/fonts'));
+            this.folder.src = 'wp-content/themes/'+this.superConfig.name;
         }
+
+        mkdirp.sync(this.destinationPath(this.folder.src + '/fonts'));
     }
 
     _img() {
         if (this.superConfig.wordpress) {
-            mkdirp.sync(this.destinationPath('wp-content/themes/'+this.superConfig.name+'/img'));
-        }else{
-            mkdirp.sync(this.destinationPath(this.folder.src + '/img'));
+            this.folder.src = 'wp-content/themes/'+this.superConfig.name;
         }
+
+        mkdirp.sync(this.destinationPath(this.folder.src + '/img'));
     }
 
     _sass() {
         if (this.superConfig.wordpress) {
-            this.fs.copyTpl(
-                this.templatePath('scss/**/*'),
-                this.destinationPath('wp-content/themes/'+this.superConfig.name+'/src/scss')
-            );
-        }else{
-            this.fs.copyTpl(
-                this.templatePath('scss/**/*'),
-                this.destinationPath(this.folder.src + '/scss')
-            );
+            this.folder.src = 'wp-content/themes/'+this.superConfig.name;
         }
+
+        this.fs.copyTpl(
+            this.templatePath('scss/**/*'),
+            this.destinationPath(this.folder.src + '/scss')
+        );
     }
 
     _webpack() {
@@ -160,6 +153,7 @@ module.exports = class extends Generator {
 
                     WP.db.create({}, function( err, results ){
                         console.log(err + results);
+
                         WP.core.install({url: that.superConfig.name+'.local', title: that.superConfig.full_name, admin_user: that.superConfig.admin_user, admin_password: that.superConfig.admin_password, admin_email: that.superConfig.admin_email}, function( err, results ){
                             console.log(err + results);
                         });
