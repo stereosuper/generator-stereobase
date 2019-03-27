@@ -87,7 +87,6 @@ npm i
 Then you need to install the WordPress:
 
 ```bash
-cd dest
 wp core download --locale=en_US
 wp db create
 wp core install --url=localhost --title=Stereosuper --admin_user=adminStereo --admin_password=azerty --admin_email=bisou@stereosuper.fr
