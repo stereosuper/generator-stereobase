@@ -37,9 +37,7 @@ let config = (env, options) => {
                         loader: 'postcss-loader',
                         options: {
                             plugins: (loader) => [
-                                require('autoprefixer')({
-                                    browsers: ['last 2 versions']
-                                })
+                                require('autoprefixer')
                             ]
                         }
                     },
