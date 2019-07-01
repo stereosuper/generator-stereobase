@@ -196,6 +196,7 @@ module.exports = class extends Generator {
             'postcss-loader',
             'sass-loader',
             'style-loader',
+            'optimize-css-assets-webpack-plugin',
             'intersection-observer'
         ];
 

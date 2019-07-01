@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 let config = (env, options) => {
 
@@ -12,6 +12,9 @@ let config = (env, options) => {
             path: path.resolve(__dirname),
             filename: "./wp-content/themes/<%= name %>/js/main.js",
             publicPath: '/wp-content/themes/<%= name %>/js'
+        },
+        optimization: {
+            minimizer: [new OptimizeCSSAssetsPlugin({})],
         },
         devtool: '',
         module: {

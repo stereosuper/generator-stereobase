@@ -3,7 +3,7 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 let config = (env, options) => {
     const MODE = options.mode;    
@@ -13,7 +13,9 @@ let config = (env, options) => {
             path: path.resolve(__dirname) + '/dest',
             filename: "main.js",
         },
-
+        optimization: {
+            minimizer: [new OptimizeCSSAssetsPlugin({})],
+        },
 
         devtool: MODE === 'development' ? 'source-map' : '',
         module: {

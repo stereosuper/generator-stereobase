@@ -3,7 +3,6 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
-
 let config = (env, options) => {
     console.log(path.resolve(__dirname, "./js"));
 
