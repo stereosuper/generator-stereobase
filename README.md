@@ -17,7 +17,7 @@ If you're on High Sierra use instead:
 sudo chown -R $(whoami)
 ```
 
-Then, install [Gulp](http://gulpjs.com), [Yeoman](http://yeoman.io) and generator-stereobase using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+Then, install [Yeoman](http://yeoman.io) and generator-stereobase using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
 npm install -g yo
