@@ -42,6 +42,14 @@ And finally launch the dev server:
 npm start
 ```
 
+When you need to build use:
+
+```bash
+npm run build
+```
+
+You'll have your files in the `dest` directory.
+
 ### WordPress project installation
 
 If you need to install a WordPress project, follow these steps before launching Yeoman.
