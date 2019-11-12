@@ -1,11 +1,13 @@
 const Generator = require('yeoman-generator');
-// to log a coloured message with Yeoman
+// To log a coloured message with Yeoman
 const chalk = require('chalk');
-// // tell Yeoman what to say in the console
+// Tell Yeoman what to say in the console
 const yosay = require('yosay');
-// // To create folder
+// Random cool words
+const { random } = require('superb');
+// To create folder
 const mkdirp = require('mkdirp');
-// // To handle WP
+// To handle WP
 const WP = require('wp-cli');
 
 var destPath = 'dest';
@@ -152,36 +154,37 @@ module.exports = class extends Generator {
         }
     }
 
-    _npmInstall() {
-        this.npmDependencies = [
-            'browser-sync',
+    _npmInstallDev() {
+        this.npmDevDependencies = [
             'browser-sync-webpack-plugin',
-            '@babel/core',
-            '@stereorepo/sac',
-            'babel-loader',
-            '@babel/preset-env',
             'path',
-            'webpack',
-            'webpack-cli',
-            'webpack-dev-server',
-            'autoprefixer',
-            'copy-webpack-plugin',
+            '@babel/core',
+            'browser-sync',
+            'babel-loader',
+            'mini-css-extract-plugin',
             'css-loader',
             'file-loader',
-            'mini-css-extract-plugin',
-            'node-sass',
-            'postcss-loader',
             'sass-loader',
-            'style-loader',
-            'optimize-css-assets-webpack-plugin',
-            'intersection-observer'
+            'postcss-loader',
+            'webpack',
+            'webpack-cli',
+            'optimize-css-assets-webpack-plugin'
         ];
 
-        if (this.superConfig.greensock) {
-            this.npmDependencies.push('gsap');
+        if (!this.superConfig.wordpress) {
+            this.npmDevDependencies.push('copy-webpack-plugin');
+            this.npmDevDependencies.push('webpack-dev-server');
         }
 
-        this.npmInstall(this.npmDependencies, { saveDev: true });
+        this.npmInstall(this.npmDevDependencies, { saveDev: true });
+    }
+
+    _npmInstall() {
+        this.npmDependencies = ['@stereorepo/sac', 'intersection-observer'];
+
+        if (this.superConfig.greensock) this.npmDependencies.push('gsap');
+
+        this.npmInstall(this.npmDependencies);
     }
 
     initializing() {
@@ -199,7 +202,7 @@ module.exports = class extends Generator {
             {
                 type: 'input',
                 name: 'full_name',
-                message: 'What is your project name?',
+                message: '👉 What is your project name?',
                 default: 'Stéréosuper',
                 required: true
             },
@@ -207,21 +210,27 @@ module.exports = class extends Generator {
                 type: 'input',
                 name: 'name',
                 message:
-                    'What is your project slug? (without specials characters, will be used for functions and db prefix)',
+                    '👉 What is your project slug? (without specials characters, will be used for functions and db prefix)',
                 default: 'stereo',
                 required: true
             },
             {
                 type: 'input',
+                name: 'description',
+                message: '👉 Project description',
+                default: `My ${random()} Stéréobase project 😍`
+            },
+            {
+                type: 'input',
                 name: 'url',
-                message: 'What will be the final url ?',
+                message: '👉 What will be the final url ?',
                 default: 'http://www.stereosuper.fr',
                 required: true
             },
             {
                 type: 'confirm',
                 name: 'gsap',
-                message: 'Would you like to install GSAP?',
+                message: '👉 Would you like to install GSAP?',
                 default: true,
                 required: true
             },
@@ -229,14 +238,14 @@ module.exports = class extends Generator {
                 when: response => response.gsap,
                 type: 'confirm',
                 name: 'customEase',
-                message: 'Would you like to use GSAP CustomEase plugin?',
+                message: '👉 Would you like to use GSAP CustomEase plugin?',
                 default: true,
                 required: true
             },
             {
                 type: 'confirm',
                 name: 'wordpress',
-                message: 'Is it a WordPress project?',
+                message: '👉 Is it a WordPress project?',
                 default: false,
                 required: true
             },
@@ -244,7 +253,7 @@ module.exports = class extends Generator {
                 when: response => response.wordpress,
                 type: 'input',
                 name: 'dbname',
-                message: 'Choose a name for your database:',
+                message: '👉 Choose a name for your database:',
                 default: 'stereosuper',
                 required: true
             },
@@ -254,7 +263,7 @@ module.exports = class extends Generator {
                 },
                 type: 'input',
                 name: 'dbuser',
-                message: 'What is your database user?',
+                message: '👉 What is your database user?',
                 default: 'root',
                 required: true
             },
@@ -264,7 +273,7 @@ module.exports = class extends Generator {
                 },
                 type: 'input',
                 name: 'dbpass',
-                message: 'What is your database password?',
+                message: '👉 What is your database password?',
                 default: 'root',
                 required: true
             },
@@ -274,7 +283,7 @@ module.exports = class extends Generator {
                 },
                 type: 'input',
                 name: 'lang',
-                message: 'What language will your site be in? (for french, write fr_FR)',
+                message: '👉 What language will your site be in? (for french, write fr_FR)',
                 default: 'en_US',
                 required: true
             },
@@ -284,7 +293,7 @@ module.exports = class extends Generator {
                 },
                 type: 'input',
                 name: 'admin_user',
-                message: 'Choose your admin username',
+                message: '👉 Choose your admin username',
                 default: 'adminStereo',
                 required: true
             },
@@ -294,7 +303,7 @@ module.exports = class extends Generator {
                 },
                 type: 'input',
                 name: 'admin_email',
-                message: 'Choose your admin email',
+                message: '👉 Choose your admin email',
                 default: 'bisous@stereosuper.fr',
                 required: true
             },
@@ -304,7 +313,7 @@ module.exports = class extends Generator {
                 },
                 type: 'input',
                 name: 'admin_password',
-                message: 'Choose your admin password',
+                message: '👉 Choose your admin password',
                 default: 'p@ssW0rd',
                 required: true
             }
@@ -329,6 +338,7 @@ module.exports = class extends Generator {
     }
 
     install() {
+        this._npmInstallDev();
         this._npmInstall();
     }
 };

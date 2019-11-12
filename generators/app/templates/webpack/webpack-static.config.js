@@ -19,7 +19,7 @@ let config = (env, options) => {
             rules: [
                 {
                     test: /\.js$/,
-                    loader: 'babel-loader'
+                    loader: 'babel-loader',
                     include: [/node_modules\/@stereorepo/, path.resolve(__dirname, 'src', 'js')],
                     options: {
                         sourceMap: devMode
