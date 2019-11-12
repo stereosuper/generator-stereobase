@@ -11,6 +11,7 @@ const mkdirp = require('mkdirp');
 const WP = require('wp-cli');
 // Allows us to execute shell commands
 const { exec } = require('child_process');
+const validate = require('validate-npm-package-name');
 
 const destPath = 'dest';
 
@@ -92,6 +93,17 @@ module.exports = class extends Generator {
     }
 
     _npm() {
+        const validation = validate(this.superConfig.name);
+        validation.warnings &&
+            validation.warnings.forEach(warn => {
+                console.warn('Warning:', warn);
+            });
+        validation.errors &&
+            validation.errors.forEach(err => {
+                console.error('Error:', err);
+            });
+        validation.errors && validation.errors.length && process.exit(1);
+
         this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), {
             config: this.superConfig
         });
