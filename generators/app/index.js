@@ -57,13 +57,8 @@ module.exports = class extends Generator {
     _webpack() {
         if (this.superConfig.wordpress) {
             this.fs.copyTpl(
-                this.templatePath('webpack/dev.webpack-wordpress.config.js'),
-                this.destinationPath('dev.webpack.config.js'),
-                { name: this.superConfig.name }
-            );
-            this.fs.copyTpl(
-                this.templatePath('webpack/prod.webpack-wordpress.config.js'),
-                this.destinationPath('prod.webpack.config.js'),
+                this.templatePath('webpack/webpack-wordpress.config.js'),
+                this.destinationPath('webpack.config.js'),
                 { name: this.superConfig.name }
             );
         } else {
