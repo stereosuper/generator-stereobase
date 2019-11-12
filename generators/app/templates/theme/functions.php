@@ -2,6 +2,8 @@
 
 define( '<%= name.toUpperCase() %>_VERSION', 1.0 );
 
+// require_once(WPMU_PLUGIN_DIR . '/class-tgm-plugin-activation.php');
+
 
 /*-----------------------------------------------------------------------------------*/
 /* General

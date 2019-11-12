@@ -15,7 +15,7 @@ const validate = require('validate-npm-package-name');
 
 const destPath = 'dest';
 
-const customLog = ({ header = '', message = '', type = 'success' }) => {
+const customLog = ({ header = '', message = '', type = 'custom' }) => {
     if (type === 'error') {
         const emoji = '❌';
         const log = `👉 ${chalk.red(header)}: ${emoji} ${message}`;
@@ -184,7 +184,7 @@ module.exports = class extends Generator {
         }
     }
 
-    async _wp(callback) {
+    async _wp() {
         if (this.superConfig.wordpress) {
             // To prevent MySQL errors caused by MAMP and the PHP version used
             // SEE: https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary
@@ -192,51 +192,55 @@ module.exports = class extends Generator {
             await sh('PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)');
             await sh('export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH');
             await sh('export PATH=$PATH:/Applications/MAMP/Library/bin/');
-
-            WP.discover({ path: './' }, WP => {
-                WP.core.download({ locale: this.superConfig.lang }, (err, results) => {
-                    if (err) {
-                        customLog({ header: 'WP-CLI', message: err, type: 'error' });
-                    }
-                    if (results) {
-                        customLog({ header: 'WP-CLI', message: 'WordPress download successful', type: 'success' });
-                    }
-
-                    WP.db.create({}, (err, results) => {
+            return new Promise((resolve, reject) => {
+                WP.discover({ path: './' }, WP => {
+                    WP.core.download({ locale: this.superConfig.lang }, (err, results) => {
                         if (err) {
                             customLog({ header: 'WP-CLI', message: err, type: 'error' });
+                            reject();
                         }
                         if (results) {
-                            customLog({
-                                header: 'WP-CLI',
-                                message: `Database named ${this.superConfig.dbname} created`,
-                                type: 'success'
-                            });
-                        }
-
-                        WP.core.install(
-                            {
-                                url: this.superConfig.name + '.local',
-                                title: this.superConfig.full_name,
-                                admin_user: this.superConfig.admin_user,
-                                admin_password: this.superConfig.admin_password,
-                                admin_email: this.superConfig.admin_email
-                            },
-                            (err, results) => {
+                            customLog({ header: 'WP-CLI', message: 'WordPress download successful', type: 'success' });
+                            WP.db.create({}, async (err, results) => {
                                 if (err) {
                                     customLog({ header: 'WP-CLI', message: err, type: 'error' });
+                                    reject();
                                 }
                                 if (results) {
                                     customLog({
                                         header: 'WP-CLI',
-                                        message: 'WordPress install successful',
+                                        message: `Database named ${this.superConfig.dbname} created`,
                                         type: 'success'
                                     });
 
-                                    callback();
+                                    WP.core.install(
+                                        {
+                                            url: this.superConfig.name + '.local',
+                                            title: this.superConfig.full_name,
+                                            admin_user: this.superConfig.admin_user,
+                                            admin_password: this.superConfig.admin_password,
+                                            admin_email: this.superConfig.admin_email
+                                        },
+                                        (err, results) => {
+                                            if (err) {
+                                                customLog({ header: 'WP-CLI', message: err, type: 'error' });
+                                                reject();
+                                            }
+                                            if (results) {
+                                                customLog({
+                                                    header: 'WP-CLI',
+                                                    message: 'WordPress install successful',
+                                                    type: 'success'
+                                                });
+
+                                                mkdirp.sync(this.destinationPath('wp-content/mu-plugins'));
+                                                resolve();
+                                            }
+                                        }
+                                    );
                                 }
-                            }
-                        );
+                            });
+                        }
                     });
                 });
             });
@@ -450,15 +454,48 @@ module.exports = class extends Generator {
     }
 
     async install() {
-        const wpDone = this.async();
-        await this._wp(wpDone);
+        await this._wp();
+
+        customLog({ header: 'Npm', message: 'Installing dependencies', type: 'start' });
         this._npmInstallDev();
         this._npmInstall();
     }
 
     async end() {
+        customLog({ header: 'Npm', message: 'Dependencies successfully installed\n', type: 'success' });
         customLog({ header: 'Eslint', message: 'Linting started', type: 'start' });
         await sh('npm run lintfix');
         customLog({ header: 'Eslint', message: 'Linting done', type: 'success' });
+
+        if (this.superConfig.multisite) {
+            console.log(
+                `\n🌐 ${chalk.cyan(
+                    'WordPress Multisite config'
+                )}: Go to the admin dashboard in Tools => Network Setup, and click on install.\n`
+            );
+            console.log(
+                `🌐 ${chalk.cyan(
+                    'WordPress Multisite config'
+                )}: Then copy and paste the lines below in the .htaccess instead of the existing WordPress rules.\n`
+            );
+            console.log(
+                chalk.cyan(
+                    'RewriteEngine On\nRewriteBase /\nRewriteRule ^index.php$ - [L]\n\n# add a trailing slash to /wp-admin\nRewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]\n\nRewriteCond %{REQUEST_FILENAME} -f [OR]\nRewriteCond %{REQUEST_FILENAME} -d\nRewriteRule ^ - [L]\nRewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]\nRewriteRule ^([_0-9a-zA-Z-]+/)?(.*.php)$ $2 [L]\nRewriteRule . index.php [L]\n'
+                )
+            );
+            console.log(
+                `\n🌐 ${chalk.cyan(
+                    'WordPress Multisite config'
+                )}: The wp-config rules are already in the file, simply uncomment them.\n`
+            );
+        }
+        console.log(
+            `👉 ${chalk.red(
+                'WordPress config'
+            )}: Don't forget to download and install TGMPA in the wp-content/mu-plugins directory (${chalk.red(
+                'http://tgmpluginactivation.com/download/'
+            )}).\n`
+        );
+        console.log('\nCode like a king 🤘\n👋👋👋👋👋👋👋👋👋');
     }
 };
