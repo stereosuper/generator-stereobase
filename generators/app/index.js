@@ -15,6 +15,18 @@ const validate = require('validate-npm-package-name');
 
 const destPath = 'dest';
 
+const customLog = ({ header = '', message = '', type = 'success' }) => {
+    if (type === 'error') {
+        const emoji = '❌';
+        const log = `\t${chalk.red(header)}: ${emoji} ${message}`;
+        console.error(log);
+    } else if (type === 'success') {
+        const emoji = '✅';
+        const log = `\t${chalk.green(header)}: ${emoji} ${message}`;
+        console.log(log);
+    }
+};
+
 /**
  * Execute simple shell command (async wrapper).
  * @param {String} cmd
@@ -26,7 +38,7 @@ const sh = async cmd =>
             if (err) {
                 reject(err);
             } else {
-                console.log(`Bash command: ✅ ${chalk.green(cmd)}\n`);
+                customLog({ header: 'Bash command', message: cmd, type: 'success' });
                 resolve({ stdout, stderr });
             }
         });
@@ -158,20 +170,22 @@ module.exports = class extends Generator {
             WP.discover({ path: './' }, WP => {
                 WP.core.download({ locale: this.superConfig.lang }, (err, results) => {
                     if (err) {
-                        console.error(`WP-CLI: ❌ ${chalk.red(err)}\n`);
+                        customLog({ header: 'WP-CLI', message: err, type: 'error' });
                     }
                     if (results) {
-                        console.log(`WP-CLI: ✅ ${chalk.green('WordPress download successful\n')}`);
+                        customLog({ header: 'WP-CLI', message: 'WordPress download successful', type: 'success' });
                     }
 
                     WP.db.create({}, (err, results) => {
                         if (err) {
-                            console.error(`WP-CLI: ❌ ${chalk.red(err)}\n`);
+                            customLog({ header: 'WP-CLI', message: err, type: 'error' });
                         }
                         if (results) {
-                            console.log(
-                                `WP-CLI: ✅ ${chalk.green(`Database named ${this.superConfig.dbname} created\n`)}`
-                            );
+                            customLog({
+                                header: 'WP-CLI',
+                                message: `Database named ${this.superConfig.dbname} created`,
+                                type: 'success'
+                            });
                         }
 
                         WP.core.install(
@@ -184,10 +198,14 @@ module.exports = class extends Generator {
                             },
                             (err, results) => {
                                 if (err) {
-                                    console.error(`WP-CLI: ❌ ${chalk.red(err)}\n`);
+                                    customLog({ header: 'WP-CLI', message: err, type: 'error' });
                                 }
                                 if (results) {
-                                    console.log(`WP-CLI: ✅ ${chalk.green('WordPress install successful\n')}`);
+                                    customLog({
+                                        header: 'WP-CLI',
+                                        message: 'WordPress install successful',
+                                        type: 'success'
+                                    });
 
                                     callback();
                                 }
@@ -222,10 +240,15 @@ module.exports = class extends Generator {
             '@babel/plugin-syntax-dynamic-import',
             '@babel/plugin-transform-spread',
             '@babel/preset-env',
+            'babel-eslint',
             'babel-loader',
             'browser-sync',
             'browser-sync-webpack-plugin',
             'css-loader',
+            'eslint',
+            'eslint-loader',
+            'eslint-config-prettier',
+            'eslint-plugin-prettier',
             'file-loader',
             'mini-css-extract-plugin',
             'node-sass',
@@ -235,14 +258,18 @@ module.exports = class extends Generator {
             'postcss-import',
             'postcss-preset-env',
             'postcss-nested',
+            'prettier',
             'sass-loader',
             'webpack',
+            'webpack-bundle-analyzer',
             'webpack-cli'
         ];
 
         if (!this.superConfig.wordpress) {
             this.npmDevDependencies.push('copy-webpack-plugin');
             this.npmDevDependencies.push('webpack-dev-server');
+        } else {
+            this.npmDevDependencies.push('clean-webpack-plugin');
         }
 
         this.npmInstall(this.npmDevDependencies, { saveDev: true });

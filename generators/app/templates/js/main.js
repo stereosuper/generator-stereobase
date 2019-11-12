@@ -7,7 +7,7 @@ import '@babel/polyfill';
 // Imports 
 // To learn how to use Sac
 // SEE: https://github.com/stereosuper/stereorepo/tree/master/packages/sac
-import { useSacVanilla, useSuperWindow } from '@stereorepo/sac';
+import { bodyRouter, useSacVanilla, useSuperWindow } from '@stereorepo/sac';
 
 // Dynamic imports
 // The dynamicLoading function will search for the component DynamicExample in ./js/components folder
