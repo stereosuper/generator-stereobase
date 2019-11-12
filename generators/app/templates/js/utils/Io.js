@@ -1,5 +1,5 @@
 import 'intersection-observer';
-import { forEach, createNewEvent } from '.';
+import { forEach } from '@stereorepo/sac';
 
 function Io() {
     this.resized = true;
@@ -27,10 +27,9 @@ function Io() {
                         this[`${entry.target.dataset.io}In`](entry);
                         if (entry.target.hasAttribute('data-io-single'))
                             observer.unobserve(entry.target);
+                    } else if (entry.intersectionRatio < threshold) {
+                        this[`${entry.target.dataset.io}Out`](entry.target);
                     }
-                    // else if (entry.intersectionRatio < threshold) {
-                    //     this[`${entry.target.dataset.io}Out`](entry.target);
-                    // }
                 });
             },
             {
@@ -47,7 +46,14 @@ function Io() {
         });
     };
 
-    // Reveal minions
+    // data-io="testFunction" example functions
+    const testFunctionIn = () => {
+        // Do whatever you want like dispatching a cool event 👌
+    };
+    
+    const testFunctionOut = () => {
+        // Do whatever you want like dispatching a cool event 👌
+    };
 }
 
 export default new Io();

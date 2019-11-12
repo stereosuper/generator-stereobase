@@ -16,10 +16,18 @@ module.exports = class extends Generator {
             this.folder.src = 'wp-content/themes/' + this.superConfig.name + '/src';
         }
 
-        // COMBAK: Remove gsap variable if not used in templating
-        // this.fs.copyTpl(this.templatePath('js/**'), this.destinationPath(this.folder.src + '/js'), {
-        //     gsap: this.superConfig.gsap
-        // });
+        this.fs.copyTpl(this.templatePath('js/**'), this.destinationPath(this.folder.src + '/js'), {
+            gsap: this.superConfig.gsap,
+            customEase: this.superConfig.customEase
+        });
+
+        // If GSAP's CustomEase plugin used along with GSAP
+        if (this.superConfig.gsap && this.superConfig.customEase) {
+            this.fs.copyTpl(
+                this.templatePath('plugins/CustomEase.js'),
+                this.destinationPath(`${this.folder.src}/js/plugins/CustomEase.js`)
+            );
+        }
     }
 
     _fonts() {
@@ -154,6 +162,7 @@ module.exports = class extends Generator {
             'browser-sync',
             'browser-sync-webpack-plugin',
             '@babel/core',
+            '@stereorepo/sac',
             'babel-loader',
             '@babel/preset-env',
             'path',
@@ -222,6 +231,14 @@ module.exports = class extends Generator {
                 required: true
             },
             {
+                when: response => response.gsap,
+                type: 'confirm',
+                name: 'customEase',
+                message: 'Would you like to use GSAP CustomEase plugin?',
+                default: true,
+                required: true
+            },
+            {
                 type: 'confirm',
                 name: 'wordpress',
                 message: 'Is it a WordPress project?',
@@ -229,9 +246,7 @@ module.exports = class extends Generator {
                 required: true
             },
             {
-                when: function(response) {
-                    return response.wordpress;
-                },
+                when: response => response.wordpress,
                 type: 'input',
                 name: 'dbname',
                 message: 'Choose a name for your database:',
