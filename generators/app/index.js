@@ -257,6 +257,7 @@ module.exports = class extends Generator {
             'babel-loader',
             'browser-sync',
             'browser-sync-webpack-plugin',
+            'clean-webpack-plugin',
             'css-loader',
             'eslint',
             'eslint-loader',
@@ -281,8 +282,6 @@ module.exports = class extends Generator {
         if (!this.superConfig.wordpress) {
             this.npmDevDependencies.push('copy-webpack-plugin');
             this.npmDevDependencies.push('webpack-dev-server');
-        } else {
-            this.npmDevDependencies.push('clean-webpack-plugin');
         }
 
         this.npmInstall(this.npmDevDependencies, { saveDev: true });

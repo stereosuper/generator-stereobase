@@ -1,9 +1,12 @@
-const webpack = require("webpack");
-const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
+const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 
@@ -28,7 +31,7 @@ let config = (env, options) => {
         rules.push({
             test: /\.js$/,
             loader: 'babel-loader',
-            include: [/node_modules\/@stereorepo/, path.resolve(__dirname, 'src', 'js')],
+            include: [/node_modules\/@stereorepo/, path.resolve(__dirname, 'src', 'js')]
         });
     }
 
@@ -46,28 +49,41 @@ let config = (env, options) => {
         ])
     );
 
-    plugins.push(
-        new BrowserSyncPlugin(
-            // BrowserSync options
-            {
-                // browse to http://localhost:3000/ during development
-                host: 'localhost',
-                port: 3000,
-                // proxy the Webpack Dev Server endpoint
-                // (which should be serving on http://localhost:3100/)
-                // through BrowserSync
-                proxy: 'http://localhost:8080/',
-                files: [
-                    {
-                        match: ['**/*.html']
-                    }
-                ]
-            }
-        )
-    );
+    if (devMode) {
+        plugins.push(
+            new BrowserSyncPlugin(
+                // BrowserSync options
+                {
+                    // browse to http://localhost:3000/ during development
+                    host: 'localhost',
+                    port: 3000,
+                    // proxy the Webpack Dev Server endpoint
+                    // (which should be serving on http://localhost:3100/)
+                    // through BrowserSync
+                    proxy: 'http://localhost:8080/',
+                    files: [
+                        {
+                            match: ['**/*.html']
+                        }
+                    ]
+                }
+            )
+        );
+    } else {
+        plugins.push(new CleanWebpackPlugin());
+    }
 
     if (analysingMode) {
         plugins.push(new BundleAnalyzerPlugin());
+    }
+
+    // Optimization
+    let optimization = {};
+
+    if (!devMode) {
+        optimization = {
+            minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
+        };
     }
 
     return {
@@ -114,8 +130,9 @@ let config = (env, options) => {
         node: {
             fs: 'empty' // avoids error messages
         },
-        plugins
+        plugins,
+        optimization
     };
-} 
+}
 
 module.exports = config;
