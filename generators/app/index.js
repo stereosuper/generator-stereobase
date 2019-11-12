@@ -26,8 +26,7 @@ const sh = async cmd =>
             if (err) {
                 reject(err);
             } else {
-                console.log(`✅ ${cmd}`);
-
+                console.log(`Bash command: ✅ ${chalk.green(cmd)}\n`);
                 resolve({ stdout, stderr });
             }
         });
@@ -147,15 +146,8 @@ module.exports = class extends Generator {
         this.fs.copyTpl(this.templatePath('._prettierrc'), this.destinationPath('.prettierrc'));
     }
 
-    async _wp() {
+    async _wp(callback) {
         if (this.superConfig.wordpress) {
-            this.fs.copyTpl(this.templatePath('wp-config.php'), this.destinationPath('wp-config.php'), {
-                dbname: this.superConfig.dbname,
-                dbuser: this.superConfig.dbuser,
-                dbpass: this.superConfig.dbpass,
-                dbprefix: this.superConfig.name
-            });
-
             // To prevent MySQL errors caused by MAMP and the PHP version used
             // SEE: https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary
             // NOTE: It needs to be done for each project install
@@ -165,10 +157,22 @@ module.exports = class extends Generator {
 
             WP.discover({ path: './' }, WP => {
                 WP.core.download({ locale: this.superConfig.lang }, (err, results) => {
-                    console.log(err + results);
+                    if (err) {
+                        console.error(`WP-CLI: ❌ ${chalk.red(err)}\n`);
+                    }
+                    if (results) {
+                        console.log(`WP-CLI: ✅ ${chalk.green('WordPress download successful\n')}`);
+                    }
 
                     WP.db.create({}, (err, results) => {
-                        console.log(err + results);
+                        if (err) {
+                            console.error(`WP-CLI: ❌ ${chalk.red(err)}\n`);
+                        }
+                        if (results) {
+                            console.log(
+                                `WP-CLI: ✅ ${chalk.green(`Database named ${this.superConfig.dbname} created\n`)}`
+                            );
+                        }
 
                         WP.core.install(
                             {
@@ -179,7 +183,14 @@ module.exports = class extends Generator {
                                 admin_email: this.superConfig.admin_email
                             },
                             (err, results) => {
-                                console.log(err + results);
+                                if (err) {
+                                    console.error(`WP-CLI: ❌ ${chalk.red(err)}\n`);
+                                }
+                                if (results) {
+                                    console.log(`WP-CLI: ✅ ${chalk.green('WordPress install successful\n')}`);
+
+                                    callback();
+                                }
                             }
                         );
                     });
@@ -188,13 +199,20 @@ module.exports = class extends Generator {
         }
     }
 
-    _wpTheme() {
+    _wpFiles() {
         if (this.superConfig.wordpress) {
             this.fs.copyTpl(
                 this.templatePath('theme/**/*'),
                 this.destinationPath('wp-content/themes/' + this.superConfig.name),
                 { name: this.superConfig.name }
             );
+
+            this.fs.copyTpl(this.templatePath('wp-config.php'), this.destinationPath('wp-config.php'), {
+                dbname: this.superConfig.dbname,
+                dbuser: this.superConfig.dbuser,
+                dbpass: this.superConfig.dbpass,
+                dbprefix: this.superConfig.name
+            });
         }
     }
 
@@ -240,7 +258,7 @@ module.exports = class extends Generator {
 
     initializing() {
         // Have Yeoman greet the user.
-        this.log(yosay('Welcome to the laudable ' + chalk.blue('stereosuper') + ' generator!'));
+        this.log(yosay(`Welcome to the laudable ${chalk.blue('stereosuper')} generator!`));
         this.superConfig = {};
         this.folder = {
             src: 'src',
@@ -376,10 +394,9 @@ module.exports = class extends Generator {
     }
 
     writing() {
-        this._webpack();
         this._npm();
-        this._wp();
-        this._wpTheme();
+        this._webpack();
+        this._wpFiles();
         this._script();
         this._fonts();
         this._img();
@@ -388,7 +405,9 @@ module.exports = class extends Generator {
         this._miscellaneous();
     }
 
-    install() {
+    async install() {
+        const wpDone = this.async();
+        await this._wp(wpDone);
         this._npmInstallDev();
         this._npmInstall();
     }
