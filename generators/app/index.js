@@ -467,7 +467,7 @@ module.exports = class extends Generator {
         await sh('npm run lintfix');
         customLog({ header: 'Eslint', message: 'Linting done', type: 'success' });
 
-        if (this.superConfig.multisite) {
+        if (this.superConfig.wordpress && this.superConfig.multisite) {
             console.log(
                 `\n🌐 ${chalk.cyan(
                     'WordPress Multisite config'
@@ -489,13 +489,16 @@ module.exports = class extends Generator {
                 )}: The wp-config rules are already in the file, simply uncomment them.\n`
             );
         }
-        console.log(
-            `👉 ${chalk.red(
-                'WordPress config'
-            )}: Don't forget to download and install TGMPA in the wp-content/mu-plugins directory (${chalk.red(
-                'http://tgmpluginactivation.com/download/'
-            )}).\n`
-        );
-        console.log('\nCode like a king 🤘\n👋👋👋👋👋👋👋👋👋');
+
+        if (this.superConfig.wordpress) {
+            console.log(
+                `👉 ${chalk.red(
+                    'WordPress config'
+                )}: Don't forget to download and install TGMPA in the wp-content/mu-plugins directory (${chalk.red(
+                    'http://tgmpluginactivation.com/download/'
+                )}).\n`
+            );
+        }
+        console.log('\nCode like a king 🤘\n\n👋👋👋👋👋👋👋👋👋');
     }
 };

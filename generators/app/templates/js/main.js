@@ -7,12 +7,7 @@ import '@babel/polyfill';
 // Imports 
 // To learn how to use Sac
 // SEE: https://github.com/stereosuper/stereorepo/tree/master/packages/sac
-import { bodyRouter, useSacVanilla, useSuperWindow } from '@stereorepo/sac';
-
-// Dynamic imports
-// The dynamicLoading function will search for the component DynamicExample in ./js/components folder
-const dynamicImportsExample = dynamicLoading({ name: 'DynamicExample' });
-
+import { bodyRouter, useSacVanilla, useSuperLoad } from '@stereorepo/sac';
 
 // ⚠️ DO NOT REMOVE ⚠️
 // This function allow you to use dynamic imports with webpack
@@ -24,6 +19,10 @@ const dynamicLoading = ({ name }) => async () => {
     defaultFunction();
 };
 // ⚠️ DO NOT REMOVE ⚠️
+
+// Dynamic imports
+// The dynamicLoading function will search for the component DynamicExample in ./js/components folder
+const dynamicImportsExample = dynamicLoading({ name: 'DynamicExample' });
 
 // Initialization functions
 const preloadCallback = () => {
@@ -47,7 +46,7 @@ const animationsCallback = () => {
 
 // Init sac superComponents
 useSacVanilla();
-useSuperWindow();
+useSuperLoad();
 
 // Access superComponents
 window.$stereorepo.superLoad.initializeLoadingShit({
