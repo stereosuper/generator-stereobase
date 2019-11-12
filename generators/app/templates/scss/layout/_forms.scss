@@ -1,49 +1,53 @@
 /* Forms */
 
-::-webkit-input-placeholder{
+::-webkit-input-placeholder {
 }
-::-moz-placeholder{
+::-moz-placeholder {
 }
-:-ms-input-placeholder{
-}
-
-fieldset{
-
+:-ms-input-placeholder {
 }
 
-input, textarea, select, button{
-  	transition: $transition;
-  	&:focus{
-      	outline: 0;
-  	}
+fieldset {
 }
 
-input, textarea{
-  	&:-webkit-autofill{
-      	box-shadow: 0 0 0 1000px #fff inset;
-  	}
-    &:invalid{
+input,
+textarea,
+select,
+button {
+    transition: $transition;
+    &:focus {
+        outline: 0;
+    }
+}
+
+input,
+textarea {
+    &:-webkit-autofill {
+        box-shadow: 0 0 0 1000px #fff inset;
+    }
+    &:invalid {
         // FF red borders
         box-shadow: none;
     }
 }
 
-input{
+input {
     // hide the symbols of input search
-    &[type=search]{
-        &::-webkit-search-cancel-button, &::-webkit-search-decoration{
+    &[type='search'] {
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-decoration {
             display: none;
         }
     }
 }
 
-select{
+select {
     // hide the arrow on edge + ie
-    &::-ms-expand{
+    &::-ms-expand {
         display: none;
     }
 }
 
-button{
+button {
     border: 0;
 }

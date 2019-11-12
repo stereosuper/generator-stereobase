@@ -68,7 +68,7 @@ module.exports = class extends Generator {
         mkdirp.sync(this.destinationPath(this.folder.src + '/img'));
     }
 
-    _sass() {
+    _scss() {
         if (this.superConfig.wordpress) {
             this.folder.src = 'wp-content/themes/' + this.superConfig.name + '/src';
         }
@@ -124,15 +124,15 @@ module.exports = class extends Generator {
         }
 
         // Babel config
-        this.fs.copyTpl(this.templatePath('babel.config.js'), this.destinationPath('babel.config.js'));
+        this.fs.copyTpl(this.templatePath('_babel.config.js'), this.destinationPath('babel.config.js'));
 
         // PostCSS config
-        this.fs.copyTpl(this.templatePath('postcss.config.js'), this.destinationPath('postcss.config.js'));
+        this.fs.copyTpl(this.templatePath('_postcss.config.js'), this.destinationPath('postcss.config.js'));
 
         // Linting with eslint and prettier
-        this.fs.copyTpl(this.templatePath('.editorconfig'), this.destinationPath('.editorconfig'));
-        this.fs.copyTpl(this.templatePath('.eslintrc'), this.destinationPath('.eslintrc'));
-        this.fs.copyTpl(this.templatePath('.prettierrc'), this.destinationPath('.prettierrc'));
+        this.fs.copyTpl(this.templatePath('._editorconfig'), this.destinationPath('.editorconfig'));
+        this.fs.copyTpl(this.templatePath('._eslintrc'), this.destinationPath('.eslintrc'));
+        this.fs.copyTpl(this.templatePath('._prettierrc'), this.destinationPath('.prettierrc'));
     }
 
     async _wp() {
@@ -188,26 +188,26 @@ module.exports = class extends Generator {
 
     _npmInstallDev() {
         this.npmDevDependencies = [
-            'browser-sync-webpack-plugin',
-            'path',
             '@babel/core',
             '@babel/plugin-syntax-dynamic-import',
             '@babel/plugin-transform-spread',
             '@babel/preset-env',
-            'postcss-preset-env',
-            'postcss-import',
-            'postcss-nested',
-            'browser-sync',
             'babel-loader',
-            'mini-css-extract-plugin',
+            'browser-sync',
+            'browser-sync-webpack-plugin',
             'css-loader',
             'file-loader',
-            'sass-loader',
+            'mini-css-extract-plugin',
             'node-sass',
+            'optimize-css-assets-webpack-plugin',
+            'path',
             'postcss-loader',
+            'postcss-import',
+            'postcss-preset-env',
+            'postcss-nested',
+            'sass-loader',
             'webpack',
-            'webpack-cli',
-            'optimize-css-assets-webpack-plugin'
+            'webpack-cli'
         ];
 
         if (!this.superConfig.wordpress) {
@@ -219,7 +219,7 @@ module.exports = class extends Generator {
     }
 
     _npmInstall() {
-        this.npmDependencies = ['@babel/polyfill', '@stereorepo/sac', 'intersection-observer'];
+        this.npmDependencies = ['@babel/polyfill', '@stereorepo/burger', '@stereorepo/sac', 'intersection-observer'];
 
         if (this.superConfig.greensock) this.npmDependencies.push('gsap');
 
@@ -371,7 +371,7 @@ module.exports = class extends Generator {
         this._script();
         this._fonts();
         this._img();
-        this._sass();
+        this._scss();
         this._template();
         this._miscellaneous();
     }

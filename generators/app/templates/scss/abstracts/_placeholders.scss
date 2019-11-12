@@ -1,1 +1,18 @@
 /* Placeholders */
+// Imports
+@import '~@stereorepo/burger/src/scss/burger';
+
+%classic-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    &:hover {
+        filter: saturate(200%);
+    }
+}
+
+%outline {
+    &:focus {
+        outline: thin dashed $black;
+    }
+}

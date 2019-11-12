@@ -9,74 +9,87 @@ nav,
 section,
 summary,
 menu,
-main{
-    display: block
+main {
+    display: block;
 }
 
-audio, canvas, video, progress{
+audio,
+canvas,
+video,
+progress {
     display: inline-block;
-    vertical-align: middle
+    vertical-align: middle;
 }
 
-audio:not([controls]), [hidden], template{
+audio:not([controls]),
+[hidden],
+template {
     display: none;
     height: 0;
 }
 
-*{
+* {
     box-sizing: inherit;
     padding: 0;
     margin: 0;
     font-size: inherit;
     line-height: inherit;
-    &:after, &:before{
+    &::after,
+    &::before {
         box-sizing: inherit;
     }
 }
 
-:after, :before{
+:after,
+:before {
     vertical-align: inherit;
-    text-decoration: inherit
+    text-decoration: inherit;
 }
 
-:root{
+:root {
     box-sizing: border-box;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility
+    text-rendering: optimizeLegibility;
 }
 
-html{
+html {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
 }
 
-a{
+a {
     background-color: transparent;
-    &:focus{
+    &:focus {
         outline: thin dotted;
     }
-    &:active, &:hover{
+    &:active,
+    &:hover {
         outline: 0;
     }
 }
 
-iframe, img, svg{
-    vertical-align: middle
+iframe,
+img,
+svg {
+    vertical-align: middle;
 }
 
-iframe, embed, object{
-    max-width: 100%
+iframe,
+embed,
+object {
+    max-width: 100%;
 }
 
-abbr[title]{
+abbr[title] {
     border-bottom: none;
     text-decoration: underline;
     text-decoration: underline dotted;
 }
 
-b, strong{
+b,
+strong {
     font-weight: inherit;
 }
 
@@ -84,38 +97,40 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
+    font-family: monospace, monospace;
+    font-size: 1em;
 }
 
-pre{
+pre {
     white-space: pre;
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow: auto;
-    margin: 1em 0
+    margin: 1em 0;
 }
 
-nav{
-    ul, ol{
-        list-style: none
+nav {
+    ul,
+    ol {
+        list-style: none;
     }
 }
 
-img{
+img {
     border: 0;
-    -ms-interpolation-mode: bicubic
+    -ms-interpolation-mode: bicubic;
 }
 
-svg:not(:root){
-    overflow: hidden
+svg:not(:root) {
+    overflow: hidden;
 }
 
-fieldset, legend{
-    border: 0
+fieldset,
+legend {
+    border: 0;
 }
 
-legend{
+legend {
     white-space: normal;
     color: inherit;
     display: table;
@@ -123,105 +138,113 @@ legend{
     padding: 0;
 }
 
-select{
+select {
     cursor: pointer;
-    &:-moz-focusring{
+    &:-moz-focusring {
         color: transparent;
         text-shadow: 0 0 0 #000;
     }
 }
 
-button, input{
-    &[disabled]{
-        cursor: default
+button,
+input {
+    &[disabled] {
+        cursor: default;
     }
-    &::-moz-focus-inner{
+    &::-moz-focus-inner {
         border: 0;
         padding: 0;
     }
-}
-
-button, input, select, textarea{
-    vertical-align: baseline;
-    font: inherit;
-    background: none;
-    border-radius: 0;
-    margin: 0
 }
 
 button,
 input,
-select{
-  overflow: visible;
+select,
+textarea {
+    vertical-align: baseline;
+    font: inherit;
+    background: none;
+    border-radius: 0;
+    margin: 0;
 }
 
-input{
+button,
+input,
+select {
+    overflow: visible;
+}
+
+input {
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
-    &::-moz-focus-inner{
+    &::-moz-focus-inner {
         border: 0;
-        padding: 0
+        padding: 0;
     }
-    &[type=checkbox], &[type=radio]{
+    &[type='checkbox'],
+    &[type='radio'] {
         cursor: pointer;
         padding: 0;
     }
-    &[type=checkbox]{
+    &[type='checkbox'] {
         -moz-appearance: checkbox;
         -webkit-appearance: checkbox;
     }
-    &[type=radio]{
+    &[type='radio'] {
         -moz-appearance: radio;
         -webkit-appearance: radio;
     }
-    &[type=number]{
+    &[type='number'] {
         width: auto;
-        &::-webkit-outer-spin-button, &::-webkit-inner-spin-button{
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
             height: auto;
         }
     }
 }
 
 button,
-input[type=button], input[type=reset], input[type=submit]{
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
     appearance: button;
     -moz-appearance: button;
     -webkit-appearance: button;
-    cursor: pointer
+    cursor: pointer;
 }
 
-textarea{
+textarea {
     vertical-align: top;
     overflow: auto;
     resize: vertical;
     -moz-appearance: none;
-    -webkit-appearance: none
+    -webkit-appearance: none;
 }
 
-table{
+table {
     border-collapse: collapse;
     border-spacing: 0;
-    table-layout: fixed
+    table-layout: fixed;
 }
 
-progress{
+progress {
     display: inline-block;
-    vertical-align: baseline
+    vertical-align: baseline;
 }
 
-menu{
+menu {
     margin: 1em 0;
-    padding: 0 0 0 40px
+    padding: 0 0 0 40px;
 }
 
-hr{
-  box-sizing: content-box;
-  height: 0;
-  overflow: visible
+hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
 }
 
-sup{
+sup {
     position: relative;
     top: -0.5em;
     font-size: 75%;

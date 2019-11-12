@@ -1,0 +1,16 @@
+/* Transitions */
+// Imports
+// SEE: https://github.com/stereosuper/stereorepo/tree/master/packages/sac/src/scss
+@import '~@stereorepo/sac/src/scss/transition';
+
+// Timing functions
+$ease-out-timing-function: cubic-bezier(0, 0, 0, 0);
+$ease-in-timing-function: cubic-bezier(0, 0, 0, 0);
+$ease-in-out-timing-function: cubic-bezier(0, 0, 0, 0);
+
+// Durations
+$long-duration: 0.7s;
+$medium-duration: 0.5s;
+$short-duration: 0.3s;
+
+// Keyframes

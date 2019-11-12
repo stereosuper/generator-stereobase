@@ -1,7 +1,6 @@
 /* Grid */
 
-.container{
-    max-width: 1200px;
-    padding: 0 $gutter*2;
+.container {
+    max-width: $desktop-xxl;
     margin: 0 auto;
 }
