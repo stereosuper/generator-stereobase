@@ -18,29 +18,23 @@
     ],
     "dependencies": {
         "atob": "^2.1.2",
-        "chalk": "^2.4.1",
+        "chalk": "^3.0.0",
         "cryptiles": "^4.1.2",
         "gulp": "^4.0.2",
         "gulp-coveralls": "^0.1.4",
-        "gulp-eslint": "^5.0.0",
+        "gulp-eslint": "^6.0.0",
         "gulp-exclude-gitignore": "^1.2.0",
         "gulp-istanbul": "^1.1.3",
         "gulp-line-ending-corrector": "^1.0.3",
-        "gulp-mocha": "^6.0.0",
+        "gulp-mocha": "^7.0.2",
         "gulp-plumber": "^1.2.0",
         "mkdirp": "^0.5.1",
         "sshpk": "^1.15.1",
         "wp-cli": "0.0.5",
         "yeoman-assert": "^3.1.1",
-        "yeoman-generator": "^3.1.1",
-        "yeoman-test": "^1.9.1",
+        "yeoman-generator": "^4.2.0",
+        "yeoman-test": "^2.0.0",
         "yosay": "^2.0.2"
-    },
-    "eslintConfig": {
-        "extends": "xo-space",
-        "env": {
-            "mocha": true
-        }
     },
     "repository": {
         "type": "git",
@@ -54,8 +48,8 @@
         "eslint": "^6.6.0",
         "eslint-config-prettier": "^6.5.0",
         "eslint-plugin-prettier": "^3.1.1",
-        "event-stream": "^3.3.4",
-        "hoek": "^5.0.4",
+        "event-stream": "^4.0.1",
+        "hoek": "^6.1.3",
         "prettier": "^1.19.1"
     }
 }
