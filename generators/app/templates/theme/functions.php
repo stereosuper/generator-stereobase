@@ -261,8 +261,8 @@ add_action( 'wp_enqueue_scripts', '<%= name %>_scripts' );
 //             'force_activation' => false
 //         ),
 //         array(
-//             'name'        => 'SecuPress Free — Sécurité WordPress 1.3.3',
-//             'slug'        => 'secupress',
+//             'name'        => 'Clean Image Filenames',
+//             'slug'        => 'clean-image-filenames',
 //             'required'    => false,
 //             'force_activation' => false
 //         ),
@@ -272,9 +272,23 @@ add_action( 'wp_enqueue_scripts', '<%= name %>_scripts' );
 //             'required'    => false,
 //             'force_activation' => false
 //         ),
+<% if (isMultisite) { %>
 //         array(
-//             'name'        => 'Clean Image Filenames',
-//             'slug'        => 'clean-image-filenames',
+//             'name'        => 'Loco Translate',
+//             'slug'        => 'loco-translate',
+//             'required'    => true,
+//             'force_activation' => false
+//         ),
+//         array(
+//             'name'        => 'MultilingualPress',
+//             'slug'        => 'multilingual-press',
+//             'required'    => true,
+//             'force_activation' => false
+//         ),
+<% } %>
+//         array(
+//             'name'        => 'SecuPress Free — Sécurité WordPress 1.3.3',
+//             'slug'        => 'secupress',
 //             'required'    => false,
 //             'force_activation' => false
 //         ),
@@ -296,5 +310,23 @@ add_action( 'wp_enqueue_scripts', '<%= name %>_scripts' );
 // 	tgmpa( $plugins, $config );
 // }
 // add_action( 'tgmpa_register', '<%= name %>_register_required_plugins' );
+
+<% if (isMultisite) { %>
+/*-----------------------------------------------------------------------------------*/
+/* I18n
+/*-----------------------------------------------------------------------------------*/
+
+add_action( 'after_setup_theme', 'language_translation_setup' );
+function language_translation_setup(){
+    load_theme_textdomain( '<%= name %>', get_template_directory() . '/languages' );
+
+    $locale = get_locale();
+    $locale_file = get_template_directory() . "/languages/$locale.php";
+
+    if ( is_readable( $locale_file ) ) {
+        require_once( $locale_file );
+    }
+}
+<% } %>
 
 ?>

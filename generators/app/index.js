@@ -18,11 +18,15 @@ const destPath = 'dest';
 const customLog = ({ header = '', message = '', type = 'success' }) => {
     if (type === 'error') {
         const emoji = '❌';
-        const log = `\t${chalk.red(header)}: ${emoji} ${message}`;
+        const log = `👉 ${chalk.red(header)}: ${emoji} ${message}`;
         console.error(log);
     } else if (type === 'success') {
         const emoji = '✅';
-        const log = `\t${chalk.green(header)}: ${emoji} ${message}`;
+        const log = `👉 ${chalk.green(header)}: ${emoji} ${message}`;
+        console.log(log);
+    } else if (type === 'start') {
+        const emoji = '🏁';
+        const log = `👉 ${chalk.cyan(header)}: ${emoji} ${message}`;
         console.log(log);
     }
 };
@@ -158,6 +162,28 @@ module.exports = class extends Generator {
         this.fs.copyTpl(this.templatePath('._prettierrc'), this.destinationPath('.prettierrc'));
     }
 
+    _wpFiles() {
+        if (this.superConfig.wordpress) {
+            if (this.superConfig.multisite) {
+                mkdirp.sync(this.destinationPath('wp-content/themes/' + this.superConfig.name + '/languages'));
+            }
+
+            this.fs.copyTpl(
+                this.templatePath('theme/**/*'),
+                this.destinationPath('wp-content/themes/' + this.superConfig.name),
+                { name: this.superConfig.name, isMultisite: this.superConfig.multisite }
+            );
+
+            this.fs.copyTpl(this.templatePath('wp-config.php'), this.destinationPath('wp-config.php'), {
+                dbname: this.superConfig.dbname,
+                dbuser: this.superConfig.dbuser,
+                dbpass: this.superConfig.dbpass,
+                dbprefix: this.superConfig.name,
+                isMultisite: this.superConfig.multisite
+            });
+        }
+    }
+
     async _wp(callback) {
         if (this.superConfig.wordpress) {
             // To prevent MySQL errors caused by MAMP and the PHP version used
@@ -213,23 +239,6 @@ module.exports = class extends Generator {
                         );
                     });
                 });
-            });
-        }
-    }
-
-    _wpFiles() {
-        if (this.superConfig.wordpress) {
-            this.fs.copyTpl(
-                this.templatePath('theme/**/*'),
-                this.destinationPath('wp-content/themes/' + this.superConfig.name),
-                { name: this.superConfig.name }
-            );
-
-            this.fs.copyTpl(this.templatePath('wp-config.php'), this.destinationPath('wp-config.php'), {
-                dbname: this.superConfig.dbname,
-                dbuser: this.superConfig.dbuser,
-                dbpass: this.superConfig.dbpass,
-                dbprefix: this.superConfig.name
             });
         }
     }
@@ -347,6 +356,14 @@ module.exports = class extends Generator {
             },
             {
                 when: response => response.wordpress,
+                type: 'confirm',
+                name: 'multisite',
+                message: '👉 Is the WordPress a multisite?',
+                default: false,
+                required: true
+            },
+            {
+                when: response => response.wordpress,
                 type: 'input',
                 name: 'dbname',
                 message: '👉 Choose a name for your database:',
@@ -437,5 +454,11 @@ module.exports = class extends Generator {
         await this._wp(wpDone);
         this._npmInstallDev();
         this._npmInstall();
+    }
+
+    async end() {
+        customLog({ header: 'Eslint', message: 'Linting started', type: 'start' });
+        await sh('npm run lintfix');
+        customLog({ header: 'Eslint', message: 'Linting done', type: 'success' });
     }
 };

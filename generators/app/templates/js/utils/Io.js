@@ -2,6 +2,7 @@ import 'intersection-observer';
 import { forEach } from '@stereorepo/sac';
 
 function Io() {
+
     this.resized = true;
     const minThreshold = 0.15;
     let indexThreshold = 0;
@@ -27,9 +28,9 @@ function Io() {
                         this[`${entry.target.dataset.io}In`](entry);
                         if (entry.target.hasAttribute('data-io-single'))
                             observer.unobserve(entry.target);
-                    } else if (entry.intersectionRatio < threshold) {
-                        this[`${entry.target.dataset.io}Out`](entry.target);
-                    }
+                    } else if (entry.intersectionRatio < minThreshold) {
+                               this[`${entry.target.dataset.io}Out`](entry.target);
+                           }
                 });
             },
             {
