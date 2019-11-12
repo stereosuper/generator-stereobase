@@ -1,6 +1,9 @@
 // ⚠️ Do not remove the line below or your scss won't work anymore
 import '../scss/main.scss';
 
+// @babel/polyfill is necessary for async imports
+import '@babel/polyfill';
+
 // Imports 
 // To learn how to use Sac
 // SEE: https://github.com/stereosuper/stereorepo/tree/master/packages/sac

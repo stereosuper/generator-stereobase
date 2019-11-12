@@ -9,8 +9,28 @@ const { random } = require('superb');
 const mkdirp = require('mkdirp');
 // To handle WP
 const WP = require('wp-cli');
+// Allows us to execute shell commands
+const { exec } = require('child_process');
 
-var destPath = 'dest';
+const destPath = 'dest';
+
+/**
+ * Execute simple shell command (async wrapper).
+ * @param {String} cmd
+ * @return {Object} { stdout: String, stderr: String }
+ */
+const sh = async cmd =>
+    new Promise(function(resolve, reject) {
+        exec(cmd, (err, stdout, stderr) => {
+            if (err) {
+                reject(err);
+            } else {
+                console.log(`✅ ${cmd}`);
+
+                resolve({ stdout, stderr });
+            }
+        });
+    });
 
 module.exports = class extends Generator {
     _script() {
@@ -103,38 +123,50 @@ module.exports = class extends Generator {
             );
         }
 
+        // Babel config
+        this.fs.copyTpl(this.templatePath('babel.config.js'), this.destinationPath('babel.config.js'));
+
+        // PostCSS config
+        this.fs.copyTpl(this.templatePath('postcss.config.js'), this.destinationPath('postcss.config.js'));
+
         // Linting with eslint and prettier
         this.fs.copyTpl(this.templatePath('.editorconfig'), this.destinationPath('.editorconfig'));
         this.fs.copyTpl(this.templatePath('.eslintrc'), this.destinationPath('.eslintrc'));
         this.fs.copyTpl(this.templatePath('.prettierrc'), this.destinationPath('.prettierrc'));
     }
 
-    _wp() {
-        var that = this;
-        if (that.superConfig.wordpress) {
-            that.fs.copyTpl(that.templatePath('wp-config.php'), that.destinationPath('wp-config.php'), {
-                dbname: that.superConfig.dbname,
-                dbuser: that.superConfig.dbuser,
-                dbpass: that.superConfig.dbpass,
-                dbprefix: that.superConfig.name
+    async _wp() {
+        if (this.superConfig.wordpress) {
+            this.fs.copyTpl(this.templatePath('wp-config.php'), this.destinationPath('wp-config.php'), {
+                dbname: this.superConfig.dbname,
+                dbuser: this.superConfig.dbuser,
+                dbpass: this.superConfig.dbpass,
+                dbprefix: this.superConfig.name
             });
 
-            WP.discover({ path: './' }, function(WP) {
-                WP.core.download({ locale: that.superConfig.lang }, function(err, results) {
+            // To prevent MySQL errors caused by MAMP and the PHP version used
+            // SEE: https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary
+            // NOTE: It needs to be done for each project install
+            await sh('PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)');
+            await sh('export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH');
+            await sh('export PATH=$PATH:/Applications/MAMP/Library/bin/');
+
+            WP.discover({ path: './' }, WP => {
+                WP.core.download({ locale: this.superConfig.lang }, (err, results) => {
                     console.log(err + results);
 
-                    WP.db.create({}, function(err, results) {
+                    WP.db.create({}, (err, results) => {
                         console.log(err + results);
 
                         WP.core.install(
                             {
-                                url: that.superConfig.name + '.local',
-                                title: that.superConfig.full_name,
-                                admin_user: that.superConfig.admin_user,
-                                admin_password: that.superConfig.admin_password,
-                                admin_email: that.superConfig.admin_email
+                                url: this.superConfig.name + '.local',
+                                title: this.superConfig.full_name,
+                                admin_user: this.superConfig.admin_user,
+                                admin_password: this.superConfig.admin_password,
+                                admin_email: this.superConfig.admin_email
                             },
-                            function(err, results) {
+                            (err, results) => {
                                 console.log(err + results);
                             }
                         );
@@ -159,12 +191,19 @@ module.exports = class extends Generator {
             'browser-sync-webpack-plugin',
             'path',
             '@babel/core',
+            '@babel/plugin-syntax-dynamic-import',
+            '@babel/plugin-transform-spread',
+            '@babel/preset-env',
+            'postcss-preset-env',
+            'postcss-import',
+            'postcss-nested',
             'browser-sync',
             'babel-loader',
             'mini-css-extract-plugin',
             'css-loader',
             'file-loader',
             'sass-loader',
+            'node-sass',
             'postcss-loader',
             'webpack',
             'webpack-cli',
@@ -180,7 +219,7 @@ module.exports = class extends Generator {
     }
 
     _npmInstall() {
-        this.npmDependencies = ['@stereorepo/sac', 'intersection-observer'];
+        this.npmDependencies = ['@babel/polyfill', '@stereorepo/sac', 'intersection-observer'];
 
         if (this.superConfig.greensock) this.npmDependencies.push('gsap');
 

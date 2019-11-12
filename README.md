@@ -1,6 +1,7 @@
 ![Logo](logo.jpg)
 
 # generator-stereobase [![NPM version][npm-image]][npm-url]
+
 > Generate a simple project (static or WordPress)
 
 ## Installation
@@ -62,18 +63,9 @@ chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
 ```
 
-To prevent MySQL errors caused by MAMP and the PHP version used (https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary) (you need to do this each time you install a project):
-
-```
-PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)
-export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH
-export PATH=$PATH:/Applications/MAMP/Library/bin/
-```
-
 You can now launch Yeoman, and answer Y to the WordPress question. You need to have mysql server started to allow Yeoman to automatically create the database!
 
-Finally, install TGMPA to manage plugins: http://tgmpluginactivation.com/installation/ : once you've downloaded the file, place it in a directory called "mu-plugins" in /wp-content, and decomment the code to handle plugins regsitration in functions.php. 
-
+Finally, install TGMPA to manage plugins: http://tgmpluginactivation.com/installation/ : once you've downloaded the file, place it in a directory called "mu-plugins" in /wp-content, and decomment the code to handle plugins regsitration in functions.php.
 
 ### Change configstore files owner
 
@@ -106,21 +98,18 @@ Finally, launch the server:
 npm start
 ```
 
-You also probably will need to connect to the admin, and install required plugins. If TGMPA was installed, go directly to Appearance > Install plugins. 
-
+You also probably will need to connect to the admin, and install required plugins. If TGMPA was installed, go directly to Appearance > Install plugins.
 
 ## Thanks
 
-* Hugo Giraudel for [Sass Guidelines](https://sass-guidelin.es/)
-* Chris Coyier for his book [Practical SVG](https://abookapart.com/products/practical-svg)
-* [Loic Goyet](https://github.com/LoicGoyet) for the training course on Gulp and Yeoman.
-* [Val Head](http://valhead.com/) for her book [Designing interface animation](http://rosenfeldmedia.com/books/designing-interface-animation/)
-
+-   Hugo Giraudel for [Sass Guidelines](https://sass-guidelin.es/)
+-   Chris Coyier for his book [Practical SVG](https://abookapart.com/products/practical-svg)
+-   [Loic Goyet](https://github.com/LoicGoyet) for the training course on Gulp and Yeoman.
+-   [Val Head](http://valhead.com/) for her book [Designing interface animation](http://rosenfeldmedia.com/books/designing-interface-animation/)
 
 ## License
 
 MIT © [Adrien Le Menthéour](https://www.adrienlm.com) | [Elisabeth Hamel](https://www.e-hamel.com) | [Clément Lemoine](https://clementlemoine.com)
-
 
 [npm-image]: https://badge.fury.io/js/generator-stereobase.svg
 [npm-url]: https://npmjs.org/package/generator-stereobase
