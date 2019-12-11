@@ -90,8 +90,11 @@ let config = (env, options) => {
         entry: './src/js/main.js',
         output: {
             path: path.resolve(__dirname, 'dest'),
-            filename: 'main.js',
-            publicPath: '/'
+            filename: 'js/[name].js',
+            // Public path is important for dynamic imports. It'll help webpack to retrieve bundles by name and not by ids
+            publicPath: '/',
+            sourceMapFilename: 'js/[file].map?[contenthash]',
+            chunkFilename: 'js/[name].js'
         },
         devtool: devMode ? 'source-map' : '',
         module: {
