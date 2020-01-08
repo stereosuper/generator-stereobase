@@ -12,21 +12,17 @@
 }
 
 html {
-    height: 100%;
     font-size: 62.5%; /* sets the base font to 10px for easier math */
     background: $white;
     @extend %no-scroll;
 }
 
 body {
-    height: 100%;
-    color: $black;
     font: #{$text-size-mobile * 0.1}em / 1.5 sans-serif;
+    color: $txt;
     font-kerning: normal;
-    font-weight: 300;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
 }
 
 .wysiwyg h1,

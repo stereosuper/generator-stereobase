@@ -1,6 +1,11 @@
 /* Grid */
 
+.wrapper {
+    overflow-x: hidden;
+}
+
 .container {
     max-width: $desktop-xxl;
+    padding: 0 $gutter;
     margin: 0 auto;
 }
