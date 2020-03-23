@@ -103,7 +103,12 @@ let config = (env, options) => {
                 {
                     test: /\.(css|sass|scss)$/,
                     use: [
-                        MiniCssExtractPlugin.loader,
+                        {
+                            loader: MiniCssExtractPlugin.loader,
+                            options: {
+                                publicPath: '../dest/'
+                            }
+                        },
                         {
                             loader: 'css-loader',
                             options: {
