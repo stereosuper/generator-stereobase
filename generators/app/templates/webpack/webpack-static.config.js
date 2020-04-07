@@ -1,14 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
 
 let config = (env, options) => {
     const devMode = options.mode !== 'production';
@@ -106,7 +105,7 @@ let config = (env, options) => {
                         {
                             loader: MiniCssExtractPlugin.loader,
                             options: {
-                                publicPath: '../dest/'
+                                publicPath: '../'
                             }
                         },
                         {
@@ -141,6 +140,6 @@ let config = (env, options) => {
         plugins,
         optimization
     };
-}
+};
 
 module.exports = config;
