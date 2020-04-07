@@ -31,12 +31,6 @@ Then generate your new project:
 yo stereobase
 ```
 
-Then install all the dependencies:
-
-```bash
-npm i
-```
-
 And finally launch the dev server:
 
 ```bash
