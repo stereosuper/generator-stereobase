@@ -40,7 +40,7 @@ npm i
 And finally launch the dev server:
 
 ```bash
-npm start
+npm run dev
 ```
 
 When you need to build use:
@@ -75,7 +75,7 @@ sudo chown -R userMachine /Users/userMachine/.config/configstore/
 
 ### Installation of an existing WordPress project
 
-First you need to follow the same steps as [above](#wordpress-project-installation): installation of wp-cli and fixes MySQL errors with MAMP.
+First you need to install wp-cli as [above](#wordpress-project-installation).
 
 After that, you can install npm modules:
 
@@ -95,7 +95,7 @@ wp core install --url=localhost --title=Stereosuper --admin_user=adminStereo --a
 Finally, launch the server:
 
 ```bash
-npm start
+npm run dev
 ```
 
 You also probably will need to connect to the admin, and install required plugins. If TGMPA was installed, go directly to Appearance > Install plugins.
@@ -109,7 +109,7 @@ You also probably will need to connect to the admin, and install required plugin
 
 ## License
 
-MIT © [Adrien Le Menthéour](https://www.adrienlm.com) | [Elisabeth Hamel](https://www.e-hamel.com) | [Clément Lemoine](https://clementlemoine.com)
+MIT © [Adrien Le Menthéour](https://www.adrienlm.com) | [Elisabeth Hamel](https://www.e-hamel.com) | [Clément Lemoine](https://clementlemoine.com) | [Alban Mezino](https://albanmezino.fr)
 
 [npm-image]: https://badge.fury.io/js/generator-stereobase.svg
 [npm-url]: https://npmjs.org/package/generator-stereobase
