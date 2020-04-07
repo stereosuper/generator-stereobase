@@ -3,8 +3,6 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 // Tell Yeoman what to say in the console
 const yosay = require('yosay');
-// Random cool words
-const { random } = require('superb');
 // To create folder
 const mkdirp = require('mkdirp');
 // To handle WP
@@ -36,17 +34,12 @@ const customLog = ({ header = '', message = '', type = 'custom' }) => {
  * @param {String} cmd
  * @return {Object} { stdout: String, stderr: String }
  */
-const sh = async cmd =>
-    new Promise(function(resolve, reject) {
-        exec(cmd, (err, stdout, stderr) => {
-            if (err) {
-                reject(err);
-            } else {
-                customLog({ header: 'Bash command', message: cmd, type: 'success' });
-                resolve({ stdout, stderr });
-            }
-        });
+const sh = async cmd => {
+    exec(cmd, err => {
+        const type = err ? 'error' : 'success';
+        customLog({ header: 'Bash command', message: cmd, type: type });
     });
+};
 
 module.exports = class extends Generator {
     _script() {
@@ -189,9 +182,10 @@ module.exports = class extends Generator {
             // To prevent MySQL errors caused by MAMP and the PHP version used
             // SEE: https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary
             // NOTE: It needs to be done for each project install
-            await sh('PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)');
-            await sh('export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH');
-            await sh('export PATH=$PATH:/Applications/MAMP/Library/bin/');
+            sh('PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)');
+            sh('export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH');
+            sh('export PATH=$PATH:/Applications/MAMP/Library/bin/');
+
             return new Promise((resolve, reject) => {
                 WP.discover({ path: './' }, WP => {
                     WP.core.download({ locale: this.superConfig.lang }, (err, results) => {
@@ -326,7 +320,7 @@ module.exports = class extends Generator {
                 type: 'input',
                 name: 'description',
                 message: '👉 Project description',
-                default: `My ${random()} Stéréobase project 😍`
+                default: ''
             },
             {
                 type: 'input',
