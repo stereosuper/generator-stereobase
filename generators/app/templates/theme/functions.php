@@ -70,7 +70,8 @@ add_filter( 'login_errors', '<%= name %>_login_errors' );
 /*-----------------------------------------------------------------------------------*/
 // Remove some useless admin stuff
 function <%= name %>_remove_submenus() {
-  $page = remove_submenu_page( 'themes.php', 'themes.php' );
+  remove_submenu_page( 'themes.php', 'themes.php' );
+  remove_submenu_page( 'widgets.php', 'widgets.php' );
   remove_menu_page( 'edit-comments.php' );
 }
 add_action( 'admin_menu', '<%= name %>_remove_submenus', 999 );
@@ -176,37 +177,37 @@ add_filter( 'nav_menu_css_class', '<%= name %>_css_attributes_filter' );
 /*-----------------------------------------------------------------------------------*/
 /* Sidebar & Widgets
 /*-----------------------------------------------------------------------------------*/
-function <%= name %>_register_sidebars(){
-	register_sidebar( array(
-		'id' => 'sidebar',
-		'name' => 'Sidebar',
-		'description' => 'Take it on the side...',
-		'before_widget' => '',
-		'after_widget' => '',
-		'before_title' => '',
-		'after_title' => '',
-		'empty_title'=> ''
-	) );
-}
-add_action( 'widgets_init', '<%= name %>_register_sidebars' );
+// function <%= name %>_register_sidebars(){
+// 	register_sidebar( array(
+// 		'id' => 'sidebar',
+// 		'name' => 'Sidebar',
+// 		'description' => 'Take it on the side...',
+// 		'before_widget' => '',
+// 		'after_widget' => '',
+// 		'before_title' => '',
+// 		'after_title' => '',
+// 		'empty_title'=> ''
+// 	) );
+// }
+// add_action( 'widgets_init', '<%= name %>_register_sidebars' );
 
 // Deregister default widgets
-function <%= name %>_unregister_default_widgets(){
-    unregister_widget('WP_Widget_Pages');
-    unregister_widget('WP_Widget_Calendar');
-    unregister_widget('WP_Widget_Archives');
-    unregister_widget('WP_Widget_Links');
-    unregister_widget('WP_Widget_Meta');
-    unregister_widget('WP_Widget_Search');
-    unregister_widget('WP_Widget_Text');
-    unregister_widget('WP_Widget_Categories');
-    unregister_widget('WP_Widget_Recent_Posts');
-    unregister_widget('WP_Widget_Recent_Comments');
-    unregister_widget('WP_Widget_RSS');
-    unregister_widget('WP_Widget_Tag_Cloud');
-    unregister_widget('WP_Nav_Menu_Widget');
-}
-add_action( 'widgets_init', '<%= name %>_unregister_default_widgets' );
+// function <%= name %>_unregister_default_widgets(){
+//     unregister_widget('WP_Widget_Pages');
+//     unregister_widget('WP_Widget_Calendar');
+//     unregister_widget('WP_Widget_Archives');
+//     unregister_widget('WP_Widget_Links');
+//     unregister_widget('WP_Widget_Meta');
+//     unregister_widget('WP_Widget_Search');
+//     unregister_widget('WP_Widget_Text');
+//     unregister_widget('WP_Widget_Categories');
+//     unregister_widget('WP_Widget_Recent_Posts');
+//     unregister_widget('WP_Widget_Recent_Comments');
+//     unregister_widget('WP_Widget_RSS');
+//     unregister_widget('WP_Widget_Tag_Cloud');
+//     unregister_widget('WP_Nav_Menu_Widget');
+// }
+// add_action( 'widgets_init', '<%= name %>_unregister_default_widgets' );
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -258,7 +259,7 @@ add_action( 'wp_enqueue_scripts', '<%= name %>_scripts' );
 //         array(
 //             'name'        => 'Advanced Custom Fields PRO',
 //             'slug'        => 'advanced-custom-fields-pro',
-//             'source'     => get_template_directory_uri() . '/plugins/advanced-custom-fields-pro.zip',
+//             'source'      => get_template_directory_uri() . '/plugins/advanced-custom-fields-pro.zip',
 //             'required'    => true,
 //             'force_activation' => false
 //         ),
@@ -291,6 +292,12 @@ add_action( 'wp_enqueue_scripts', '<%= name %>_scripts' );
 //         array(
 //             'name'        => 'SecuPress Free — Sécurité WordPress 1.3.3',
 //             'slug'        => 'secupress',
+//             'required'    => false,
+//             'force_activation' => false
+//         ),
+//         array(
+//             'name'        => 'Yoast SEO',
+//             'slug'        => 'wordpress-seo',
 //             'required'    => false,
 //             'force_activation' => false
 //         ),
