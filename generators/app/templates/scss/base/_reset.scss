@@ -130,6 +130,10 @@ legend {
     border: 0;
 }
 
+fieldset {
+    min-width: 0;
+}
+
 legend {
     white-space: normal;
     color: inherit;
