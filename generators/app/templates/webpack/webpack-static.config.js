@@ -134,8 +134,10 @@ let config = (env, options) => {
                 }
             ]
         },
-        node: {
-            fs: 'empty' // avoids error messages
+        resolve: {
+            fallback: {
+                fs: false
+            }
         },
         plugins,
         optimization
