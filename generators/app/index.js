@@ -8,37 +8,19 @@ const mkdirp = require('mkdirp');
 // To handle WP
 const WP = require('wp-cli');
 // Allows us to execute shell commands
-const { exec } = require('child_process');
+const { execSync } = require('child_process');
 const validate = require('validate-npm-package-name');
 
 const destPath = 'dest';
 
 const customLog = ({ header = '', message = '', type = 'custom' }) => {
     if (type === 'error') {
-        const emoji = '❌';
-        const log = `👉 ${chalk.red(header)}: ${emoji} ${message}`;
-        console.error(log);
+        console.error(`👉 ${chalk.red(header)}: ❌ ${message}`);
     } else if (type === 'success') {
-        const emoji = '✅';
-        const log = `👉 ${chalk.green(header)}: ${emoji} ${message}`;
-        console.log(log);
+        console.log(`👉 ${chalk.green(header)}: ✅ ${message}`);
     } else if (type === 'start') {
-        const emoji = '🏁';
-        const log = `👉 ${chalk.cyan(header)}: ${emoji} ${message}`;
-        console.log(log);
+        console.log(`👉 ${chalk.cyan(header)}: 🏁 ${message}`);
     }
-};
-
-/**
- * Execute simple shell command (async wrapper).
- * @param {String} cmd
- * @return {Object} { stdout: String, stderr: String }
- */
-const sh = async cmd => {
-    exec(cmd, err => {
-        const type = err ? 'error' : 'success';
-        customLog({ header: 'Bash command', message: cmd, type: type });
-    });
 };
 
 module.exports = class extends Generator {
@@ -102,14 +84,9 @@ module.exports = class extends Generator {
 
     _npm() {
         const validation = validate(this.superConfig.name);
-        validation.warnings &&
-            validation.warnings.forEach(warn => {
-                console.warn('Warning:', warn);
-            });
-        validation.errors &&
-            validation.errors.forEach(err => {
-                console.error('Error:', err);
-            });
+
+        validation.warnings && validation.warnings.forEach(warn => { console.warn('Warning:', warn); });
+        validation.errors && validation.errors.forEach(err => { console.error('Error:', err); });
         validation.errors && validation.errors.length && process.exit(1);
 
         this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), {
@@ -182,9 +159,9 @@ module.exports = class extends Generator {
             // To prevent MySQL errors caused by MAMP and the PHP version used
             // SEE: https://make.wordpress.org/cli/handbook/installing/#using-a-custom-php-binary
             // NOTE: It needs to be done for each project install
-            sh('PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)');
-            sh('export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH');
-            sh('export PATH=$PATH:/Applications/MAMP/Library/bin/');
+            execSync('PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)');
+            execSync('export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH');
+            execSync('export PATH=$PATH:/Applications/MAMP/Library/bin/');
 
             return new Promise((resolve, reject) => {
                 WP.discover({ path: './' }, WP => {
@@ -368,9 +345,7 @@ module.exports = class extends Generator {
                 required: true
             },
             {
-                when: function(response) {
-                    return response.wordpress;
-                },
+                when: response => response.wordpress,
                 type: 'input',
                 name: 'dbuser',
                 message: '👉 What is your database user?',
@@ -378,9 +353,7 @@ module.exports = class extends Generator {
                 required: true
             },
             {
-                when: function(response) {
-                    return response.wordpress;
-                },
+                when: response => response.wordpress,
                 type: 'input',
                 name: 'dbpass',
                 message: '👉 What is your database password?',
@@ -388,9 +361,7 @@ module.exports = class extends Generator {
                 required: true
             },
             {
-                when: function(response) {
-                    return response.wordpress;
-                },
+                when: response => response.wordpress,
                 type: 'input',
                 name: 'lang',
                 message: '👉 What language will your site be in? (for french, write fr_FR)',
@@ -398,9 +369,7 @@ module.exports = class extends Generator {
                 required: true
             },
             {
-                when: function(response) {
-                    return response.wordpress;
-                },
+                when: response => response.wordpress,
                 type: 'input',
                 name: 'admin_user',
                 message: '👉 Choose your admin username',
@@ -408,9 +377,7 @@ module.exports = class extends Generator {
                 required: true
             },
             {
-                when: function(response) {
-                    return response.wordpress;
-                },
+                when: response => response.wordpress,
                 type: 'input',
                 name: 'admin_email',
                 message: '👉 Choose your admin email',
@@ -418,9 +385,7 @@ module.exports = class extends Generator {
                 required: true
             },
             {
-                when: function(response) {
-                    return response.wordpress;
-                },
+                when: response => response.wordpress,
                 type: 'input',
                 name: 'admin_password',
                 message: '👉 Choose your admin password',
@@ -428,7 +393,7 @@ module.exports = class extends Generator {
                 required: true
             }
         ]).then(answers => {
-            for (var key in answers) {
+            for (let key in answers) {
                 this.superConfig[key] = answers[key];
             }
         });
@@ -450,6 +415,7 @@ module.exports = class extends Generator {
         await this._wp();
 
         customLog({ header: 'Npm', message: 'Installing dependencies', type: 'start' });
+
         this._npmInstallDev();
         this._npmInstall();
     }
@@ -457,7 +423,7 @@ module.exports = class extends Generator {
     async end() {
         customLog({ header: 'Npm', message: 'Dependencies successfully installed\n', type: 'success' });
         customLog({ header: 'Eslint', message: 'Linting started', type: 'start' });
-        await sh('npm run lintfix');
+        execSync('npm run lintfix');
         customLog({ header: 'Eslint', message: 'Linting done', type: 'success' });
 
         if (this.superConfig.wordpress && this.superConfig.multisite) {
@@ -492,6 +458,5 @@ module.exports = class extends Generator {
                 )}).\n`
             );
         }
-        console.log('\nCode like a king 🤘\n\n👋👋👋👋👋👋👋👋👋');
     }
 };
