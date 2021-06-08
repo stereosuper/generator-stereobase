@@ -1,6 +1,6 @@
 {
     "name": "generator-stereobase",
-    "version": "4.2.3",
+    "version": "4.2.4",
     "description": "Generate a simple template based on 7-1 architecture, with the opportunity to use Twig and GSAP.",
     "homepage": "",
     "author": {
