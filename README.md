@@ -25,7 +25,9 @@ npm install -g yo
 npm install -g generator-stereobase
 ```
 
-Then generate your new project:
+Then, you need to create a new host in Mamp called yourProjectName.local, and start the servers.
+
+After that you can generate your project:
 
 ```bash
 yo stereobase
